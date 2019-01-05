@@ -1,6 +1,6 @@
 //
 //  RainbowFlowController.swift
-//  Router_Example
+//  XRouter_Example
 //
 //  Created by Reece Como on 5/1/19.
 //  Copyright © 2019 CocoaPods. All rights reserved.

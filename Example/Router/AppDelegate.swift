@@ -1,13 +1,13 @@
 //
 //  AppDelegate.swift
-//  Router_Example
+//  XRouter_Example
 //
 //  Created by Reece Como on 01/05/2019.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
 import UIKit
-import Router
+import XRouter
 
 /**
  Demo project

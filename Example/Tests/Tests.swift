@@ -1,5 +1,5 @@
 import XCTest
-import Router
+@testable import XRouter
 
 class Tests: XCTestCase {
     
