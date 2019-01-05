@@ -23,7 +23,7 @@ pod 'Router'
 
 ## Author
 
-Reece Como, reece.como@healthengine.com.au
+Reece Como, reece.como@gmail.com
 
 ## License
 
