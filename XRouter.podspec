@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = 'Router'
+  s.name             = 'XRouter'
   s.version          = '0.1.0'
   s.summary          = 'The simple routing library for iOS.'
 
@@ -8,10 +8,10 @@ A simple routing library for iOS.
 Setup routes and map them to controllers, easy peasy.
                        DESC
 
-  s.homepage         = 'https://github.com/reececomo/Router'
+  s.homepage         = 'https://github.com/reececomo/XRouter'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Reece Como' => 'reece.como@gmail.com' }
-  s.source           = { :git => 'https://github.com/reececomo/Router.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/reececomo/XRouter.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '11.0'
   s.swift_version = '4.2'

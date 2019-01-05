@@ -34,13 +34,13 @@
 		2964226821E0AE1100C6D888 /* ColoredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredViewController.swift; sourceTree = "<group>"; };
 		2964227021E0DBC100C6D888 /* ExampleFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFlowController.swift; sourceTree = "<group>"; };
 		37AA5AAEE4BD26103CB403FB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		4298FD91F055D828EC36D9E6 /* Router.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Router.podspec; path = ../Router.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		607FACD01AFB9204008FA782 /* Router_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Router_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4298FD91F055D828EC36D9E6 /* XRouter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = XRouter.podspec; path = ../XRouter.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		607FACD01AFB9204008FA782 /* XRouter_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XRouter_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* Router_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Router_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACE51AFB9204008FA782 /* XRouter_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XRouter_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		86EC76E1F99D627900B28A76 /* Pods-Router_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Router_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Router_Tests/Pods-Router_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,8 +106,8 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* Router_Example.app */,
-				607FACE51AFB9204008FA782 /* Router_Tests.xctest */,
+				607FACD01AFB9204008FA782 /* XRouter_Example.app */,
+				607FACE51AFB9204008FA782 /* XRouter_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,7 +155,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				4298FD91F055D828EC36D9E6 /* Router.podspec */,
+				4298FD91F055D828EC36D9E6 /* XRouter.podspec */,
 				37AA5AAEE4BD26103CB403FB /* README.md */,
 				0CB8EF8DC6B3A7E422C18347 /* LICENSE */,
 			);
@@ -165,9 +165,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		607FACCF1AFB9204008FA782 /* Router_Example */ = {
+		607FACCF1AFB9204008FA782 /* XRouter_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Router_Example" */;
+			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "XRouter_Example" */;
 			buildPhases = (
 				E2265B4433CDCFC2351DE549 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
@@ -179,14 +179,14 @@
 			);
 			dependencies = (
 			);
-			name = Router_Example;
+			name = XRouter_Example;
 			productName = Router;
-			productReference = 607FACD01AFB9204008FA782 /* Router_Example.app */;
+			productReference = 607FACD01AFB9204008FA782 /* XRouter_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		607FACE41AFB9204008FA782 /* Router_Tests */ = {
+		607FACE41AFB9204008FA782 /* XRouter_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Router_Tests" */;
+			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "XRouter_Tests" */;
 			buildPhases = (
 				E8C4902C7B31BB145A67C5BE /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
@@ -198,9 +198,9 @@
 			dependencies = (
 				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
 			);
-			name = Router_Tests;
+			name = XRouter_Tests;
 			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* Router_Tests.xctest */;
+			productReference = 607FACE51AFB9204008FA782 /* XRouter_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -224,7 +224,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Router" */;
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "XRouter" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -237,8 +237,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				607FACCF1AFB9204008FA782 /* Router_Example */,
-				607FACE41AFB9204008FA782 /* Router_Tests */,
+				607FACCF1AFB9204008FA782 /* XRouter_Example */,
+				607FACE41AFB9204008FA782 /* XRouter_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -356,7 +356,7 @@
 /* Begin PBXTargetDependency section */
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* Router_Example */;
+			target = 607FACCF1AFB9204008FA782 /* XRouter_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -524,7 +524,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Router_Example.app/Router_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XRouter_Example.app/XRouter_Example";
 			};
 			name = Debug;
 		};
@@ -542,14 +542,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Router_Example.app/Router_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XRouter_Example.app/XRouter_Example";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Router" */ = {
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "XRouter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACED1AFB9204008FA782 /* Debug */,
@@ -558,7 +558,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Router_Example" */ = {
+		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "XRouter_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF01AFB9204008FA782 /* Debug */,
@@ -567,7 +567,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Router_Tests" */ = {
+		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "XRouter_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF31AFB9204008FA782 /* Debug */,
