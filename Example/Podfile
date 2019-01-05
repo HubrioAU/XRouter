@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Router_Example' do
+  pod 'Router', :path => '../'
+
+  target 'Router_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
