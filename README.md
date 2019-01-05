@@ -6,6 +6,88 @@
 [![License](https://img.shields.io/cocoapods/l/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 [![Platform](https://img.shields.io/cocoapods/p/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 
+## Usage
+- The `Router` is simple, but powerful, and is extensively documented.
+
+### Basic Usage
+```swift
+let router = Router<Route>()
+
+try? router.navigate(to: .loginFlow)
+```
+
+### Defining Routes
+```swift
+import Router
+
+// Routes
+enum Route: RouteProvider {
+    case newsfeed
+    case profile(userID: String)
+    case loginFlow
+}
+
+extension Route {
+    /// Set the transition types
+    var transition: RouteTransition {
+        switch self {
+        case .newsfeed:
+            return .set
+        case .profile:
+            return .push
+        case .loginFlow:
+            return .modal
+        }
+    }
+    
+    /// Prepare for transition
+    func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
+        switch self {
+        case .newsfeed:
+            return NewsfeedManager.shared.navigationController
+        case .profile(let userID):
+            return UserProfileViewController(userID: userID)
+        case .loginFlow:
+            return LoginFlowManager.shared.start()
+        }
+    }
+}
+```
+
+### Custom Transitions
+Here is an example using the popular [Hero Transitions](https://github.com/HeroTransitions/Hero) library.
+Set the `customTransitionDelegate` for the `Router`:
+```swift
+router.customTransitionDelegate = self
+```
+And then implement the delegate method `performTransition(...)`:
+```swift
+
+extension AppDelegate: RouterCustomTransitionDelegate {
+    
+    /// Perform a custom transition
+    func performTransition(to newViewController: UIViewController,
+                           from currentNavigationController: UINavigationController,
+                           transitionIdentifier: String,
+                           animated: Bool) {
+        if transitionIdentifer == "HeroFade" {
+            currentNavigationController.hero.isEnabled = true
+            newViewController.hero.isEnabled = true
+            newViewController.hero.modalAnimationType = .fade
+            
+            // Creates a container nav stack
+            let container = UINavigationController()
+            container.hero.isEnabled = true
+            container.setViewControllers([viewController], animated: false)
+            
+            // Present the hero animation
+            navController.present(container, animated: animated)
+        }
+    }
+    
+}
+```
+
 ## Example
 
 To run the example project, clone the repo, and run it in Xcode 10.
