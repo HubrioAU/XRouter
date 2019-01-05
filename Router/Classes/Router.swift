@@ -87,7 +87,9 @@ public class Router<Route: RouteProvider> {
                     completion(viewController)
                 }
             } else {
-                throw NSError(domain: "The view controller was in the hierachy but was not an ancestor of current view controller, so we were unable to automatically find a route to it", code: -1, userInfo: nil)
+                throw NSError(domain: """
+The view controller was in the hierachy but was not an ancestor of current view controller, so we were unable to automatically find a route to it
+""", code: -1, userInfo: nil)
             }
             
         } else {

@@ -51,7 +51,6 @@ internal extension UIViewController {
         return currentViewController
     }
     
-    
     ///
     /// Get the next ancestor view controller
     ///
@@ -101,5 +100,3 @@ internal extension UIViewController {
     }
     
 }
-
-
