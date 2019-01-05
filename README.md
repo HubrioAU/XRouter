@@ -1,6 +1,6 @@
 # XRouter
 
-A simple but powerful router for iOS projects
+A simple routing library for iOS projects.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d)](https://app.codacy.com/app/reececomo/XRouter?utm_source=github.com&utm_medium=referral&utm_content=reececomo/XRouter&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/reececomo/XRouter.svg?branch=master)](https://travis-ci.org/reececomo/XRouter)
@@ -22,7 +22,7 @@ try? router.navigate(to: .loginFlow)
 
 ### Defining Routes
 ```swift
-import Router
+import XRouter
 
 // Routes
 enum Route: RouteProvider {
@@ -45,7 +45,7 @@ extension Route {
         }
     }
     
-    /// Pipe through the transitions
+    /// Prepare the view controller for the transition
     func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
         switch self {
         case .newsfeed:
@@ -65,7 +65,7 @@ Set the `customTransitionDelegate` for the `Router`:
 ```swift
 router.customTransitionDelegate = self
 ```
-And then implement the delegate method `performTransition(...)`:
+Implement the delegate method `performTransition(...)`:
 ```swift
 
 extension AppDelegate: RouterCustomTransitionDelegate {
@@ -92,6 +92,15 @@ extension AppDelegate: RouterCustomTransitionDelegate {
     
 }
 ```
+And set the transition to `.custom` in the `Routes.swift` file:
+```swift
+    var transition: RouteTransition {
+        switch self {
+            case .myRoute:
+                return .custom(identifier: "HeroFade")
+        }
+    }
+```
 
 ## Example
 
@@ -105,7 +114,7 @@ Router is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Router'
+pod 'XRouter'
 ```
 
 ## Author
