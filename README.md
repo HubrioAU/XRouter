@@ -6,6 +6,10 @@
 [![License](https://img.shields.io/cocoapods/l/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 [![Platform](https://img.shields.io/cocoapods/p/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/reececomo/XRouter/master/XRouter.jpg" alt="XRouter" width="625" style="max-width:625px;width:auto;height:auto;"/>
+</p>
+
 ## Usage
 ### Basic Usage
 ```swift
