@@ -45,7 +45,7 @@ extension Route {
         }
     }
     
-    /// Pipe through the transitions
+    /// Prepare the view controller for the transition
     func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
         switch self {
         case .newsfeed:
@@ -65,7 +65,7 @@ Set the `customTransitionDelegate` for the `Router`:
 ```swift
 router.customTransitionDelegate = self
 ```
-And then implement the delegate method `performTransition(...)`:
+Implement the delegate method `performTransition(...)`:
 ```swift
 
 extension AppDelegate: RouterCustomTransitionDelegate {
@@ -91,6 +91,15 @@ extension AppDelegate: RouterCustomTransitionDelegate {
     }
     
 }
+```
+And set the transition to `.custom` in the `Routes.swift` file:
+```swift
+    var transition: RouteTransition {
+        switch self {
+            case .myRoute:
+                return .custom(identifier: "HeroFade")
+        }
+    }
 ```
 
 ## Example
