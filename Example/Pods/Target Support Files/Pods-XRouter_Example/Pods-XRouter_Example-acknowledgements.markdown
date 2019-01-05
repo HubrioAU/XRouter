@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## XRouter
 
-Copyright (c) 2019 Reece Como <reece.como@healthengine.com.au>
+Copyright (c) 2019 Reece Como <reece.como@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
