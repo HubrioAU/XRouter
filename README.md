@@ -2,9 +2,9 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d)](https://app.codacy.com/app/reececomo/XRouter?utm_source=github.com&utm_medium=referral&utm_content=reececomo/XRouter&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/reececomo/XRouter.svg?branch=master)](https://travis-ci.org/reececomo/XRouter)
-[![Version](https://img.shields.io/cocoapods/v/Router.svg?style=flat)](https://cocoapods.org/pods/XRouter)
-[![License](https://img.shields.io/cocoapods/l/Router.svg?style=flat)](https://cocoapods.org/pods/XRouter)
-[![Platform](https://img.shields.io/cocoapods/p/Router.svg?style=flat)](https://cocoapods.org/pods/XRouter)
+[![Version](https://img.shields.io/cocoapods/v/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
+[![License](https://img.shields.io/cocoapods/l/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
+[![Platform](https://img.shields.io/cocoapods/p/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 
 ## Example
 
