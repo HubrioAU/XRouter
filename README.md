@@ -24,9 +24,10 @@ enum Route: RouteProvider {
     case profile(userID: String)
     case loginFlow
 }
-let
+
 extension Route {
-    /// Set the transition types
+
+    /// Set the transitions
     var transition: RouteTransition {
         switch self {
         case .newsfeed:
@@ -38,7 +39,7 @@ extension Route {
         }
     }
     
-    /// Prepare for transition
+    /// Pipe through the transitions
     func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
         switch self {
         case .newsfeed:
