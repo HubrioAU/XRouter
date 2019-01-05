@@ -1,9 +1,9 @@
 use_frameworks!
 
-target 'Router_Example' do
-  pod 'Router', :path => '../'
+target 'XRouter_Example' do
+  pod 'XRouter', :path => '../'
 
-  target 'Router_Tests' do
+  target 'XRouter_Tests' do
     inherit! :search_paths
 
     

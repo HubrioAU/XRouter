@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_Router_ExampleVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Router_ExampleVersionString[];
+FOUNDATION_EXPORT double Pods_XRouter_TestsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_XRouter_TestsVersionString[];
 

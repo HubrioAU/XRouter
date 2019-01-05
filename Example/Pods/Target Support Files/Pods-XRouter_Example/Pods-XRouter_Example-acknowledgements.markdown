@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Router
+## XRouter
 
 Copyright (c) 2019 Reece Como <reece.como@healthengine.com.au>
 
