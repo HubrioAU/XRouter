@@ -9,7 +9,6 @@
 ## Usage
 ### Basic Usage
 ```swift
-//
 let router = Router<Route>()
 
 try? router.navigate(to: .loginFlow)
@@ -25,7 +24,7 @@ enum Route: RouteProvider {
     case profile(userID: String)
     case loginFlow
 }
-
+let
 extension Route {
     /// Set the transition types
     var transition: RouteTransition {
