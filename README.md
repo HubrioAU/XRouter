@@ -22,7 +22,7 @@ try? router.navigate(to: .loginFlow)
 
 ### Defining Routes
 ```swift
-import Router
+import XRouter
 
 // Routes
 enum Route: RouteProvider {
