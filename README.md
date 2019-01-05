@@ -7,10 +7,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 
 ## Usage
-- The `Router` is simple, but powerful, and is extensively documented.
-
 ### Basic Usage
 ```swift
+//
 let router = Router<Route>()
 
 try? router.navigate(to: .loginFlow)
