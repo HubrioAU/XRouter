@@ -4,7 +4,8 @@ Pod::Spec.new do |s|
   s.summary          = 'The simple routing library for iOS.'
 
   s.description      = <<-DESC
-The simple routing library for iOS.
+A simple routing library for iOS.
+Setup routes and map them to controllers, easy peasy.
                        DESC
 
   s.homepage         = 'https://github.com/reececomo/Router'
