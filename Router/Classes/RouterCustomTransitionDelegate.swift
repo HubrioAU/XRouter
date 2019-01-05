@@ -13,8 +13,8 @@ import Foundation
 public protocol RouterCustomTransitionDelegate: class {
     
     /// Perform a custom transition
-    func performTransition(to newViewController: UIViewController,
-                           from currentViewController: UIViewController,
+    func performTransition(to viewController: UIViewController,
+                           from currentNavigationController: UINavigationController,
                            transitionIdentifier: String,
                            animated: Bool)
     
