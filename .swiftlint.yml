@@ -1,0 +1,24 @@
+opt_in_rules:
+  - empty_count
+  - strict_fileprivate
+  - force_unwrapping
+
+line_length:
+  warning: 180
+  error: 220
+  ignores_comments: true
+  ignores_function_declarations: true
+
+type_body_length:
+  - 300 # warn
+  - 400 # error
+
+disabled_rules:
+  - trailing_whitespace
+  
+custom_rules:
+  type_declaration_whitespace:
+    name: "Type Declarations Whitespace"
+    message: "Type declarations should be followed by a single blank line"
+    regex: '^([@\w\d_]+\ +)?(?:class|enum|struct|extension) [\w\d_]+[^\n]*?\{\n\ +[^\n\ ]'
+    severity: warning

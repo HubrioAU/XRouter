@@ -1,13 +1,12 @@
 # Router
 
-[![CI Status](https://img.shields.io/travis/Reece Como/Router.svg?style=flat)](https://travis-ci.org/Reece Como/Router)
 [![Version](https://img.shields.io/cocoapods/v/Router.svg?style=flat)](https://cocoapods.org/pods/Router)
 [![License](https://img.shields.io/cocoapods/l/Router.svg?style=flat)](https://cocoapods.org/pods/Router)
 [![Platform](https://img.shields.io/cocoapods/p/Router.svg?style=flat)](https://cocoapods.org/pods/Router)
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and run it in Xcode 10.
 
 ## Requirements
 
