@@ -18,7 +18,7 @@ import UIKit
  try? router.navigate(to: .myPage)
  ```
  */
-public class Router<Route: RouteProvider> {
+open class Router<Route: RouteProvider> {
     
     // MARK: - Properties
     
@@ -33,8 +33,8 @@ public class Router<Route: RouteProvider> {
     // MARK: - Methods
     
     /// Initialiser
-    public init() {
-        // This is just here to set `public` accessor for `init`
+    public init(customTransitionDelegate: RouterCustomTransitionDelegate? = nil) {
+        self.customTransitionDelegate = customTransitionDelegate
     }
     
     ///
@@ -43,7 +43,7 @@ public class Router<Route: RouteProvider> {
     /// - Note: Has no effect if routing to the view controller/navigation controller you are already on,
     ///          where the view controller is provided by `RouteProvider(_:).prepareForTransition(...)`
     ///
-    public func navigate(to route: Route, animated: Bool = true) throws {
+    open func navigate(to route: Route, animated: Bool = true) throws {
         try prepareForNavigation(to: route, animated: animated) { viewController in
             guard let navigationController = self.currentTopViewController?.navigationController else { return }
             
