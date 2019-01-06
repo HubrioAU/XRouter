@@ -26,9 +26,16 @@ import XRouter
 
 // Routes
 enum Route: RouteProvider {
+
+    /// News and content
     case newsfeed
+    
+    /// User profile page
     case profile(userID: String)
+    
+    /// Start of the login flow
     case loginFlow
+    
 }
 
 extension Route {
@@ -72,18 +79,18 @@ extension AppDelegate: RouterCustomTransitionDelegate {
     
     /// Perform a custom transition
     func performTransition(to newViewController: UIViewController,
-                           from currentNavigationController: UINavigationController,
-                           transitionIdentifier: String,
+                           from navController: UINavigationController,
+                           transition: RouteTransition,
                            animated: Bool) {
-        if transitionIdentifer == "HeroFade" {
-            currentNavigationController.hero.isEnabled = true
+        if transition == "myHeroFade" {
+            navController = true
             newViewController.hero.isEnabled = true
             newViewController.hero.modalAnimationType = .fade
             
             // Creates a container nav stack
             let container = UINavigationController()
             container.hero.isEnabled = true
-            container.setViewControllers([viewController], animated: false)
+            container.setViewControllers([newViewController], animated: false)
             
             // Present the hero animation
             navController.present(container, animated: animated)
@@ -92,12 +99,12 @@ extension AppDelegate: RouterCustomTransitionDelegate {
     
 }
 ```
-And set the transition to `.custom` in the `Routes.swift` file:
+And set the transition to `.custom` in your `Routes.swift` file:
 ```swift
     var transition: RouteTransition {
         switch self {
             case .myRoute:
-                return .custom(identifier: "HeroFade")
+                return .custom(identifier: "myHeroFade")
         }
     }
 ```

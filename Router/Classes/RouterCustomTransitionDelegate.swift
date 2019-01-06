@@ -15,7 +15,7 @@ public protocol RouterCustomTransitionDelegate: class {
     /// Perform a custom transition
     func performTransition(to viewController: UIViewController,
                            from currentNavigationController: UINavigationController,
-                           transitionIdentifier: String,
+                           transition: RouteTransition,
                            animated: Bool)
     
 }

@@ -109,10 +109,10 @@ The view controller was in the hierachy but was not an ancestor of current view 
             currentNavigationController.present(preparedViewController, animated: animated)
         case .set:
             currentNavigationController.setViewControllers([preparedViewController], animated: animated)
-        case .custom(let transitionIdentifier):
+        case .custom:
             customTransitionDelegate?.performTransition(to: preparedViewController,
                                                         from: currentNavigationController,
-                                                        transitionIdentifier: transitionIdentifier,
+                                                        transition: route.transition,
                                                         animated: animated)
         }
     }
