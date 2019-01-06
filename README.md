@@ -15,8 +15,10 @@ A simple routing library for iOS projects.
 ## Usage
 ### Basic Usage
 ```swift
+// Create a router
 let router = Router<Route>()
 
+// Navigate to route
 try? router.navigate(to: .loginFlow)
 ```
 
@@ -24,23 +26,16 @@ try? router.navigate(to: .loginFlow)
 ```swift
 import XRouter
 
-// Routes
+/// Define your routes
 enum Route: RouteProvider {
-
-    /// News and content
     case newsfeed
-    
-    /// User profile page
     case profile(userID: String)
-    
-    /// Start of the login flow
     case loginFlow
-    
 }
 
 extension Route {
 
-    /// Set the transitions
+    /// Set the route transitions
     var transition: RouteTransition {
         switch self {
         case .newsfeed:
@@ -52,7 +47,7 @@ extension Route {
         }
     }
     
-    /// Prepare the view controller for the transition
+    /// Prepare the view controllers for the routing
     func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
         switch self {
         case .newsfeed:
