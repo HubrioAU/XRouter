@@ -112,7 +112,7 @@ To run the example project, clone the repo, and run it in Xcode 10.
 
 ## Installation
 
-Router is available through [CocoaPods](https://cocoapods.org). To install
+XRouter is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby

@@ -33,10 +33,10 @@ public enum RouteTransition {
     
 }
 
-extension RouteTransition: Equatable {
+extension RouteTransition {
     
     /// Enum case identifier as a `String`
-    /// - Example: `case myAwesomeView(withID: Int)` becomes "myAwesomeView"
+    /// - Example: `.custom(identifier: "myTransition")` becomes "myTransition"
     public var name: String {
         if case let .custom(identifier) = self {
             return identifier
@@ -45,12 +45,16 @@ extension RouteTransition: Equatable {
         return String(describing: self).components(separatedBy: "(")[0]
     }
     
-    /// Equatable
+}
+    
+extension RouteTransition: Equatable {
+    
+    /// Equatable (compares on `name`)
     public static func == (_ lhs: RouteTransition, _ rhs: RouteTransition) -> Bool {
         return lhs.name == rhs.name
     }
     
-    /// Equatable
+    /// Compares `name` property to some `String`
     public static func == (_ route: RouteTransition, _ string: String) -> Bool {
         return route.name == string
     }
