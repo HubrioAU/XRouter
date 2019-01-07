@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             print("Routing to: \(nextRoute.name)")
-            try? self.router.navigate(to: nextRoute)
+            try! self.router.navigate(to: nextRoute)
             
             // Start next route
             self.navigateToNextRoute(delay: delay)

@@ -44,15 +44,11 @@ open class Router<Route: RouteProvider> {
     ///          where the view controller is provided by `RouteProvider(_:).prepareForTransition(...)`
     ///
     open func navigate(to route: Route, animated: Bool = true) throws {
-        try prepareForNavigation(to: route, animated: animated) { viewController in
-            guard let navigationController = self.currentTopViewController?.navigationController else { return }
-            
-            if viewController !== self.currentTopViewController && viewController !== navigationController {
-                self.performNavigation(to: route, with: viewController, from: navigationController, animated: animated)
-            }
-            
-            // Attempting to route to the view controller/navigation
-            //  controller you are already on, ignoring request.
+        try prepareForNavigation(to: route, animated: animated) { newViewController in
+            try self.performNavigation(to: newViewController,
+                                       from: self.currentTopViewController!, // swiftlint:disable:this force_unwrapping
+                                       with: route.transition,
+                                       animated: animated)
         }
         
     }
@@ -69,50 +65,64 @@ open class Router<Route: RouteProvider> {
     ///
     private func prepareForNavigation(to route: Route,
                                       animated: Bool,
-                                      whenReady completion: @escaping (UIViewController) -> Void) throws {
-        guard let currentTopViewController = currentTopViewController else {
-            throw NSError(domain: "No view controllers present on the view hierachy", code: -1, userInfo: nil)
-        }
+                                      whenReady completion: @escaping (UIViewController) throws -> Void) throws {
+        let currentViewController = currentTopViewController! // swiftlint:disable:this force_unwrapping
+        let newViewController = try route.prepareForTransition(from: currentViewController)
         
-        let viewController = try route.prepareForTransition(from: currentTopViewController)
-        
-        if viewController.isActive() {
-            // View controller is already in the hierachy
+        if newViewController === currentViewController.navigationController
+            || newViewController === currentViewController {
+            // We're already presenting this view controller (or its navigation controller).
+            try completion(newViewController)
+        } else if newViewController.isActive() {
+            // Trying to route to a view controller that is already presented somewhere
+            //   in an existing navigation stack.
             
-            if currentTopViewController.hasAncestor(viewController) {
-                // Current controller is a direct descendant of this view controller,
-                //  so lets pop it and reset the view controllers.
-                
-                viewController.dismiss(animated: animated) {
-                    completion(viewController)
-                }
-            } else {
-                throw NSError(domain: """
-The view controller was in the hierachy but was not an ancestor of current view controller, so we were unable to automatically find a route to it
-""", code: -1, userInfo: nil)
+            guard currentViewController.hasAncestor(newViewController) else {
+                // If this is not an ancestor of the current view controller, then we won't
+                //  be able to automatically find a route.
+                throw RouterError.unableToFindRouteToViewController
             }
             
+            // In the meantime let's attempt to find a route by dismissing any modals.
+            newViewController.dismiss(animated: animated) {
+                // We were unable to tell ahead of time if there was any errors.
+                // - Note: We could move this to an error closure, but I'm not sure
+                //         what advantage that would give us.
+                try? completion(newViewController)
+            }
         } else {
-            completion(viewController)
+            try completion(newViewController)
         }
     }
     
     /// Perform navigation
-    private func performNavigation(to route: Route,
-                                   with preparedViewController: UIViewController,
-                                   from currentNavigationController: UINavigationController,
-                                   animated: Bool) {
-        switch route.transition {
+    private func performNavigation(to newViewController: UIViewController,
+                                   from currentViewController: UIViewController,
+                                   with transition: RouteTransition,
+                                   animated: Bool) throws {
+        // Sanity check, don't navigate if we're already here
+        if newViewController === currentViewController.navigationController
+            || newViewController === currentViewController {
+            return
+        }
+        
+        let fromViewController = currentViewController.navigationController ?? currentViewController
+        
+        if transition.requiresNavigationController, fromViewController as? UINavigationController == nil {
+            throw RouterError.missingRequiredNavigationController(for: transition)
+        }
+        
+        switch transition {
         case .push:
-            currentNavigationController.pushViewController(preparedViewController, animated: animated)
-        case .modal:
-            currentNavigationController.present(preparedViewController, animated: animated)
+            (fromViewController as! UINavigationController).pushViewController(newViewController, animated: animated)
         case .set:
-            currentNavigationController.setViewControllers([preparedViewController], animated: animated)
+            (fromViewController as! UINavigationController).setViewControllers([newViewController], animated: animated)
+        case .modal:
+            fromViewController.present(newViewController, animated: animated)
         case .custom:
-            customTransitionDelegate?.performTransition(to: preparedViewController,
-                                                        from: currentNavigationController,
-                                                        transition: route.transition,
+            customTransitionDelegate?.performTransition(to: newViewController,
+                                                        from: fromViewController,
+                                                        transition: transition,
                                                         animated: animated)
         }
     }

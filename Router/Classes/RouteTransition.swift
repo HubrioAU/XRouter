@@ -31,6 +31,20 @@ public enum RouteTransition {
     /// - See `RouterCustomTransitionDelegate` for use.
     case custom(identifier: String)
     
+    // MARK : - Helpers
+    
+    /// Transition can only be called from a `UINavigationController`
+    public var requiresNavigationController: Bool {
+        switch self {
+        case .push,
+             .set:
+            return true
+        case .modal,
+             .custom:
+            return false
+        }
+    }
+    
 }
 
 extension RouteTransition {

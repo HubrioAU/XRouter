@@ -33,6 +33,37 @@ internal extension UIViewController {
         return false
     }
     
+    ///
+    /// Get the next ancestor view controller
+    ///
+    /// - Note: This was written as a method call instead of a dynamic property
+    ///         because it I felt it helped indicate that it is relatively expensive.
+    ///
+    internal func getNextAncestor() -> UIViewController? {
+        if let navigationController = navigationController {
+            // The nearest ancestor in the view controller hierarchy that is a navigation controller.
+            return navigationController
+        }
+        
+        if let splitViewController = splitViewController {
+            // The nearest ancestor in the view controller hierarchy that is a split view controller.
+            return splitViewController
+        }
+        
+        if let tabBarController = tabBarController {
+            // The nearest ancestor in the view controller hierarchy that is a tab bar controller.
+            return tabBarController
+        }
+        
+        if let presentingViewController = presentingViewController {
+            // The view controller that presented this view controller.
+            return presentingViewController
+        }
+        
+        // This is an orphan view controller
+        return nil
+    }
+    
     // MARK: - Implementation
     
     ///
@@ -51,49 +82,34 @@ internal extension UIViewController {
         return currentViewController
     }
     
-    ///
-    /// Get the next ancestor view controller
-    ///
-    /// - Note: This was written as a method call instead of a dynamic property
-    ///         because it I felt it helped indicate that it is relatively expensive.
-    ///
-    private func getNextAncestor() -> UIViewController? {
-        if let presentingViewController = presentingViewController {
-            // The view controller that presented this view controller.
-            return presentingViewController
-        }
-        
-        if let navigationController = navigationController {
-            // The nearest ancestor in the view controller hierarchy that is a navigation controller.
-            return navigationController
-        }
-        
-        if let splitViewController = splitViewController {
-            // The nearest ancestor in the view controller hierarchy that is a split view controller.
-            return splitViewController
-        }
-        
-        if let tabBarController = tabBarController {
-            // The nearest ancestor in the view controller hierarchy that is a tab bar controller.
-            return tabBarController
-        }
-        
-        // This is an orphan view controller
-        return nil
-    }
-    
     /// Is this view controller a direct child of mine
     private func hasChild(_ viewController: UIViewController) -> Bool {
+        // Check navigation controller
         if let navigationController = self as? UINavigationController {
             return navigationController.viewControllers.contains(viewController)
         }
         
-        if let splitViewController = self as? UISplitViewController {
-            return splitViewController.viewControllers.contains(viewController)
+        // Check split view controllers
+        if let splitViewControllers = (self as? UISplitViewController)?.viewControllers {
+            for splitViewController in splitViewControllers {
+                if splitViewController === viewController || splitViewController.hasChild(viewController) {
+                    return true
+                }
+            }
         }
         
+        // Check tab bar view controllers
         if let tabBarViewControllers = (self as? UITabBarController)?.viewControllers {
-            return tabBarViewControllers.contains(viewController)
+            for tabBarViewController in tabBarViewControllers {
+                if tabBarViewController === viewController || tabBarViewController.hasChild(viewController) {
+                    return true
+                }
+            }
+        }
+        
+        // Check if presenting anything
+        if viewController == presentedViewController {
+            return true
         }
         
         return false
