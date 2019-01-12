@@ -1,5 +1,5 @@
 //
-//  RouterErrorTests.swift
+//  XRouterErrorTests.swift
 //  XRouter_Tests
 //
 //  Created by Reece Como on 7/1/19.
@@ -21,6 +21,8 @@ class RouterErrorTests: XCTestCase {
         
         assertExpectedFormat(for: .missingRequiredNavigationController(for: mockTransition))
         assertExpectedFormat(for: .unableToFindRouteToViewController)
+        assertExpectedFormat(for: .missingRequiredParameterWhileUnwrappingURLRoute(parameter: "test"))
+        assertExpectedFormat(for: .requiredIntegerParameterWasNotAnInteger(parameter: "test", stringValue: "test"))
     }
     
     private func assertExpectedFormat(for error: RouterError) {

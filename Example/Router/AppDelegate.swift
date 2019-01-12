@@ -17,7 +17,7 @@ import XRouter
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// Router
-    let router = Router<Route>()
+    let router = Router<MyRoute>()
 
     /// Window
     var window: UIWindow?
@@ -42,17 +42,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var currentPageIndex = 0
     
     /// Pages to cycle through
-    private let pages: [Route] = [
+    private let pages: [MyRoute] = [
         .home,
         .red,
-        .blue,
+        .blue(named: ""),
         .other(color: .purple),
         .other(color: .yellow),
         .exampleFlowBasic,
         .exampleFlowFull,
         .home,
         .exampleFlowFull,
-        .blue,
+        .blue(named: ""),
         .other(color: .purple),
         .exampleFlowBasic,
         .home,
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     /// Get a the next route
-    private func getNextRoute() -> Route {
+    private func getNextRoute() -> MyRoute {
         let nextRoute = pages[currentPageIndex]
         currentPageIndex = (currentPageIndex + 1) % pages.count
         return nextRoute

@@ -13,6 +13,12 @@
 		1FD7FD1DF6B63E20F06319F1805EE2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
 		228D06E3B56C7C64BAADFB25F310925A /* Pods-XRouter_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C1CD0222652D653E9D4E3CDDC0FBE4 /* Pods-XRouter_Example-dummy.m */; };
 		24523FA07CE7100A6C5EC86AD87E4744 /* XRouter-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B63E503E077F8311E5FE2D8E8A6C906 /* XRouter-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		29209C0321E9DB0400DBCE22 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0221E9DB0400DBCE22 /* Collection+Extension.swift */; };
+		29209C0C21E9DB2400DBCE22 /* MatchedRoutableLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0721E9DB2400DBCE22 /* MatchedRoutableLink.swift */; };
+		29209C0D21E9DB2400DBCE22 /* PathPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0821E9DB2400DBCE22 /* PathPattern.swift */; };
+		29209C0E21E9DB2400DBCE22 /* Router+URLMatcherGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0921E9DB2400DBCE22 /* Router+URLMatcherGroup.swift */; };
+		29209C0F21E9DB2400DBCE22 /* Router+URLMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0A21E9DB2400DBCE22 /* Router+URLMatcher.swift */; };
+		29209C1021E9DB2400DBCE22 /* Router+URLPathMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0B21E9DB2400DBCE22 /* Router+URLPathMatcher.swift */; };
 		29C58C7E21E390D700CC7CD2 /* RouterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C58C7C21E390C100CC7CD2 /* RouterError.swift */; };
 		384F94AB49051F2ECB20C7A3BA22BFEA /* RouteProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202A5A36F3DFAB8852356B8AD98328D5 /* RouteProviderProtocol.swift */; };
 		4642DFD6A9C00B77E4219543A8657D3A /* XRouter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A155DED17660C9386260D0A8514F89CF /* XRouter-dummy.m */; };
@@ -50,6 +56,12 @@
 		155028ECF8D6AD9E6CBC351AA4B2DD1E /* Pods-XRouter_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-XRouter_Tests-resources.sh"; sourceTree = "<group>"; };
 		15CD8569F8B869B22D0109421F30D3EB /* Pods-XRouter_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-XRouter_Example-frameworks.sh"; sourceTree = "<group>"; };
 		202A5A36F3DFAB8852356B8AD98328D5 /* RouteProviderProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RouteProviderProtocol.swift; path = Router/Classes/RouteProviderProtocol.swift; sourceTree = "<group>"; };
+		29209C0221E9DB0400DBCE22 /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		29209C0721E9DB2400DBCE22 /* MatchedRoutableLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchedRoutableLink.swift; sourceTree = "<group>"; };
+		29209C0821E9DB2400DBCE22 /* PathPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPattern.swift; sourceTree = "<group>"; };
+		29209C0921E9DB2400DBCE22 /* Router+URLMatcherGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+URLMatcherGroup.swift"; sourceTree = "<group>"; };
+		29209C0A21E9DB2400DBCE22 /* Router+URLMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+URLMatcher.swift"; sourceTree = "<group>"; };
+		29209C0B21E9DB2400DBCE22 /* Router+URLPathMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+URLPathMatcher.swift"; sourceTree = "<group>"; };
 		29C58C7C21E390C100CC7CD2 /* RouterError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouterError.swift; path = Router/Classes/RouterError.swift; sourceTree = "<group>"; };
 		36E00BCFDD74E5D3C960D2FD408F2E42 /* XRouter.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = XRouter.modulemap; sourceTree = "<group>"; };
 		3B63E503E077F8311E5FE2D8E8A6C906 /* XRouter-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XRouter-umbrella.h"; sourceTree = "<group>"; };
@@ -122,6 +134,19 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
+		29209C0621E9DB2400DBCE22 /* Router+URLMatcher */ = {
+			isa = PBXGroup;
+			children = (
+				29209C0721E9DB2400DBCE22 /* MatchedRoutableLink.swift */,
+				29209C0821E9DB2400DBCE22 /* PathPattern.swift */,
+				29209C0921E9DB2400DBCE22 /* Router+URLMatcherGroup.swift */,
+				29209C0A21E9DB2400DBCE22 /* Router+URLMatcher.swift */,
+				29209C0B21E9DB2400DBCE22 /* Router+URLPathMatcher.swift */,
+			);
+			name = "Router+URLMatcher";
+			path = "Router/Classes/Router+URLMatcher";
+			sourceTree = "<group>";
+		};
 		446E2D0DD4C2C3F11BF134475E653466 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +168,7 @@
 		5E0A947E3A71B7AE5D7A3049DA8BDBF1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				29209C0221E9DB0400DBCE22 /* Collection+Extension.swift */,
 				899F362F5B583271F279602706484797 /* UIApplication+Extension.swift */,
 				05336DFDE597B281430AEFDDF53A6ED2 /* UIViewController+Extension.swift */,
 			);
@@ -246,6 +272,7 @@
 				29C58C7C21E390C100CC7CD2 /* RouterError.swift */,
 				202A5A36F3DFAB8852356B8AD98328D5 /* RouteProviderProtocol.swift */,
 				77059B0FF6AFC1B32CBFB9784F222CE7 /* RouterCustomTransitionDelegateProtocol.swift */,
+				29209C0621E9DB2400DBCE22 /* Router+URLMatcher */,
 				5E0A947E3A71B7AE5D7A3049DA8BDBF1 /* Extensions */,
 				BC020E24FB69418AB9AD8B6E3F442312 /* Pod */,
 				C4F0A648CAAEF9DDB530DB47360244A9 /* Support Files */,
@@ -403,12 +430,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				384F94AB49051F2ECB20C7A3BA22BFEA /* RouteProviderProtocol.swift in Sources */,
+				29209C0F21E9DB2400DBCE22 /* Router+URLMatcher.swift in Sources */,
+				29209C1021E9DB2400DBCE22 /* Router+URLPathMatcher.swift in Sources */,
 				D2F198335A8810626EC8A3D154F40CA9 /* Router.swift in Sources */,
 				CB5A17B9BD866AB78D62FA2FF56E2D35 /* RouterCustomTransitionDelegateProtocol.swift in Sources */,
+				29209C0E21E9DB2400DBCE22 /* Router+URLMatcherGroup.swift in Sources */,
 				1AA558DB9F5E9AC0C78E8FDF502BE558 /* RouteTransition.swift in Sources */,
 				8E23EE5AE2D3AEC22E4017EC3CB4BEDB /* UIApplication+Extension.swift in Sources */,
 				0408952203021019E6DE4C16298CF49B /* UIViewController+Extension.swift in Sources */,
+				29209C0C21E9DB2400DBCE22 /* MatchedRoutableLink.swift in Sources */,
 				4642DFD6A9C00B77E4219543A8657D3A /* XRouter-dummy.m in Sources */,
+				29209C0D21E9DB2400DBCE22 /* PathPattern.swift in Sources */,
+				29209C0321E9DB0400DBCE22 /* Collection+Extension.swift in Sources */,
 				29C58C7E21E390D700CC7CD2 /* RouterError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

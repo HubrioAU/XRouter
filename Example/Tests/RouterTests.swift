@@ -103,6 +103,14 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(mockCustomTransitionDelegate.lastTransitionPerformed, .custom(identifier: "customTransition"))
     }
     
+    /// Test
+    func testURLRouterFailsSilentlyWhenNoRoutesRegistered() {
+        let router = MockRouter<TestRoute>()
+        
+        try! router.openURL(URL(string: "http://example.com/static/route")!)
+        XCTAssertNil(router.currentRoute)
+    }
+    
     //
     // MARK: - Implementation
     //
@@ -142,18 +150,6 @@ class RouterTests: XCTestCase {
         // Test calling a failing/cancelled route does not change the current route
         try? router.navigate(to: .alwaysFails)
         XCTAssertEqual(router.currentRoute!, .homeVC)
-    }
-    
-}
-
-private class MockRouter<Route: RouteProvider>: Router<Route> {
-    
-    private(set) var currentRoute: Route?
-    
-    /// Set the `currentRoute` when `super.navigate(to:animated)` succeeds
-    override func navigate(to route: Route, animated: Bool = false) throws {
-        try super.navigate(to: route, animated: animated)
-        currentRoute = route
     }
     
 }

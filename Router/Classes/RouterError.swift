@@ -1,6 +1,6 @@
 //
-//  RouterError.swift
-//  Router
+//  XRouterError.swift
+//  XRouter
 //
 //  Created by Reece Como on 7/1/19.
 //
@@ -20,6 +20,11 @@ public enum RouterError {
     /// The view controller was in the hierachy but was not an ancestor of the current view controller, so we were unable to automatically find a route to it.
     case unableToFindRouteToViewController
     
+    /// Missing required parameter while unwrapping URL route
+    case missingRequiredParameterWhileUnwrappingURLRoute(parameter: String)
+    
+    /// A required parameter was found, but it was not an Int
+    case requiredIntegerParameterWasNotAnInteger(parameter: String, stringValue: String)
 }
 
 extension RouterError: LocalizedError {
@@ -37,6 +42,15 @@ extension RouterError: LocalizedError {
             return """
             The view controller was in the hierachy but was not an ancestor of the current view controller, so we were unable to automatically find a route to it.
             """
+        case .missingRequiredParameterWhileUnwrappingURLRoute(let name):
+            return """
+            Missing required paramter \"\(name)\" while unwrapping URL route.
+            """
+        case .requiredIntegerParameterWasNotAnInteger(let name, let stringValue):
+            return """
+            Required integer parameter \"\(name)\" existed, but was not an integer.
+            Instead \"\(stringValue)\" was received."
+            """
         }
     }
     
@@ -45,11 +59,21 @@ extension RouterError: LocalizedError {
         switch self {
         case .missingRequiredNavigationController:
             return """
-            Nest the parent view controller in a UINavigationController.
+            Nest the parent view controller in a `UINavigationController`.
             """
         case .unableToFindRouteToViewController:
             return """
-            TODO: Come back to this
+            Something funky has occured.
+            Please log an issue at: https://github.com/reececomo/XRouter
+            """
+        case .missingRequiredParameterWhileUnwrappingURLRoute(let name):
+            return """
+            You referenced a parameter \"\(name)\" that wasn't declared in the `PathPattern`.
+            Please include the parameter in `PathPattern`, or remove it from the mapping.
+            """
+        case .requiredIntegerParameterWasNotAnInteger(_, let stringValue):
+            return """
+            The value that was received was \"\(stringValue)\", which could not be cast to `Int`.
             """
         }
     }

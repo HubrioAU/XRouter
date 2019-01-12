@@ -12,7 +12,7 @@ import XRouter
  Example Routes
  
  */
-enum Route: RouteProvider {
+enum MyRoute: RouteProvider {
     
     /// Root view controller
     case home
@@ -20,8 +20,13 @@ enum Route: RouteProvider {
     /// Pushed red view controller
     case red
     
+    /// Pushed red view controller
+    case productsIndex
+    case productsHelp
+    case products(category: String)
+    
     /// Pushed blue view controller
-    case blue
+    case blue(named: String)
     
     /// Presented modally some example navigation controller.
     ///  Skips directly to 2/3 view controllers
@@ -52,6 +57,8 @@ enum Route: RouteProvider {
              .exampleFlowFull,
              .other:
             return .modal
+        default:
+            return .modal
         }
     }
     
@@ -72,6 +79,19 @@ enum Route: RouteProvider {
         case .other(let color):
             // Embedded in a navigation controller
             return UINavigationController(rootViewController: ColoredViewController(color: color, title: name))
+        default:
+            throw NSError(domain: "", code: 1, userInfo: nil)
+        }
+    }
+    
+    static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
+        return .group([
+            "mystore.com",
+            "healthengine.com.au"]
+        ) {
+            $0.map("products") { .productsIndex }
+            $0.map("products/help") { .productsHelp }
+            //$0.map("products/:category") { try .products(category: $0.param("category")) }
         }
     }
     

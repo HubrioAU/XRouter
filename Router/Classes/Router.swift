@@ -1,6 +1,6 @@
 //
-//  Router.swift
-//  Router
+//  XRouter.swift
+//  XRouter
 //
 //  Created by Reece Como on 5/1/19.
 //
@@ -22,6 +22,9 @@ open class Router<Route: RouteProvider> {
     /// Custom transition delegate
     public weak var customTransitionDelegate: RouterCustomTransitionDelegate?
     
+    /// Register url matcher group
+    private lazy var urlMatcherGroup: URLMatcherGroup? = Route.registerURLs()
+    
     // MARK: - Computed properties
     
     /// The navigation controller for the currently presented view controller
@@ -34,6 +37,20 @@ open class Router<Route: RouteProvider> {
     /// Initialiser
     public init() {
         // Placeholder, required to expose `init` as `public`
+    }
+    
+    @discardableResult
+    func openURL(_ url: URL) throws -> Bool {
+        guard let urlMatcherGroup = urlMatcherGroup else { return false }
+        
+        for urlMatcher in urlMatcherGroup.matchers {
+            if let route = try urlMatcher.match(url: url) {
+                try navigate(to: route)
+                return true
+            }
+        }
+        
+        return false
     }
     
     ///

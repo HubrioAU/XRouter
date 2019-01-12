@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29209BFE21E9CACF00DBCE22 /* RouterURLMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209BFC21E9CABD00DBCE22 /* RouterURLMatcherTests.swift */; };
+		29209C0121E9CB8200DBCE22 /* MockRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209BFF21E9CB0400DBCE22 /* MockRouter.swift */; };
 		2964226621E0AC9500C6D888 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964226521E0AC9500C6D888 /* Routes.swift */; };
 		2964226921E0AE1100C6D888 /* ColoredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964226821E0AE1100C6D888 /* ColoredViewController.swift */; };
 		2964227121E0DBC100C6D888 /* ExampleFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964227021E0DBC100C6D888 /* ExampleFlowController.swift */; };
@@ -35,6 +37,8 @@
 /* Begin PBXFileReference section */
 		0150AAD3347F6583D2CF269B /* Pods-XRouter_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XRouter_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-XRouter_Example/Pods-XRouter_Example.release.xcconfig"; sourceTree = "<group>"; };
 		0CB8EF8DC6B3A7E422C18347 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		29209BFC21E9CABD00DBCE22 /* RouterURLMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterURLMatcherTests.swift; sourceTree = "<group>"; };
+		29209BFF21E9CB0400DBCE22 /* MockRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRouter.swift; sourceTree = "<group>"; };
 		2964226521E0AC9500C6D888 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		2964226821E0AE1100C6D888 /* ColoredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredViewController.swift; sourceTree = "<group>"; };
 		2964227021E0DBC100C6D888 /* ExampleFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFlowController.swift; sourceTree = "<group>"; };
@@ -154,9 +158,11 @@
 			children = (
 				29C58C6E21E323EC00CC7CD2 /* RouteTransitionTests.swift */,
 				29C58C7121E3258000CC7CD2 /* RouterTests.swift */,
+				29209BFC21E9CABD00DBCE22 /* RouterURLMatcherTests.swift */,
 				29C58C7421E3351400CC7CD2 /* RouteProviderTests.swift */,
 				29C58C7F21E3AE8E00CC7CD2 /* RouterErrorTests.swift */,
 				29C58C8221E3B48800CC7CD2 /* UIViewControllerExtensionTests.swift */,
+				29209BFF21E9CB0400DBCE22 /* MockRouter.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -366,9 +372,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				29C58C8421E3B49100CC7CD2 /* UIViewControllerExtensionTests.swift in Sources */,
+				29209BFE21E9CACF00DBCE22 /* RouterURLMatcherTests.swift in Sources */,
 				29C58C7821E3373D00CC7CD2 /* RouteProviderTests.swift in Sources */,
 				29C58C7021E323F700CC7CD2 /* RouteTransitionTests.swift in Sources */,
 				29C58C7321E3258B00CC7CD2 /* RouterTests.swift in Sources */,
+				29209C0121E9CB8200DBCE22 /* MockRouter.swift in Sources */,
 				29C58C8121E3AEAE00CC7CD2 /* RouterErrorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

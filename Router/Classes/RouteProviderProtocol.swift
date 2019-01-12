@@ -1,6 +1,6 @@
 //
 //  RouteProviderProtocol.swift
-//  Router
+//  XRouter
 //
 //  Created by Reece Como on 5/1/19.
 //
@@ -44,6 +44,11 @@ public protocol RouteProvider: Equatable {
     ///
     func prepareForTransition(from viewController: UIViewController) throws -> UIViewController
     
+    ///
+    /// Register a URL matcher group
+    ///
+    static func registerURLs() -> Router<Self>.URLMatcherGroup?
+    
 }
 
 extension RouteProvider {
@@ -58,6 +63,10 @@ extension RouteProvider {
     /// Route name (default: `baseName`)
     public var name: String {
         return baseName
+    }
+    
+    public static func registerURLs() -> Router<Self>.URLMatcherGroup? {
+        return nil
     }
     
 }
