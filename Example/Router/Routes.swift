@@ -52,8 +52,6 @@ enum MyRoute: RouteProvider {
              .exampleFlowFull,
              .other:
             return .modal
-        default:
-            return .modal
         }
     }
     
@@ -77,6 +75,7 @@ enum MyRoute: RouteProvider {
         }
     }
     
+    /// Register the url patterns these routes can map to
     static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
         return .group(["example.com"]) {
             $0.map("home/") { .home }
