@@ -72,6 +72,70 @@ extension AppRoute: RouteProvider {
 
 ### Advanced Usage
 
+#### URL Support
+
+You only need to do two things to add URL support to your routes.
+
+First, implement the static method `registerURLs` in your `RouteProvider`.
+
+Here is an example with a single host:
+```swift
+extension MyRoute: RouteProvider {
+
+    static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
+        return .group("store.example.com") {
+            $0.map("products") { .allProducts }
+            $0.map("products/{category}/view") { try .products(catagory: $0.param("category")) }
+            $0.map("user/{id}/profile") { try .viewProfile(withID: $0.param("id")) }
+            $0.map("user/*/logout") { .logout }
+        }
+    }
+
+}
+```
+
+Here is an example with multiple domains:
+```swift
+extension MyRoute: RouteProvider {
+
+    static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
+        return .init(matchers: [
+            .group(["example.com", "store.example.com"]) {
+                $0.map("products/") { .allProducts }
+                $0.map("products/{category}/view") { try .products(catagory: $0.param("category")) }
+                $0.map("user/{id}/profile") { try .viewProfile(withID: $0.param("id")) }
+                $0.map("user/*/logout") { .logout }
+            },
+            .group("affiliate.website.net.au") {
+                $0.map("*/referral/") { .openReferralProgram(for: $0.rawURL) }
+            }
+        ])
+    }
+
+}
+```
+
+Then call the openURL method inside your URL handler. Here is Universal Links for example:
+```swift
+extension AppDelegate {
+
+    /// Open Universal Links
+    func application(_ application: UIApplication,
+                 continue userActivity: NSUserActivity,
+                 restorationHandler: @escaping ([Any]?) -> Void) -> Bool
+    {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let url = userActivity.webpageURL,
+            let handledURL = try? router.openURL(url)  else {
+            return false // Unrecognized URL
+        }
+
+        return handledURL
+    }
+
+}
+```
+
 #### Wrapping Try/Catch
 
 It can be messy trying to manage do/catch blocks in your app, and it is important to handle errors.

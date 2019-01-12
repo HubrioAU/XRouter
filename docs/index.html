@@ -149,6 +149,66 @@
 <span class="p">}</span>
 </code></pre>
 <h3 id='advanced-usage' class='heading'>Advanced Usage</h3>
+<h4 id='url-support' class='heading'>URL Support</h4>
+
+<p>You only need to do two things to add URL support to your routes.</p>
+
+<p>First, implement the static method <code>registerURLs</code> in your <code><a href="Protocols/RouteProvider.html">RouteProvider</a></code>.</p>
+
+<p>Here is an example with a single host:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">.</span><span class="nf">group</span><span class="p">(</span><span class="s">"store.example.com"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allProducts</span> <span class="p">}</span>
+            <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">catagory</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
+            <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">viewProfile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
+            <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/*/logout"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">logout</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>Here is an example with multiple domains:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">matchers</span><span class="p">:</span> <span class="p">[</span>
+            <span class="o">.</span><span class="nf">group</span><span class="p">([</span><span class="s">"example.com"</span><span class="p">,</span> <span class="s">"store.example.com"</span><span class="p">])</span> <span class="p">{</span>
+                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allProducts</span> <span class="p">}</span>
+                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">catagory</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
+                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">viewProfile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
+                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/*/logout"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">logout</span> <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="o">.</span><span class="nf">group</span><span class="p">(</span><span class="s">"affiliate.website.net.au"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"*/referral/"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="nf">openReferralProgram</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="n">rawURL</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">])</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>Then call the openURL method inside your URL handler. Here is Universal Links for example:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AppDelegate</span> <span class="p">{</span>
+
+    <span class="c1">/// Open Universal Links</span>
+    <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
+                 <span class="k">continue</span> <span class="nv">userActivity</span><span class="p">:</span> <span class="kt">NSUserActivity</span><span class="p">,</span>
+                 <span class="nv">restorationHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+    <span class="p">{</span>
+        <span class="k">guard</span> <span class="n">userActivity</span><span class="o">.</span><span class="n">activityType</span> <span class="o">==</span> <span class="kt">NSUserActivityTypeBrowsingWeb</span><span class="p">,</span>
+            <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="n">userActivity</span><span class="o">.</span><span class="n">webpageURL</span><span class="p">,</span>
+            <span class="k">let</span> <span class="nv">handledURL</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="n">router</span><span class="o">.</span><span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span> <span class="c1">// Unrecognized URL</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">handledURL</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
 <h4 id='wrapping-try-catch' class='heading'>Wrapping Try/Catch</h4>
 
 <p>It can be messy trying to manage do/catch blocks in your app, and it is important to handle errors.</p>
