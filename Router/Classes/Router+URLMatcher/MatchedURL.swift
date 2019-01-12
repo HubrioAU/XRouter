@@ -1,5 +1,5 @@
 //
-//  MatchedRoutableLink.swift
+//  MatchedURL.swift
 //  XRouter
 //
 //  Created by Reece Como on 12/1/19.
@@ -8,20 +8,23 @@
 import Foundation
 
 /**
- A routable link that has been matched to a registerd `RouteProvider` route.
+ A URL that has been matched to a registered `RouteProvider` route.
+ 
+ Used for shortcuts when mapping registered URLs routes.
  
  - Note: For use when handling routing parameters.
+ - See: `RouteProvider.registerURLs(...)`
  */
-public class MatchedRoutableLink {
+public class MatchedURL {
     
     /// Associated URL
-    public let url: URL
+    public let rawURL: URL
     
     /// Query string parameter shortcuts
     private lazy var queryItems: [String: String] = {
         var queryItems = [String: String]()
         
-        if let parts = URLComponents(url: url, resolvingAgainstBaseURL: false),
+        if let parts = URLComponents(url: rawURL, resolvingAgainstBaseURL: false),
             let queryParts = parts.queryItems {
             for queryPart in queryParts {
                 if let value = queryPart.value {
@@ -40,12 +43,12 @@ public class MatchedRoutableLink {
     
     /// Initialiser
     init(for url: URL, namedParameters: [String: String]) {
-        self.url = url
+        self.rawURL = url
         self.parameters = namedParameters
     }
     
-    /// Retrieve a String parameter
-    func param(_ name: String) throws -> String {
+    /// Retrieve a named parameter as a `String`
+    public func param(_ name: String) throws -> String {
         if let parameter = parameters[name] {
             return parameter
         }
@@ -53,8 +56,8 @@ public class MatchedRoutableLink {
         throw RouterError.missingRequiredParameterWhileUnwrappingURLRoute(parameter: name)
     }
     
-    /// Retrieve an Int parameter
-    func param(_ name: String) throws -> Int {
+    /// Retrieve a named parameter as an `Int`
+    public func param(_ name: String) throws -> Int {
         let stringParam: String = try param(name)
         
         if let intParam = Int(stringParam) {
@@ -64,13 +67,13 @@ public class MatchedRoutableLink {
         throw RouterError.requiredIntegerParameterWasNotAnInteger(parameter: name, stringValue: stringParam)
     }
     
-    /// Retrieve a query string parameter as String
-    func query(_ name: String) -> String? {
+    /// Retrieve a query string parameter as a `String`
+    public func query(_ name: String) -> String? {
         return queryItems[name]
     }
     
-    /// Retrieve a query string parameter as Integer
-    func query(_ name: String) -> Int? {
+    /// Retrieve a query string parameter as an `Int`
+    public func query(_ name: String) -> Int? {
         if let queryItem = queryItems[name] {
             return Int(queryItem)
         }

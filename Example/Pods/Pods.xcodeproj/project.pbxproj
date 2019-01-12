@@ -15,7 +15,7 @@
 		24523FA07CE7100A6C5EC86AD87E4744 /* XRouter-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B63E503E077F8311E5FE2D8E8A6C906 /* XRouter-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		291E479821E9E56C0021EE28 /* PathPattern+Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E479621E9E5310021EE28 /* PathPattern+Component.swift */; };
 		29209C0321E9DB0400DBCE22 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0221E9DB0400DBCE22 /* Collection+Extension.swift */; };
-		29209C0C21E9DB2400DBCE22 /* MatchedRoutableLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0721E9DB2400DBCE22 /* MatchedRoutableLink.swift */; };
+		29209C0C21E9DB2400DBCE22 /* MatchedURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0721E9DB2400DBCE22 /* MatchedURL.swift */; };
 		29209C0D21E9DB2400DBCE22 /* PathPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0821E9DB2400DBCE22 /* PathPattern.swift */; };
 		29209C0E21E9DB2400DBCE22 /* Router+URLMatcherGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0921E9DB2400DBCE22 /* Router+URLMatcherGroup.swift */; };
 		29209C0F21E9DB2400DBCE22 /* Router+URLMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29209C0A21E9DB2400DBCE22 /* Router+URLMatcher.swift */; };
@@ -59,7 +59,7 @@
 		202A5A36F3DFAB8852356B8AD98328D5 /* RouteProviderProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RouteProviderProtocol.swift; path = Router/Classes/RouteProviderProtocol.swift; sourceTree = "<group>"; };
 		291E479621E9E5310021EE28 /* PathPattern+Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PathPattern+Component.swift"; sourceTree = "<group>"; };
 		29209C0221E9DB0400DBCE22 /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		29209C0721E9DB2400DBCE22 /* MatchedRoutableLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchedRoutableLink.swift; sourceTree = "<group>"; };
+		29209C0721E9DB2400DBCE22 /* MatchedURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchedURL.swift; sourceTree = "<group>"; };
 		29209C0821E9DB2400DBCE22 /* PathPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPattern.swift; sourceTree = "<group>"; };
 		29209C0921E9DB2400DBCE22 /* Router+URLMatcherGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+URLMatcherGroup.swift"; sourceTree = "<group>"; };
 		29209C0A21E9DB2400DBCE22 /* Router+URLMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+URLMatcher.swift"; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		29209C0621E9DB2400DBCE22 /* Router+URLMatcher */ = {
 			isa = PBXGroup;
 			children = (
-				29209C0721E9DB2400DBCE22 /* MatchedRoutableLink.swift */,
+				29209C0721E9DB2400DBCE22 /* MatchedURL.swift */,
 				29209C0821E9DB2400DBCE22 /* PathPattern.swift */,
 				291E479621E9E5310021EE28 /* PathPattern+Component.swift */,
 				29209C0921E9DB2400DBCE22 /* Router+URLMatcherGroup.swift */,
@@ -442,7 +442,7 @@
 				1AA558DB9F5E9AC0C78E8FDF502BE558 /* RouteTransition.swift in Sources */,
 				8E23EE5AE2D3AEC22E4017EC3CB4BEDB /* UIApplication+Extension.swift in Sources */,
 				0408952203021019E6DE4C16298CF49B /* UIViewController+Extension.swift in Sources */,
-				29209C0C21E9DB2400DBCE22 /* MatchedRoutableLink.swift in Sources */,
+				29209C0C21E9DB2400DBCE22 /* MatchedURL.swift in Sources */,
 				4642DFD6A9C00B77E4219543A8657D3A /* XRouter-dummy.m in Sources */,
 				29209C0D21E9DB2400DBCE22 /* PathPattern.swift in Sources */,
 				29209C0321E9DB0400DBCE22 /* Collection+Extension.swift in Sources */,

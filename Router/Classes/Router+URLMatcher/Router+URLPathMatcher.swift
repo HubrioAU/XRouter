@@ -15,14 +15,14 @@ extension Router {
     public class URLPathMatcher {
         
         /// Dynamic path patterns
-        private var dynamicPathPatterns = [PathPattern: ((MatchedRoutableLink) throws -> Route)]()
+        private var dynamicPathPatterns = [PathPattern: ((MatchedURL) throws -> Route)]()
         
         /// Simple path patterns
         private var staticPathPatterns = [PathPattern: (() throws -> Route)]()
         
         /// Map a path to a route
-        /// - Note: With the `MatchedRoutableLink` passed as a parameter in the callback
-        public func map(_ pathPattern: PathPattern, _ route: @escaping (MatchedRoutableLink) throws -> Route) {
+        /// - Note: With the `MatchedURL` passed as a parameter in the callback
+        public func map(_ pathPattern: PathPattern, _ route: @escaping (MatchedURL) throws -> Route) {
             dynamicPathPatterns[pathPattern] = route
         }
         
@@ -52,7 +52,7 @@ extension Router {
         
         /// Compare a pattern to a URL
         /// - Returns: A matched routable link
-        private func match(_ pattern: PathPattern, _ url: URL) -> MatchedRoutableLink? {
+        private func match(_ pattern: PathPattern, _ url: URL) -> MatchedURL? {
             let pathComponents = url.pathComponents.compactMap { $0 == "/" ? nil : $0 }
             var parameters = [String: String]()
             
@@ -68,7 +68,7 @@ extension Router {
                 }
             }
             
-            return MatchedRoutableLink(for: url, namedParameters: parameters)
+            return MatchedURL(for: url, namedParameters: parameters)
         }
         
     }

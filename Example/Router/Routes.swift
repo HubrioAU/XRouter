@@ -20,11 +20,6 @@ enum MyRoute: RouteProvider {
     /// Pushed red view controller
     case red
     
-    /// Pushed red view controller
-    case productsIndex
-    case productsHelp
-    case products(category: String)
-    
     /// Pushed blue view controller
     case blue(named: String)
     
@@ -70,8 +65,8 @@ enum MyRoute: RouteProvider {
             return AppDelegate.homeViewController
         case .red:
             return ColoredViewController(color: .red, title: "red")
-        case .blue:
-            return ColoredViewController(color: .blue, title: "blue")
+        case .blue(let name):
+            return ColoredViewController(color: .blue, title: "blue \(name)")
         case .exampleFlowBasic:
             return ExampleFlowController.shared.startBasicFlow()
         case .exampleFlowFull:
@@ -79,19 +74,14 @@ enum MyRoute: RouteProvider {
         case .other(let color):
             // Embedded in a navigation controller
             return UINavigationController(rootViewController: ColoredViewController(color: color, title: name))
-        default:
-            throw NSError(domain: "", code: 1, userInfo: nil)
         }
     }
     
     static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
-        return .group([
-            "mystore.com",
-            "healthengine.com.au"]
-        ) {
-            $0.map("products") { .productsIndex }
-            $0.map("products/help") { .productsHelp }
-            //$0.map("products/:category") { try .products(category: $0.param("category")) }
+        return .group(["example.com"]) {
+            $0.map("home/") { .home }
+            $0.map("colors/red") { .red }
+            $0.map("colors/blue/{name}") { try .blue(named: $0.param("name")) }
         }
     }
     

@@ -105,12 +105,18 @@ open class Router<Route: RouteProvider> {
                 throw RouterError.unableToFindRouteToViewController
             }
             
-            // In the meantime let's attempt to find a route by dismissing any modals.
-            newViewController.dismiss(animated: animated) {
-                // We were unable to tell ahead of time if there was any errors.
-                // - Note: We could move this to an error closure, but I'm not sure
-                //         what advantage that would give us.
+            if let currentNavController = currentViewController.navigationController,
+                !currentNavController.isBeingPresented,
+                currentNavController == newViewController.navigationController {
                 try? completion(newViewController)
+            } else {
+                // In the meantime let's attempt to find a route by dismissing any modals.
+                newViewController.dismiss(animated: animated) {
+                    // We were unable to tell ahead of time if there was any errors.
+                    // - Note: We could move this to an error closure, but I'm not sure
+                    //         what advantage that would give us.
+                    try? completion(newViewController)
+                }
             }
         } else {
             try completion(newViewController)
@@ -123,15 +129,18 @@ open class Router<Route: RouteProvider> {
                                    with transition: RouteTransition,
                                    animated: Bool) throws {
         // Sanity check, don't navigate if we're already here
-        if newViewController === currentViewController.navigationController
-            || newViewController === currentViewController {
+        if newViewController === currentViewController {
             return
         }
         
         let fromViewController = currentViewController.navigationController ?? currentViewController
         
-        if transition.requiresNavigationController, fromViewController as? UINavigationController == nil {
-            throw RouterError.missingRequiredNavigationController(for: transition)
+        if transition.requiresNavigationController {
+            if fromViewController as? UINavigationController == nil {
+                throw RouterError.missingRequiredNavigationController(for: transition)
+            }
+        } else if newViewController === currentViewController.navigationController {
+            return
         }
         
         switch transition {

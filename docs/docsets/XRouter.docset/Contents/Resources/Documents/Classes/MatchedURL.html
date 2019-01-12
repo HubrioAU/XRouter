@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PathPattern Class Reference</title>
+    <title>MatchedURL Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/PathPattern" class="dashAnchor"></a>
-    <a title="PathPattern Class Reference"></a>
+    <a name="//apple_ref/swift/Class/MatchedURL" class="dashAnchor"></a>
+    <a title="MatchedURL Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">XRouter Reference</a>
         <img id="carat" src="../img/carat.png" />
-        PathPattern Class Reference
+        MatchedURL Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -81,39 +81,37 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PathPattern</h1>
+            <h1>MatchedURL</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PathPattern</span> <span class="p">:</span> <span class="kt">ExpressibleByStringLiteral</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MatchedURL</span></code></pre>
 
                 </div>
               </div>
-            <p>Path pattern definition for pattern matching</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">pathPattern</span><span class="p">:</span> <span class="kt">PathPattern</span> <span class="o">=</span> <span class="s">"/my/{adjective}/string/{number}"</span>
+            <p>A URL that has been matched to a registered <code><a href="../Protocols/RouteProvider.html">RouteProvider</a></code> route.</p>
 
-<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/my/cool/string/1"</span><span class="p">)</span>       <span class="c1">// `true`</span>
-<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/my/awesome/string/2"</span><span class="p">)</span>    <span class="c1">// `true`</span>
-<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/your/cool/string/3"</span><span class="p">)</span>     <span class="c1">// `false`, mismatch on expected static element first</span>
-<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/my/cool/string/hello"</span><span class="p">)</span>   <span class="c1">// `true`</span>
-</code></pre>
+<p>Used for shortcuts when mapping registered URLs routes.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    For use when handling routing parameters.
+
+</div>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    <code><a href="../Protocols/RouteProvider.html#/s:7XRouter13RouteProviderP12registerURLsAA6RouterC15URLMatcherGroupVyx_GSgyFZ">RouteProvider.registerURLs(...)</a></code>
+
+</div>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Properties"></a>
-                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
-                <a href="#/Properties">
-                  <h3 class="section-name">Properties</h3>
-                </a>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11PathPatternC10componentsSayAC9ComponentOGvp"></a>
-                    <a name="//apple_ref/swift/Property/components" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11PathPatternC10componentsSayAC9ComponentOGvp">components</a>
+                    <a name="/s:7XRouter10MatchedURLC03rawC010Foundation0C0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/rawURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter10MatchedURLC03rawC010Foundation0C0Vvp">rawURL</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -121,14 +119,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Get the individual parts</p>
+                        <p>Associated URL</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">components</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PathPattern/Component.html">Component</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">rawURL</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
 
                         </div>
                       </div>
@@ -149,9 +147,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11PathPatternC13stringLiteralACSS_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(stringLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11PathPatternC13stringLiteralACSS_tcfc">init(stringLiteral:)</a>
+                    <a name="/s:7XRouter10MatchedURLC5paramyS2SKF"></a>
+                    <a name="//apple_ref/swift/Method/param(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter10MatchedURLC5paramyS2SKF">param(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -159,54 +157,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialize with string literal</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">pattern</span><span class="p">:</span> <span class="kt">PathPattern</span> <span class="o">=</span> <span class="s">"/check/{this}/out"</span>
-</code></pre>
+                        <p>Retrieve a named parameter as a <code>String</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">required</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">stringLiteral</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Hashable"></a>
-                <a name="//apple_ref/swift/Section/Hashable" class="dashAnchor"></a>
-                <a href="#/Hashable">
-                  <h3 class="section-name">Hashable</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter11PathPatternC9hashValueSivp"></a>
-                    <a name="//apple_ref/swift/Property/hashValue" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11PathPatternC9hashValueSivp">hashValue</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Hashable</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">hashValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">param</span><span class="p">(</span><span class="n">_</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -216,9 +174,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11PathPatternC2eeoiySbAC_ACtFZ"></a>
-                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11PathPatternC2eeoiySbAC_ACtFZ">==(_:_:)</a>
+                    <a name="/s:7XRouter10MatchedURLC5paramySiSSKF"></a>
+                    <a name="//apple_ref/swift/Method/param(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter10MatchedURLC5paramySiSSKF">param(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -226,30 +184,26 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Compares on raw strings</p>
+                        <p>Retrieve a named parameter as an <code>Int</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">PathPattern</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">PathPattern</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">param</span><span class="p">(</span><span class="n">_</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11PathPatternC9ComponentO"></a>
-                    <a name="//apple_ref/swift/Enum/Component" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11PathPatternC9ComponentO">Component</a>
+                    <a name="/s:7XRouter10MatchedURLC5queryySSSgSSF"></a>
+                    <a name="//apple_ref/swift/Method/query(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter10MatchedURLC5queryySSSgSSF">query(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -257,15 +211,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Path pattern component for pattern matching.</p>
+                        <p>Retrieve a query string parameter as a <code>String</code></p>
 
-                        <a href="../Classes/PathPattern/Component.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Component</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">query</span><span class="p">(</span><span class="n">_</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter10MatchedURLC5queryySiSgSSF"></a>
+                    <a name="//apple_ref/swift/Method/query(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter10MatchedURLC5queryySiSgSSF">query(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieve a query string parameter as an <code>Int</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">query</span><span class="p">(</span><span class="n">_</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
