@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RouterCustomTransitionDelegate Protocol Reference</title>
+    <title>MatchedRoutableLink Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/RouterCustomTransitionDelegate" class="dashAnchor"></a>
-    <a title="RouterCustomTransitionDelegate Protocol Reference"></a>
+    <a name="//apple_ref/swift/Class/MatchedRoutableLink" class="dashAnchor"></a>
+    <a title="MatchedRoutableLink Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">XRouter Reference</a>
         <img id="carat" src="../img/carat.png" />
-        RouterCustomTransitionDelegate Protocol Reference
+        MatchedRoutableLink Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -81,32 +81,30 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>RouterCustomTransitionDelegate</h1>
+            <h1>MatchedRoutableLink</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RouterCustomTransitionDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MatchedRoutableLink</span></code></pre>
 
                 </div>
               </div>
-            <p>Delegate methods that can be used to configure custom transitions in <code>XRouter.Router</code>.</p>
+            <p>A routable link that has been matched to a registerd <code><a href="../Protocols/RouteProvider.html">RouteProvider</a></code> route.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    For use when handling routing parameters.
+
+</div>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Delegate%20methods"></a>
-                <a name="//apple_ref/swift/Section/Delegate methods" class="dashAnchor"></a>
-                <a href="#/Delegate%20methods">
-                  <h3 class="section-name">Delegate methods</h3>
-                </a>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter30RouterCustomTransitionDelegateP07performD02to4from10transition8animatedySo16UIViewControllerC_AjA05RouteD0OSbtF"></a>
-                    <a name="//apple_ref/swift/Method/performTransition(to:from:transition:animated:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter30RouterCustomTransitionDelegateP07performD02to4from10transition8animatedySo16UIViewControllerC_AjA05RouteD0OSbtF">performTransition(to:from:transition:animated:)</a>
+                    <a name="/s:7XRouter19MatchedRoutableLinkC3url10Foundation3URLVvp"></a>
+                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter19MatchedRoutableLinkC3url10Foundation3URLVvp">url</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -114,14 +112,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Perform a custom transition</p>
+                        <p>Associated URL</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">from</span> <span class="nv">parentViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">transition</span><span class="p">:</span> <span class="kt"><a href="../Enums/RouteTransition.html">RouteTransition</a></span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
 
                         </div>
                       </div>

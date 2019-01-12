@@ -22,24 +22,7 @@ import Foundation
  */
 public class PathPattern: ExpressibleByStringLiteral, Hashable {
     
-    /// Path pattern component
-    public enum Component {
-        case exact(string: String)
-        case parameter(named: String)
-        case wildcard
-        
-        func matches(_ foreignString: String) -> Bool {
-            switch self {
-            case .exact(let localString):
-                return localString == foreignString
-            case .wildcard, .parameter:
-                return true
-            }
-        }
-    }
-    
-    /// Raw string value
-    private let rawValue: String
+    // MARK: - Properties
     
     /// Get the individual parts
     public lazy var components: [Component] = {
@@ -47,6 +30,36 @@ public class PathPattern: ExpressibleByStringLiteral, Hashable {
             .compactMap { $0 == "" ? nil : $0 }
             .map { self.component(for: $0) }
     }()
+    
+    /// Raw string value
+    private let rawValue: String
+    
+    // MARK: - Methods
+    
+    ///
+    /// Initialize with string literal
+    ///
+    /// ```
+    /// let pattern: PathPattern = "/check/{this}/out"
+    /// ```
+    ///
+    required public init(stringLiteral: String) {
+        rawValue = stringLiteral
+    }
+    
+    // MARK: - Hashable
+    
+    /// Hashable
+    public var hashValue: Int {
+        return rawValue.hashValue
+    }
+    
+    /// Compares on raw strings
+    public static func == (lhs: PathPattern, rhs: PathPattern) -> Bool {
+        return lhs.rawValue == rhs.rawValue
+    }
+    
+    // MARK: - Implementation
     
     /// Get the `Component` for some string
     private func component(for string: String) -> Component {
@@ -60,25 +73,6 @@ public class PathPattern: ExpressibleByStringLiteral, Hashable {
         } else {
             return .exact(string: string)
         }
-    }
-    
-    /// Init
-    required public init(stringLiteral: String) {
-        rawValue = stringLiteral
-    }
-    
-    // MARK: - Hashable
-    
-    /// Hashable
-    public var hashValue: Int {
-        return rawValue.hashValue
-    }
-    
-    // MARK: - Equatable
-    
-    /// Equatable
-    public static func == (lhs: PathPattern, rhs: PathPattern) -> Bool {
-        return lhs.rawValue == rhs.rawValue
     }
     
 }

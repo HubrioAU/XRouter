@@ -45,7 +45,16 @@ public protocol RouteProvider: Equatable {
     func prepareForTransition(from viewController: UIViewController) throws -> UIViewController
     
     ///
-    /// Register a URL matcher group
+    /// Register a URL matcher group.
+    ///
+    /// Example:
+    /// ```
+    /// return .group(["website.com", "sales.website.com"]) {
+    ///     $0.map("products") { .allProducts(page: $0.query("page") ?? 0) }
+    ///     $0.map("products/{category}/") { try .productsShowcase(category: $0.param("category")) }
+    ///     $0.map("user/*/logout") { .userLogout }
+    /// }
+    /// ```
     ///
     static func registerURLs() -> Router<Self>.URLMatcherGroup?
     
@@ -65,6 +74,7 @@ extension RouteProvider {
         return baseName
     }
     
+    /// Register URLs (default: none)
     public static func registerURLs() -> Router<Self>.URLMatcherGroup? {
         return nil
     }

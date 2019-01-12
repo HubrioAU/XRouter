@@ -70,7 +70,7 @@ public class MatchedRoutableLink {
     }
     
     /// Retrieve a query string parameter as Integer
-    func queryInt(_ name: String) -> Int? {
+    func query(_ name: String) -> Int? {
         if let queryItem = queryItems[name] {
             return Int(queryItem)
         }

@@ -193,7 +193,7 @@ private enum TestRoute: RouteProvider {
                 $0.map("dynamic/string/{name}") { try .exampleStringDynamicRoute(named: $0.param("name")) }
                 $0.map("dynamic/int/{id}") { try .exampleIntDynamicRoute(withID: $0.param("id")) }
                 $0.map("dynamic/wildcard/*/whatever") { .exampleWildcardRoute }
-                $0.map("some-qs/route") { .exampleQueryStringRoute(page: $0.queryInt("page") ?? 0) }
+                $0.map("some-qs/route") { .exampleQueryStringRoute(page: $0.query("page") ?? 0) }
                 $0.map("some/other-qs/route") { .exampleQueryStringRoute2(name: $0.query("name") ?? "") }
                 $0.map("route/missing/param") { try .exampleStringDynamicRoute(named: $0.param("whoops")) }
             },
@@ -204,7 +204,7 @@ private enum TestRoute: RouteProvider {
                 $0.map("dynamic/string/{name}") { try .exampleStringDynamicRoute(named: $0.param("name")) }
                 $0.map("dynamic/int/{id}") { try .exampleIntDynamicRoute(withID: $0.param("id")) }
                 $0.map("dynamic/wildcard/*/whatever") { .exampleWildcardRoute }
-                $0.map("some-qs/route") { .exampleQueryStringRoute(page: $0.queryInt("page") ?? 0) }
+                $0.map("some-qs/route") { .exampleQueryStringRoute(page: $0.query("page") ?? 0) }
                 $0.map("some/other-qs/route") { .exampleQueryStringRoute2(name: $0.query("name") ?? "") }
                 $0.map("route/missing/param") { try .exampleStringDynamicRoute(named: $0.param("whoops")) }
             }

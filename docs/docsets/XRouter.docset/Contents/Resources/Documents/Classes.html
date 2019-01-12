@@ -32,7 +32,25 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Classes/MatchedRoutableLink.html">MatchedRoutableLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/PathPattern.html">PathPattern</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/PathPattern/Component.html">– Component</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Router.html">Router</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Router/URLMatcher.html">– URLMatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Router/URLPathMatcher.html">– URLPathMatcher</a>
               </li>
             </ul>
           </li>
@@ -68,6 +86,82 @@
 
           </section>
           <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter19MatchedRoutableLinkC"></a>
+                    <a name="//apple_ref/swift/Class/MatchedRoutableLink" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter19MatchedRoutableLinkC">MatchedRoutableLink</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A routable link that has been matched to a registerd <code><a href="Protocols/RouteProvider.html">RouteProvider</a></code> route.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    For use when handling routing parameters.
+
+</div>
+
+                        <a href="Classes/MatchedRoutableLink.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MatchedRoutableLink</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter11PathPatternC"></a>
+                    <a name="//apple_ref/swift/Class/PathPattern" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter11PathPatternC">PathPattern</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Path pattern definition for pattern matching</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">pathPattern</span><span class="p">:</span> <span class="kt">PathPattern</span> <span class="o">=</span> <span class="s">"/my/{adjective}/string/{number}"</span>
+
+<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/my/cool/string/1"</span><span class="p">)</span>       <span class="c1">// `true`</span>
+<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/my/awesome/string/2"</span><span class="p">)</span>    <span class="c1">// `true`</span>
+<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/your/cool/string/3"</span><span class="p">)</span>     <span class="c1">// `false`, mismatch on expected static element first</span>
+<span class="n">pathPattern</span><span class="o">.</span><span class="nf">matches</span><span class="p">(</span><span class="s">"/my/cool/string/hello"</span><span class="p">)</span>   <span class="c1">// `true`</span>
+</code></pre>
+
+                        <a href="Classes/PathPattern.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PathPattern</span> <span class="p">:</span> <span class="kt">ExpressibleByStringLiteral</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div class="task-group">
               <ul>
                 <li class="item">

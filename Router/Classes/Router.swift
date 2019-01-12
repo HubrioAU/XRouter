@@ -39,20 +39,6 @@ open class Router<Route: RouteProvider> {
         // Placeholder, required to expose `init` as `public`
     }
     
-    @discardableResult
-    func openURL(_ url: URL) throws -> Bool {
-        guard let urlMatcherGroup = urlMatcherGroup else { return false }
-        
-        for urlMatcher in urlMatcherGroup.matchers {
-            if let route = try urlMatcher.match(url: url) {
-                try navigate(to: route)
-                return true
-            }
-        }
-        
-        return false
-    }
-    
     ///
     /// Navigate to a route.
     ///
@@ -67,6 +53,26 @@ open class Router<Route: RouteProvider> {
                                        animated: animated)
         }
         
+    }
+    
+    ///
+    /// Open a URL to a route.
+    ///
+    /// - Note: Register your URL mappings in your `RouteProvider` by
+    ///         implementing the static method `registerURLs`.
+    ///
+    @discardableResult
+    open func openURL(_ url: URL) throws -> Bool {
+        guard let urlMatcherGroup = urlMatcherGroup else { return false }
+        
+        for urlMatcher in urlMatcherGroup.matchers {
+            if let route = try urlMatcher.match(url: url) {
+                try navigate(to: route)
+                return true
+            }
+        }
+        
+        return false
     }
     
     // MARK: - Implementation
