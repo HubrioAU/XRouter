@@ -25,6 +25,10 @@ public enum RouterError {
     
     /// A required parameter was found, but it was not an Int
     case requiredIntegerParameterWasNotAnInteger(parameter: String, stringValue: String)
+    
+    /// Used a custom transition but no custom transition delegate was set
+    case missingCustomTransitionDelegate
+    
 }
 
 extension RouterError: LocalizedError {
@@ -51,6 +55,10 @@ extension RouterError: LocalizedError {
             Required integer parameter \"\(name)\" existed, but was not an integer.
             Instead \"\(stringValue)\" was received."
             """
+        case .missingCustomTransitionDelegate:
+            return """
+            Attempted to use a custom transition, but `customTransitionDelegate` was set to `nil`.
+            """
         }
     }
     
@@ -74,6 +82,10 @@ extension RouterError: LocalizedError {
         case .requiredIntegerParameterWasNotAnInteger(_, let stringValue):
             return """
             The value that was received was \"\(stringValue)\", which could not be cast to `Int`.
+            """
+        case .missingCustomTransitionDelegate:
+            return """
+            Set `customTransitionDelegate` when using `RouteTransition.custom(_:)`.
             """
         }
     }

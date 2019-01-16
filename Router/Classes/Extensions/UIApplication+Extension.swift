@@ -18,26 +18,19 @@ internal extension UIApplication {
     }
     
     /// Fetch the top-most view controller
-    /// - Author: Stan Feldman
-    internal func topViewController(for baseViewController: UIViewController? = UIApplication.shared.rootViewController) -> UIViewController? {
+    /// - Source: https://stackoverflow.com/a/50656239
+    internal func getTopViewController(for baseViewController: UIViewController? = UIApplication.shared.rootViewController) -> UIViewController? {
         if let navigationController = baseViewController as? UINavigationController {
-            return topViewController(for: navigationController.visibleViewController)
+            return getTopViewController(for: navigationController.visibleViewController)
         }
         
-        if let tabBarController = baseViewController as? UITabBarController {
-            let moreNavigationController = tabBarController.moreNavigationController
-            
-            if let top = moreNavigationController.topViewController, top.view.window != nil {
-                return topViewController(for: top)
-            }
-            
-            if let selected = tabBarController.selectedViewController {
-                return topViewController(for: selected)
-            }
+        if let tabBarViewController = baseViewController as? UITabBarController,
+            let selectedViewController = tabBarViewController.selectedViewController {
+            return getTopViewController(for: selectedViewController)
         }
         
-        if let presentedViewController = baseViewController?.presentedViewController {
-            return topViewController(for: presentedViewController)
+        if let presented = baseViewController?.presentedViewController {
+            return getTopViewController(for: presented)
         }
         
         return baseViewController

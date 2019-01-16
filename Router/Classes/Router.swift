@@ -29,7 +29,7 @@ open class Router<Route: RouteProvider> {
     
     /// The navigation controller for the currently presented view controller
     public var currentTopViewController: UIViewController? {
-        return UIApplication.shared.topViewController()
+        return UIApplication.shared.getTopViewController()
     }
     
     // MARK: - Methods
@@ -47,8 +47,10 @@ open class Router<Route: RouteProvider> {
     ///
     open func navigate(to route: Route, animated: Bool = true) throws {
         try prepareForNavigation(to: route, animated: animated) { newViewController in
+            guard let currentViewController = self.currentTopViewController else { return }
+            
             try self.performNavigation(to: newViewController,
-                                       from: self.currentTopViewController!, // swiftlint:disable:this force_unwrapping
+                                       from: currentViewController,
                                        with: route.transition,
                                        animated: animated)
         }
@@ -88,7 +90,8 @@ open class Router<Route: RouteProvider> {
     private func prepareForNavigation(to route: Route,
                                       animated: Bool,
                                       whenReady completion: @escaping (UIViewController) throws -> Void) throws {
-        let currentViewController = currentTopViewController! // swiftlint:disable:this force_unwrapping
+        guard let currentViewController = currentTopViewController else { return }
+        
         let newViewController = try route.prepareForTransition(from: currentViewController)
         
         if newViewController === currentViewController.navigationController
@@ -128,33 +131,43 @@ open class Router<Route: RouteProvider> {
                                    from currentViewController: UIViewController,
                                    with transition: RouteTransition,
                                    animated: Bool) throws {
-        // Sanity check, don't navigate if we're already here
-        if newViewController === currentViewController {
+        // Sanity check, don't navigate if we're already here,
+        //  or we're trying to set THIS view controller's navigation controller
+        if newViewController === currentViewController
+            || newViewController === currentViewController.navigationController {
             return
         }
         
-        let fromViewController = currentViewController.navigationController ?? currentViewController
-        
-        if transition.requiresNavigationController {
-            if fromViewController as? UINavigationController == nil {
-                throw RouterError.missingRequiredNavigationController(for: transition)
-            }
-        } else if newViewController === currentViewController.navigationController {
-            return
-        }
+        // The source view controller will be the navigation controller where
+        //  possible - but will otherwise default to the current view controller
+        //  i.e. for "present" transitions.
+        let sourceViewController = currentViewController.navigationController ?? currentViewController
         
         switch transition {
         case .push:
-            (fromViewController as! UINavigationController).pushViewController(newViewController, animated: animated)
+            guard let navController = sourceViewController as? UINavigationController else {
+                throw RouterError.missingRequiredNavigationController(for: transition)
+            }
+            navController.pushViewController(newViewController, animated: animated)
+            
         case .set:
-            (fromViewController as! UINavigationController).setViewControllers([newViewController], animated: animated)
+            guard let navController = sourceViewController as? UINavigationController else {
+                throw RouterError.missingRequiredNavigationController(for: transition)
+            }
+            navController.setViewControllers([newViewController], animated: animated)
+            
         case .modal:
-            fromViewController.present(newViewController, animated: animated)
+            sourceViewController.present(newViewController, animated: animated)
+            
         case .custom:
-            customTransitionDelegate?.performTransition(to: newViewController,
-                                                        from: fromViewController,
-                                                        transition: transition,
-                                                        animated: animated)
+            guard let customTransitionDelegate = customTransitionDelegate else {
+                throw RouterError.missingCustomTransitionDelegate
+            }
+            
+            customTransitionDelegate.performTransition(to: newViewController,
+                                                       from: sourceViewController,
+                                                       transition: transition,
+                                                       animated: animated)
         }
     }
     

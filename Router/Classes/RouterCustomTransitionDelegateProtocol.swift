@@ -16,7 +16,7 @@ public protocol RouterCustomTransitionDelegate: class {
     
     /// Perform a custom transition
     func performTransition(to viewController: UIViewController,
-                           from parentViewController: UIViewController,
+                           from sourceViewController: UIViewController,
                            transition: RouteTransition,
                            animated: Bool)
     

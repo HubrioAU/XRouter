@@ -130,9 +130,8 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(router.currentRoute!, .nestedModalGroup)
         XCTAssertEqual(router.currentRoute!.transition, .modal)
         
-        try! router.navigate(to: .customTransitionVC)
-        XCTAssertEqual(router.currentRoute!, .customTransitionVC)
-        XCTAssertEqual(router.currentRoute!.transition, .custom(identifier: "customTransition"))
+        // Missing custom navigation delegate
+        XCTAssertThrowsError(try router.navigate(to: .customTransitionVC))
         
         // Lets navigate now to a second popover modal before moving back to .home
         try! router.navigate(to: .nestedModalGroup)

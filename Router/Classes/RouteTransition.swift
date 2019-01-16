@@ -67,18 +67,6 @@ extension RouteTransition {
         return String(describing: self).components(separatedBy: "(")[0]
     }
     
-    /// Does this transition require the parent to be a `UINavigationController`
-    public var requiresNavigationController: Bool {
-        switch self {
-        case .push,
-             .set:
-            return true
-        case .modal,
-             .custom:
-            return false
-        }
-    }
-    
 }
     
 extension RouteTransition: Equatable {
