@@ -24,15 +24,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// Home View Controller
     static let homeViewController = ColoredViewController(color: .green, title: "home")
-
+    
+    /// Second tab view contorller
+    static let secondTabViewController = ColoredViewController(color: .brown, title: "other tab")
+    
     /// Setup app
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: AppDelegate.homeViewController)
+        
+        // Create tab bar controller
+        let tabBarController = UITabBarController()
+        let tabOneNavigationController = UINavigationController(rootViewController: AppDelegate.homeViewController)
+        let tabTwoNavigationController = UINavigationController(rootViewController: AppDelegate.secondTabViewController)
+        
+        tabBarController.setViewControllers([
+            tabOneNavigationController,
+            tabTwoNavigationController
+            ], animated: false)
+        
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
-        let delay: TimeInterval = 1.5
+        
+        let delay: TimeInterval = 2
         openURLS(delay: delay, andThen: {
             self.navigateToNextRoute(delay: delay)
         })

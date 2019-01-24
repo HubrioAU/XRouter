@@ -46,8 +46,9 @@ open class Router<Route: RouteProvider> {
     ///         you are presently on - as provided by `RouteProvider(_:).prepareForTransition(...)`.
     ///
     open func navigate(to route: Route, animated: Bool = true, completion: ((Error?) -> Void)? = nil) {
-        prepareForNavigation(to: route, animated: animated, successHandler: { viewController in
-            self.performNavigation(to: viewController,
+        prepareForNavigation(to: route, animated: animated, successHandler: { source, destination in
+            self.performNavigation(from: source,
+                                   to: destination,
                                    with: route.transition,
                                    animated: animated,
                                    completion: completion)
@@ -81,7 +82,8 @@ open class Router<Route: RouteProvider> {
     // MARK: - Implementation
     
     ///
-    /// Prepare the route for navigation by:
+    /// Prepare the route for navigation.
+    ///
     ///     - Fetching the view controller we want to present
     ///     - Checking if its already in the view heirarchy
     ///         - Checking if it is a direct ancestor and then closing its children/siblings
@@ -90,67 +92,42 @@ open class Router<Route: RouteProvider> {
     ///
     private func prepareForNavigation(to route: Route,
                                       animated: Bool,
-                                      successHandler: @escaping (UIViewController) -> Void,
+                                      successHandler: @escaping (_ source: UIViewController, _ destination: UIViewController) -> Void,
                                       errorHandler: @escaping (Error) -> Void) {
-        guard let currentViewController = currentTopViewController else {
+        guard let source = currentTopViewController else {
             errorHandler(RouterError.missingSourceViewController)
             return
         }
         
-        /// Get destination view controller
-        let newViewController: UIViewController
+        let destination: UIViewController
+        
         do {
-            newViewController = try route.prepareForTransition(from: currentViewController)
+            destination = try route.prepareForTransition(from: source)
         } catch {
             errorHandler(error)
             return
         }
+    
+        guard let nearestAncestor = source.getLowestCommonAncestor(with: destination) else {
+            // No common ancestor - Adding destination to the stack for the first time
+            successHandler(source, destination)
+            return
+        }
         
-        if newViewController === currentViewController.navigationController
-            || newViewController === currentViewController {
-            // We're already presenting this view controller (or its navigation controller).
-            successHandler(newViewController)
-        } else if newViewController.isActive() {
-            // Trying to route to a view controller that is already presented somewhere
-            //   in an existing navigation stack.
-            
-            guard currentViewController.hasAncestor(newViewController) else {
-                // If this is not an ancestor of the current view controller, then we won't
-                //  be able to automatically find a route.
-                errorHandler(RouterError.unableToFindRouteToViewController)
-                return
-            }
-            
-            if let currentNavController = currentViewController.navigationController,
-                !currentNavController.isBeingPresented,
-                currentNavController == newViewController.navigationController {
-                successHandler(newViewController)
-            } else {
-                // In the meantime let's attempt to find a route by dismissing any modals.
-                newViewController.dismiss(animated: animated) {
-                    successHandler(newViewController)
-                }
-            }
-        } else {
-            successHandler(newViewController)
+        // Clear modal - then prepare for child view controller.
+        nearestAncestor.transition(toDescendant: destination, animated: animated) {
+            successHandler(nearestAncestor.visibleViewController, destination)
         }
     }
     
     /// Perform navigation
-    private func performNavigation(to destinationViewController: UIViewController,
+    private func performNavigation(from source: UIViewController,
+                                   to destination: UIViewController,
                                    with transition: RouteTransition,
                                    animated: Bool,
                                    completion: ((Error?) -> Void)?) {
-        // Sanity check, make sure we're coming from somewhere.
-        guard var sourceViewController = currentTopViewController else {
-            completion?(RouterError.missingSourceViewController)
-            return
-        }
-        
-        // Sanity check, don't navigate if we're already here,
-        //  or we're trying to set THIS view controller's navigation controller
-        if destinationViewController === sourceViewController
-            || destinationViewController === sourceViewController.navigationController {
+        // Already here/on current navigation controller
+        if destination === source || destination === source.navigationController {
             // No error? -- maybe throw an "already here" error
             completion?(nil)
             return
@@ -159,12 +136,12 @@ open class Router<Route: RouteProvider> {
         // The source view controller will be the navigation controller where
         //  possible - but will otherwise default to the current view controller
         //  i.e. for "present" transitions.
-        sourceViewController = sourceViewController.navigationController ?? sourceViewController
+        let source = source.navigationController ?? source
         
         switch transition {
         case .push:
-            if let navController = sourceViewController as? UINavigationController {
-                navController.pushViewController(destinationViewController, animated: animated) {
+            if let navController = source as? UINavigationController {
+                navController.pushViewController(destination, animated: animated) {
                     completion?(nil)
                 }
             } else {
@@ -173,8 +150,8 @@ open class Router<Route: RouteProvider> {
             
             
         case .set:
-            if let navController = sourceViewController as? UINavigationController {
-                navController.setViewControllers([destinationViewController], animated: animated) {
+            if let navController = source as? UINavigationController {
+                navController.setViewControllers([destination], animated: animated) {
                     completion?(nil)
                 }
             } else {
@@ -182,14 +159,14 @@ open class Router<Route: RouteProvider> {
             }
             
         case .modal:
-            sourceViewController.present(destinationViewController, animated: animated) {
+            source.present(destination, animated: animated) {
                 completion?(nil)
             }
             
         case .custom:
             if let customTransitionDelegate = customTransitionDelegate {
-                customTransitionDelegate.performTransition(to: destinationViewController,
-                                                           from: sourceViewController,
+                customTransitionDelegate.performTransition(to: destination,
+                                                           from: source,
                                                            transition: transition,
                                                            animated: animated,
                                                            completion: completion)

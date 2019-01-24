@@ -21,7 +21,6 @@ class RouterErrorTests: XCTestCase {
         
         assertExpectedFormat(for: .missingSourceViewController)
         assertExpectedFormat(for: .missingRequiredNavigationController(for: mockTransition))
-        assertExpectedFormat(for: .unableToFindRouteToViewController)
         assertExpectedFormat(for: .missingRequiredParameterWhileUnwrappingURLRoute(parameter: "test"))
         assertExpectedFormat(for: .requiredIntegerParameterWasNotAnInteger(parameter: "test", stringValue: "test"))
         assertExpectedFormat(for: .missingCustomTransitionDelegate)

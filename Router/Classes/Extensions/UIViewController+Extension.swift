@@ -14,107 +14,83 @@ internal extension UIViewController {
     
     // MARK: - Methods
     
-    ///
-    /// Is this view controller active in the UIApplication hierachy
-    ////
-    internal func isActive() -> Bool {
-        return UIApplication.shared.rootViewController === getRootAncestor()
+    /// If this is a container view controller, get child and it is visible
+    /// - Note: Currently does not handle split view controller
+    internal var visibleViewController: UIViewController {
+        return presentedViewController
+            ?? (self as? UITabBarController)?.selectedViewController
+            ?? (self as? UINavigationController)?.visibleViewController
+            ?? self
+    }
+    
+    /// Dismiss then transition to descendant view controller.
+    internal func transition(toDescendant viewController: UIViewController,
+                             animated: Bool,
+                             completion: @escaping () -> Void) {
+        dismissIfNeeded(animated: animated) {
+            // Switch tabs if this is a tab bar controller
+            if let tabBarController = self as? UITabBarController {
+                tabBarController.switchToTabIfNeeded(for: viewController)
+            }
+            
+            completion()
+        }
     }
     
     ///
-    /// Is this view controller an ancestor of mine?
-    /// - Note: Recursively checks parent, uncle/aunt, and then grantparent view controllers
+    /// Get the lowest common ancestor between this and another view controller.
     ///
-    internal func hasAncestor(_ viewController: UIViewController) -> Bool {
-        if let ancestor = getNextAncestor() {
-            return ancestor === viewController
-                || ancestor.hasChild(viewController)
-                || ancestor.hasAncestor(viewController)
-        }
-        
-        return false
-    }
-    
+    /// - Returns: Lowest common ancestor, or `nil` if there is no common ancestor.
     ///
-    /// Get the next ancestor view controller
-    ///
-    /// - Note: This was written as a method call instead of a dynamic property
-    ///         because it I felt it helped indicate that it is relatively expensive.
-    ///
-    internal func getNextAncestor() -> UIViewController? {
-        if let navigationController = navigationController {
-            // The nearest ancestor in the view controller hierarchy that is a navigation controller.
-            return navigationController
+    internal func getLowestCommonAncestor(with viewController: UIViewController) -> UIViewController? {
+        var currentABranch = self
+        var currentBBranch = viewController
+        
+        var aBranch: [UIViewController] = [currentABranch]
+        var bBranch: [UIViewController] = [currentBBranch]
+        
+        while let directParent = currentABranch.directParentViewController {
+            currentABranch = directParent
+            aBranch.append(directParent)
         }
         
-        if let splitViewController = splitViewController {
-            // The nearest ancestor in the view controller hierarchy that is a split view controller.
-            return splitViewController
+        while let directParent = currentBBranch.directParentViewController {
+            currentBBranch = directParent
+            bBranch.append(directParent)
         }
         
-        if let tabBarController = tabBarController {
-            // The nearest ancestor in the view controller hierarchy that is a tab bar controller.
-            return tabBarController
+        for aViewController in aBranch {
+            for bViewController in bBranch {
+                if aViewController === bViewController {
+                    return aViewController
+                }
+            }
         }
         
-        if let presentingViewController = presentingViewController {
-            // The view controller that presented this view controller.
-            return presentingViewController
-        }
-        
-        // This is an orphan view controller
         return nil
     }
     
     // MARK: - Implementation
     
     ///
-    /// Get the root level ancestor view controller
+    /// Direct parent view controller
     ///
-    /// - Note: This was written as a method call instead of a dynamic property
-    ///         because it I felt it helped indicate that it is relatively expensive.
+    /// In order, this goes: Navigation, SplitView, TabBar, Presenting
     ///
-    private func getRootAncestor() -> UIViewController? {
-        var currentViewController = self
-        
-        while let ancestorViewController = currentViewController.getNextAncestor() {
-            currentViewController = ancestorViewController
-        }
-        
-        return currentViewController
+    private var directParentViewController: UIViewController? {
+        return navigationController
+            ?? splitViewController
+            ?? tabBarController
+            ?? presentingViewController
     }
     
-    /// Is this view controller a direct child of mine
-    private func hasChild(_ viewController: UIViewController) -> Bool {
-        // Check navigation controller
-        if let navigationController = self as? UINavigationController {
-            return navigationController.viewControllers.contains(viewController)
+    /// Dismiss modals. Always fires the completion handler.
+    private func dismissIfNeeded(animated: Bool, completion: @escaping () -> Void) {
+        if presentedViewController == nil {
+            completion()
+        } else {
+            dismiss(animated: animated, completion: completion)
         }
-        
-        // Check split view controllers
-        if let splitViewControllers = (self as? UISplitViewController)?.viewControllers {
-            for splitViewController in splitViewControllers {
-                if splitViewController === viewController || splitViewController.hasChild(viewController) {
-                    return true
-                }
-            }
-        }
-        
-        // Check tab bar view controllers
-        if let tabBarViewControllers = (self as? UITabBarController)?.viewControllers {
-            for tabBarViewController in tabBarViewControllers {
-                if tabBarViewController === viewController || tabBarViewController.hasChild(viewController) {
-                    return true
-                }
-            }
-        }
-        
-        // Check if presenting anything
-        if viewController == presentedViewController {
-            return true
-        }
-        
-        return false
     }
     
 }

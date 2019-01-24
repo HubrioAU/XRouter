@@ -30,9 +30,6 @@ public enum RouterError {
     /// A required parameter was found, but it was not an Int
     case requiredIntegerParameterWasNotAnInteger(parameter: String, stringValue: String)
     
-    /// The view controller was in the hierachy but was not an ancestor of the current view controller, so we were unable to automatically find a route to it.
-    case unableToFindRouteToViewController
-    
 }
 
 extension RouterError: LocalizedError {
@@ -64,10 +61,6 @@ extension RouterError: LocalizedError {
             Required integer parameter \"\(name)\" existed, but was not an integer.
             Instead \"\(stringValue)\" was received."
             """
-        case .unableToFindRouteToViewController:
-            return """
-            The view controller was in the hierachy but was not an ancestor of the current view controller, so we were unable to automatically find a route to it.
-            """
         }
     }
     
@@ -94,11 +87,6 @@ extension RouterError: LocalizedError {
         case .requiredIntegerParameterWasNotAnInteger(_, let stringValue):
             return """
             The value that was received was \"\(stringValue)\", which could not be cast to `Int`.
-            """
-        case .unableToFindRouteToViewController:
-            return """
-            Something funky has occured.
-            Please log an issue at: https://github.com/reececomo/XRouter
             """
         }
     }

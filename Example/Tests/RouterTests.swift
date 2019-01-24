@@ -46,15 +46,18 @@ class RouterTests: XCTestCase {
     func testRoutingWithUITabBarController() {
         // Create initial navigation stack
         let tabBarController = UITabBarController()
-        let nestedNavigationController = UINavigationController(rootViewController: RouterTests.homeViewController)
-        tabBarController.setViewControllers([nestedNavigationController], animated: false)
+        let secondTabScreen = UIViewController()
+        let firstTab = UINavigationController(rootViewController: RouterTests.homeViewController)
+        let secondTab = UINavigationController(rootViewController: secondTabScreen)
+        tabBarController.setViewControllers([firstTab, secondTab],
+                                            animated: false)
         
         let router = MockRouter<TestRoute>(rootViewController: tabBarController)
         
         assertRoutingPathsWork(using: router)
         
-        navigate(router, to: .secondHomeVC)
-        XCTAssertEqual(router.currentRoute!, .secondHomeVC)
+        navigate(router, to: .customVC(viewController: secondTabScreen))
+        XCTAssertEqual(router.currentRoute!, .customVC(viewController: secondTabScreen))
         XCTAssertEqual(router.currentRoute!.transition, .set)
     }
     
@@ -170,6 +173,9 @@ private enum TestRoute: RouteProvider {
     /// Set transition, single view controller
     case secondHomeVC
     
+    /// Custom VC, set transition.
+    case customVC(viewController: UIViewController)
+    
     /// Push transition, single view controller
     case settingsVC
     
@@ -188,7 +194,8 @@ private enum TestRoute: RouteProvider {
     var transition: RouteTransition {
         switch self {
         case .homeVC,
-             .secondHomeVC:
+             .secondHomeVC,
+             .customVC:
             return .set
         case .settingsVC,
              .alwaysFails:
@@ -206,6 +213,8 @@ private enum TestRoute: RouteProvider {
         case .homeVC,
              .secondHomeVC:
             return RouterTests.homeViewController
+        case .customVC(let viewController):
+            return viewController
         case .settingsVC,
              .singleModalVC,
              .customTransitionVC:
