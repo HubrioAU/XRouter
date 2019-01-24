@@ -63,7 +63,7 @@ extension AppRoute: RouteProvider {
     func prepareForTransition(from currentViewController: UIViewController) throws {
         switch self {
         case .home:
-            return HomeCoordinator.shared.navigateHome().navigationController
+            return HomeCoordinator.shared.navigationController
         case .profile(let profileID):
             let myProfile = try Profile.load(withID: profileID)
             return ProfileViewController(profile: myProfile)
@@ -97,7 +97,7 @@ extension MyRoute: RouteProvider {
 }
 ```
 
-Here is an example with multiple domains:
+Here is an example with multiple domains configured:
 ```swift
 extension MyRoute: RouteProvider {
 
