@@ -40,8 +40,8 @@ enum AppRoute {
 }
 ```
 
-- Note: By default, enum properties dont factor into equality checks/comparisons. You can provide your own
-        implemention of `var name: String` or `static func == (_:_:)` if you would like to override this.
+- Note: By default, enum properties don't factor into equality checks/comparisons. You can provide your own
+        implementation of `var name: String` or `static func == (_:_:)` if you would like to override this.
 
 Implement the protocol stubs:
 ```swift
@@ -88,7 +88,7 @@ extension MyRoute: RouteProvider {
     static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
         return .group("store.example.com") {
             $0.map("products") { .allProducts }
-            $0.map("products/{category}/view") { try .products(catagory: $0.param("category")) }
+            $0.map("products/{category}/view") { try .products(category: $0.param("category")) }
             $0.map("user/{id}/profile") { try .viewProfile(withID: $0.param("id")) }
             $0.map("user/*/logout") { .logout }
         }
@@ -105,7 +105,7 @@ extension MyRoute: RouteProvider {
         return .init(matchers: [
             .group(["example.com", "store.example.com"]) {
                 $0.map("products/") { .allProducts }
-                $0.map("products/{category}/view") { try .products(catagory: $0.param("category")) }
+                $0.map("products/{category}/view") { try .products(category: $0.param("category")) }
                 $0.map("user/{id}/profile") { try .viewProfile(withID: $0.param("id")) }
                 $0.map("user/*/logout") { .logout }
             },
