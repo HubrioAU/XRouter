@@ -85,16 +85,16 @@
 
 <p>A simple routing library for iOS projects.</p>
 
-<p><a href="https://app.codacy.com/app/reececomo/XRouter?utm_source=github.com&utm_medium=referral&utm_content=reececomo/XRouter&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d" alt="Codacy Badge"></a>
-<a href="https://codecov.io/gh/reececomo/XRouter"><img src="https://codecov.io/gh/reececomo/XRouter/branch/master/graph/badge.svg" alt="CodeCov Badge"></a>
-<a href="https://travis-ci.org/reececomo/XRouter"><img src="https://travis-ci.org/reececomo/XRouter.svg?branch=master" alt="Build Status"></a>
-<a href="https://reececomo.github.io/XRouter"><img src="https://raw.githubusercontent.com/reececomo/XRouter/master/docs/badge.svg?sanitize=true" alt="Docs Badge"></a>
+<p><a href="https://app.codacy.com/app/hubrioau/XRouter?utm_source=github.com&utm_medium=referral&utm_content=hubrioau/XRouter&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d" alt="Codacy Badge"></a>
+<a href="https://codecov.io/gh/hubrioau/XRouter"><img src="https://codecov.io/gh/reececomo/XRouter/branch/master/graph/badge.svg" alt="CodeCov Badge"></a>
+<a href="https://travis-ci.org/hubrioau/XRouter"><img src="https://travis-ci.org/reececomo/XRouter.svg?branch=master" alt="Build Status"></a>
+<a href="https://hubrioau.github.io/XRouter"><img src="https://raw.githubusercontent.com/hubrioau/XRouter/master/docs/badge.svg?sanitize=true" alt="Docs Badge"></a>
 <a href="https://cocoapods.org/pods/XRouter"><img src="https://img.shields.io/cocoapods/v/XRouter.svg?style=flat" alt="Version"></a>
 <a href="https://cocoapods.org/pods/XRouter"><img src="https://img.shields.io/cocoapods/l/XRouter.svg?style=flat" alt="License"></a>
 <a href="https://cocoapods.org/pods/XRouter"><img src="https://img.shields.io/cocoapods/p/XRouter.svg?style=flat" alt="Platform"></a></p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/reececomo/XRouter/master/XRouter.jpg" alt="XRouter" width="625" style="max-width:625px;width:auto;height:auto;"/>
+<img src="https://raw.githubusercontent.com/hubrioau/XRouter/master/XRouter.jpg" alt="XRouter" width="625" style="max-width:625px;width:auto;height:auto;"/>
 </p>
 <h2 id='usage' class='heading'>Usage</h2>
 <h3 id='basic-usage' class='heading'>Basic Usage</h3>
@@ -118,8 +118,8 @@
 </code></pre>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    By default, enum properties dont factor into equality checks/comparisons. You can provide your own
-    implemention of <code>var name: String</code> or <code>static func == (_:_:)</code> if you would like to override this.
+    By default, enum properties don&rsquo;t factor into equality checks/comparisons. You can provide your own
+    implementation of <code>var name: String</code> or <code>static func == (_:_:)</code> if you would like to override this.
 
 </div>
 
@@ -142,7 +142,7 @@
     <span class="kd">func</span> <span class="nf">prepareForTransition</span><span class="p">(</span><span class="n">from</span> <span class="nv">currentViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
         <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
         <span class="k">case</span> <span class="o">.</span><span class="nv">home</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kt">HomeCoordinator</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">navigateHome</span><span class="p">()</span><span class="o">.</span><span class="n">navigationController</span>
+            <span class="k">return</span> <span class="kt">HomeCoordinator</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">navigationController</span>
         <span class="k">case</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="k">let</span> <span class="nv">profileID</span><span class="p">):</span>
             <span class="k">let</span> <span class="nv">myProfile</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Profile</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="n">profileID</span><span class="p">)</span>
             <span class="k">return</span> <span class="kt">ProfileViewController</span><span class="p">(</span><span class="nv">profile</span><span class="p">:</span> <span class="n">myProfile</span><span class="p">)</span>
@@ -164,7 +164,7 @@
     <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">.</span><span class="nf">group</span><span class="p">(</span><span class="s">"store.example.com"</span><span class="p">)</span> <span class="p">{</span>
             <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allProducts</span> <span class="p">}</span>
-            <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">catagory</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
+            <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">category</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
             <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">viewProfile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
             <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/*/logout"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">logout</span> <span class="p">}</span>
         <span class="p">}</span>
@@ -173,14 +173,14 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>Here is an example with multiple domains:</p>
+<p>Here is an example with multiple domains configured:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
 
     <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">matchers</span><span class="p">:</span> <span class="p">[</span>
             <span class="o">.</span><span class="nf">group</span><span class="p">([</span><span class="s">"example.com"</span><span class="p">,</span> <span class="s">"store.example.com"</span><span class="p">])</span> <span class="p">{</span>
                 <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allProducts</span> <span class="p">}</span>
-                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">catagory</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
+                <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">category</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
                 <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">viewProfile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
                 <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"user/*/logout"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">logout</span> <span class="p">}</span>
             <span class="p">},</span>
@@ -318,7 +318,7 @@ it, simply add the following line to your Podfile:</p>
 </code></pre>
 <h2 id='author' class='heading'>Author</h2>
 
-<p>Reece Como, <a href="mailto:reece.como@gmail.com">reece.como@gmail.com</a></p>
+<p>Reece Como, <a href="mailto:reece@hubr.io">reece@hubr.io</a></p>
 <h2 id='license' class='heading'>License</h2>
 
 <p>XRouter is available under the MIT license. See the LICENSE file for more info.</p>

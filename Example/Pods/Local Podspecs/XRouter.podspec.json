@@ -1,19 +1,19 @@
 {
   "name": "XRouter",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "summary": "The simple routing library for iOS.",
   "description": "A simple routing library for iOS.\nSetup routes and map them to controllers, easy peasy.",
-  "homepage": "https://github.com/reececomo/XRouter",
+  "homepage": "https://github.com/hubrioAU/XRouter",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Reece Como": "reece.como@gmail.com"
+    "Reece Como": "reece@hubr.io"
   },
   "source": {
-    "git": "https://github.com/reececomo/XRouter.git",
-    "tag": "1.2.1"
+    "git": "https://github.com/hubrioAU/XRouter.git",
+    "tag": "1.2.2"
   },
   "platforms": {
     "ios": "11.0"
@@ -30,7 +30,7 @@
     {
       "name": "RxSwift",
       "dependencies": {
-        "XCoordinator/Core": [
+        "XRouter/Core": [
 
         ],
         "RxSwift": [
