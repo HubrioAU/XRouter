@@ -1,6 +1,0 @@
-framework module XRouter {
-  umbrella header "XRouter-umbrella.h"
-
-  export *
-  module * { export * }
-}
