@@ -2,7 +2,6 @@ use_frameworks!
 
 target 'XRouter_Example' do
   pod 'XRouter', :path => '../'
-  pod 'XRouter/RxSwift', :path => '../'
 
   target 'XRouter_Tests' do
     inherit! :search_paths
