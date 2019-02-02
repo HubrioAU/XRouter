@@ -65,6 +65,14 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Reactive.html">Reactive</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -150,6 +158,12 @@
     <span class="p">}</span>
 
 <span class="p">}</span>
+</code></pre>
+<h3 id='rxswift-support' class='heading'>RxSwift Support</h3>
+
+<p>XRouter also supports reactive bindings through the RxSwift framework. Bindings exist for both the <code>navigate(to:)</code> and <code>openURL(_:)</code> methods, which each return a <code>Completable</code> event.</p>
+<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">loginFlow</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </code></pre>
 <h3 id='advanced-usage' class='heading'>Advanced Usage</h3>
 <h4 id='url-support' class='heading'>URL Support</h4>

@@ -73,6 +73,13 @@ extension AppRoute: RouteProvider {
 }
 ```
 
+### RxSwift Support
+XRouter also supports reactive bindings through the RxSwift framework. Bindings exist for both the `navigate(to:)` and `openURL(_:)` methods, which each return a `Completable` event.
+```swift
+router.rx.navigate(to: .loginFlow)
+router.rx.openURL(url)
+```
+
 ### Advanced Usage
 
 #### URL Support
