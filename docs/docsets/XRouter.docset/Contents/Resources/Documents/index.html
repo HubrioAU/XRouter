@@ -93,10 +93,10 @@
 
 <p>A simple routing library for iOS projects.</p>
 
-<p><a href="https://app.codacy.com/app/hubrioau/XRouter?utm_source=github.com&utm_medium=referral&utm_content=hubrioau/XRouter&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d" alt="Codacy Badge"></a>
-<a href="https://codecov.io/gh/hubrioau/XRouter"><img src="https://codecov.io/gh/reececomo/XRouter/branch/master/graph/badge.svg" alt="CodeCov Badge"></a>
-<a href="https://travis-ci.org/hubrioau/XRouter"><img src="https://travis-ci.org/reececomo/XRouter.svg?branch=master" alt="Build Status"></a>
-<a href="https://hubrioau.github.io/XRouter"><img src="https://raw.githubusercontent.com/hubrioau/XRouter/master/docs/badge.svg?sanitize=true" alt="Docs Badge"></a>
+<p><a href="https://app.codacy.com/app/hubrioAU/XRouter?utm_source=github.com&utm_medium=referral&utm_content=hubrioAU/XRouter&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d" alt="Codacy Badge"></a>
+<a href="https://codecov.io/gh/hubrioau/XRouter"><img src="https://codecov.io/gh/hubrioAU/XRouter/branch/master/graph/badge.svg" alt="CodeCov Badge"></a>
+<a href="https://travis-ci.org/hubrioAU/XRouter"><img src="https://travis-ci.org/hubrioAU/XRouter.svg?branch=master" alt="Build Status"></a>
+<a href="https://hubrioau.github.io/XRouter"><img src="https://raw.githubusercontent.com/hubrioAU/XRouter/master/docs/badge.svg?sanitize=true" alt="Docs Badge"></a>
 <a href="https://cocoapods.org/pods/XRouter"><img src="https://img.shields.io/cocoapods/v/XRouter.svg?style=flat" alt="Version"></a>
 <a href="https://cocoapods.org/pods/XRouter"><img src="https://img.shields.io/cocoapods/l/XRouter.svg?style=flat" alt="License"></a>
 <a href="https://cocoapods.org/pods/XRouter"><img src="https://img.shields.io/cocoapods/p/XRouter.svg?style=flat" alt="Platform"></a></p>
@@ -147,7 +147,7 @@
     <span class="c1">/// Prepare the view controller for the route</span>
     <span class="c1">/// - You can use this to configure entry points into flow coordinators</span>
     <span class="c1">/// - You can throw errors here to cancel the navigation</span>
-    <span class="kd">func</span> <span class="nf">prepareForTransition</span><span class="p">(</span><span class="n">from</span> <span class="nv">currentViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">prepareForTransition</span><span class="p">(</span><span class="n">from</span> <span class="nv">sourceViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span> <span class="p">{</span>
         <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
         <span class="k">case</span> <span class="o">.</span><span class="nv">home</span><span class="p">:</span>
             <span class="k">return</span> <span class="kt">HomeCoordinator</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">navigationController</span>
@@ -286,14 +286,15 @@ all navigation errors in the same way. For example, something like this:</p>
 <span class="kd">extension</span> <span class="kt">AppDelegate</span><span class="p">:</span> <span class="kt">RouterCustomTransitionDelegate</span> <span class="p">{</span>
 
     <span class="c1">/// Perform a custom transition</span>
-    <span class="kd">func</span> <span class="nf">performTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">newViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
-                           <span class="n">from</span> <span class="nv">oldViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
+    <span class="kd">func</span> <span class="nf">performTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">destViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
+                           <span class="n">from</span> <span class="nv">sourceViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
                            <span class="nv">transition</span><span class="p">:</span> <span class="kt">RouteTransition</span><span class="p">,</span>
-                           <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+                           <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+                           <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="n">transition</span> <span class="o">==</span> <span class="o">.</span><span class="n">myHeroFade</span> <span class="p">{</span>
-            <span class="n">oldViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="kc">true</span>
-            <span class="n">newViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="kc">true</span>
-            <span class="n">newViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">modalAnimationType</span> <span class="o">=</span> <span class="o">.</span><span class="n">fade</span>
+            <span class="n">sourceViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">destViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">destViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">modalAnimationType</span> <span class="o">=</span> <span class="o">.</span><span class="n">fade</span>
 
             <span class="c1">// Creates a container nav stack</span>
             <span class="k">let</span> <span class="nv">containerNavController</span> <span class="o">=</span> <span class="kt">UINavigationController</span><span class="p">()</span>
@@ -301,7 +302,11 @@ all navigation errors in the same way. For example, something like this:</p>
             <span class="n">containerNavController</span><span class="o">.</span><span class="nf">setViewControllers</span><span class="p">([</span><span class="n">newViewController</span><span class="p">],</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
 
             <span class="c1">// Present the hero animation</span>
-            <span class="n">oldViewController</span><span class="o">.</span><span class="nf">present</span><span class="p">(</span><span class="n">containerNavController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">)</span>
+            <span class="n">sourceViewController</span><span class="o">.</span><span class="nf">present</span><span class="p">(</span><span class="n">containerNavController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nf">completion</span><span class="p">?(</span><span class="kc">nil</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">completion</span><span class="p">?(</span><span class="kc">nil</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 

@@ -32,8 +32,8 @@ extension UINavigationController {
     
     /// Set view controllers with completion closure
     internal func setViewControllers(_ viewControllers: [UIViewController],
-                                   animated: Bool,
-                                   completion: @escaping () -> Void) {
+                                     animated: Bool,
+                                     completion: @escaping () -> Void) {
         setViewControllers(viewControllers, animated: animated)
         
         guard animated, let coordinator = transitionCoordinator else {

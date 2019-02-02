@@ -10,8 +10,8 @@ import XCTest
 import UIKit
 @testable import XRouter
 
-// swiftlint:disable force_try force_unwrapping
-// We are skipping force_try and force_unwrapping for these tests
+// swiftlint:disable force_unwrapping
+// We are skipping force_unwrapping for these tests
 
 /**
  Router Tests
@@ -131,13 +131,15 @@ class RouterURLMatcherTests: XCTestCase {
     /// Test dynamic string routes
     func testRouteMissingParamTriggersError() {
         let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
-        openURLExpectError(router, url: URL(string: "http://example.com/route/missing/param")!, error: RouterError.missingRequiredParameterWhileUnwrappingURLRoute(parameter: "whoops"))
+        openURLExpectError(router, url: URL(string: "http://example.com/route/missing/param")!,
+                           error: RouterError.missingRequiredPathParameter(parameter: "whoops"))
     }
     
     /// Test dynamic string routes
     func testRouteInvalidIntegerParameterTriggersError() {
         let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
-        openURLExpectError(router, url: URL(string: "http://example.com/dynamic/int/three")!, error: RouterError.requiredIntegerParameterWasNotAnInteger(parameter: "id", stringValue: "three"))
+        openURLExpectError(router, url: URL(string: "http://example.com/dynamic/int/three")!,
+                           error: RouterError.requiredIntegerParameterWasNotAnInteger(parameter: "id", stringValue: "three"))
     }
     
 }

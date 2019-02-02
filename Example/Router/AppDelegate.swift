@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
-        
         let delay: TimeInterval = 2
         openURLS(delay: delay, andThen: {
             self.navigateToNextRoute(delay: delay)

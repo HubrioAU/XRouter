@@ -60,10 +60,8 @@ internal extension UIViewController {
         }
         
         for aViewController in aBranch {
-            for bViewController in bBranch {
-                if aViewController === bViewController {
-                    return aViewController
-                }
+            for bViewController in bBranch where aViewController === bViewController {
+                return aViewController
             }
         }
         

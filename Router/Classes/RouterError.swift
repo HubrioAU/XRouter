@@ -21,7 +21,7 @@ public enum RouterError {
     case missingRequiredNavigationController(for: RouteTransition)
     
     /// Missing required parameter while unwrapping URL route
-    case missingRequiredParameterWhileUnwrappingURLRoute(parameter: String)
+    case missingRequiredPathParameter(parameter: String)
     
     /// There is currently no top view controller on the navigation stack
     /// - Note: This really won't ever occur, unless you are doing something super bizarre with the `UIWindow(_:).rootViewController`.
@@ -47,7 +47,7 @@ extension RouterError: LocalizedError {
             return """
             You cannot navigate to this route using transition \"\(transition.name)\" without a navigation controller.
             """
-        case .missingRequiredParameterWhileUnwrappingURLRoute(let name):
+        case .missingRequiredPathParameter(let name):
             return """
             Missing required paramter \"\(name)\" while unwrapping URL route.
             """
@@ -75,7 +75,7 @@ extension RouterError: LocalizedError {
             return """
             Nest the parent view controller in a `UINavigationController`.
             """
-        case .missingRequiredParameterWhileUnwrappingURLRoute(let name):
+        case .missingRequiredPathParameter(let name):
             return """
             You referenced a parameter \"\(name)\" that wasn't declared in the `PathPattern`.
             Please include the parameter in `PathPattern`, or remove it from the mapping.

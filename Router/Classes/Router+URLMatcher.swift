@@ -20,7 +20,7 @@ extension Router {
         /// Path matcher
         let pathMatcher: URLPathMatcher
         
-        // MARK: -Methods
+        // MARK: - Methods
         
         /// Set a group of mapped paths for some hosts
         public static func group(_ hosts: [String],

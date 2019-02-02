@@ -53,7 +53,7 @@ public class MatchedURL {
             return parameter
         }
         
-        throw RouterError.missingRequiredParameterWhileUnwrappingURLRoute(parameter: name)
+        throw RouterError.missingRequiredPathParameter(parameter: name)
     }
     
     /// Retrieve a named parameter as an `Int`

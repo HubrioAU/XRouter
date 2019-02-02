@@ -10,8 +10,8 @@ import XCTest
 import UIKit
 @testable import XRouter
 
-// swiftlint:disable force_try force_unwrapping
-// We are skipping force_try and force_unwrapping for these tests
+// swiftlint:disable force_unwrapping
+// We are skipping force_unwrapping for these tests
 
 /**
  Router Tests

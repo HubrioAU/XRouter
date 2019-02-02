@@ -148,7 +148,6 @@ open class Router<Route: RouteProvider> {
                 completion?(RouterError.missingRequiredNavigationController(for: transition))
             }
             
-            
         case .set:
             if let navController = source as? UINavigationController {
                 navController.setViewControllers([destination], animated: animated) {
