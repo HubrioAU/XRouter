@@ -261,7 +261,7 @@ pod 'XRouter'
 
 ## Author
 
-Reece Como, reece.como@gmail.com
+Reece Como, reece@hubr.io
 
 ## License
 
