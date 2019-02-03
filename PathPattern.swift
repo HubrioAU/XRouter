@@ -1,8 +1,6 @@
 //
-//  PathPattern.swift
+//  PathPattern
 //  XRouter
-//
-//  Created by Reece Como on 12/1/19.
 //
 
 import Foundation

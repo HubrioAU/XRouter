@@ -58,7 +58,7 @@ class ReactiveTestCase: XCTestCase {
         let expectation = self.expectation(description: "Navigate to URL")
         var receivedError: Error?
         
-        router.rx.openURL(url, animated: false).subscribe(onCompleted: {
+        router.rx.openURL(url, animated: false).subscribe(onSuccess: { _ in
             expectation.fulfill()
         }, onError: { error in
             receivedError = error

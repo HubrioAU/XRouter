@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>URLPathMatcher Class Reference</title>
+    <title>URLPathMapper Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/URLPathMatcher" class="dashAnchor"></a>
-    <a title="URLPathMatcher Class Reference"></a>
+    <a name="//apple_ref/swift/Class/URLPathMapper" class="dashAnchor"></a>
+    <a title="URLPathMapper Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">XRouter Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        URLPathMatcher Class Reference
+        URLPathMapper Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -50,7 +50,7 @@
                 <a href="../../Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/Router/URLPathMatcher.html">– URLPathMatcher</a>
+                <a href="../../Classes/Router/URLPathMapper.html">– URLPathMapper</a>
               </li>
             </ul>
           </li>
@@ -89,25 +89,45 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>URLPathMatcher</h1>
+            <h1>URLPathMapper</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">URLPathMatcher</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">URLPathMapper</span></code></pre>
 
                 </div>
               </div>
-            <p>Router URL Path Matcher</p>
+            <p>Router URL Path Mapper.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    All static paths are resolved before dynamic paths.
+
+</div>
+
+<p>Usage:</p>
+<pre class="highlight swift"><code><span class="c1">// Static path</span>
+<span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"/users"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allUsers</span> <span class="p">}</span>
+
+<span class="c1">// Dynamic path</span>
+<span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"/users/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Methods"></a>
+                <a name="//apple_ref/swift/Section/Methods" class="dashAnchor"></a>
+                <a href="#/Methods">
+                  <h3 class="section-name">Methods</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC14URLPathMatcherC3mapyyAA11PathPatternC_xAA10MatchedURLCKctF"></a>
+                    <a name="/s:7XRouter6RouterC13URLPathMapperC3mapyyAA11PathPatternC_xAA10MatchedURLCKctF"></a>
                     <a name="//apple_ref/swift/Method/map(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC14URLPathMatcherC3mapyyAA11PathPatternC_xAA10MatchedURLCKctF">map(_:_:)</a>
+                    <a class="token" href="#/s:7XRouter6RouterC13URLPathMapperC3mapyyAA11PathPatternC_xAA10MatchedURLCKctF">map(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -137,9 +157,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC14URLPathMatcherC3mapyyAA11PathPatternC_xyKctF"></a>
+                    <a name="/s:7XRouter6RouterC13URLPathMapperC3mapyyAA11PathPatternC_xyKctF"></a>
                     <a name="//apple_ref/swift/Method/map(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC14URLPathMatcherC3mapyyAA11PathPatternC_xyKctF">map(_:_:)</a>
+                    <a class="token" href="#/s:7XRouter6RouterC13URLPathMapperC3mapyyAA11PathPatternC_xyKctF">map(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">

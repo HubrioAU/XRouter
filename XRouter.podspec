@@ -20,7 +20,7 @@ Setup routes and map them to controllers, easy peasy.
   s.default_subspec = 'Core'
   
   s.subspec 'Core' do |ss|
-      ss.source_files = 'Router/Classes/*.swift'
+      ss.source_files = 'Router/Classes/*.swift', 'Router/Classes/Extensions/*.swift', 'Router/Classes/URLMatcher/*.swift'
       ss.framework  = 'Foundation'
       ss.framework  = 'UIKit'
   end

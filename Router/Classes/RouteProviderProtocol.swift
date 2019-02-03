@@ -1,8 +1,6 @@
 //
-//  RouteProviderProtocol.swift
+//  RouteProvider
 //  XRouter
-//
-//  Created by Reece Como on 5/1/19.
 //
 
 import Foundation

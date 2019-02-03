@@ -50,7 +50,7 @@
                 <a href="../Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Router/URLPathMatcher.html">– URLPathMatcher</a>
+                <a href="../Classes/Router/URLPathMapper.html">– URLPathMapper</a>
               </li>
             </ul>
           </li>
@@ -109,6 +109,16 @@
     <code><a href="../Protocols/RouteProvider.html#/s:7XRouter13RouteProviderP12registerURLsAA6RouterC15URLMatcherGroupVyx_GSgyFZ">RouteProvider.registerURLs(...)</a></code>
 
 </div>
+
+<p>Usage:</p>
+<pre class="highlight swift"><code><span class="c1">// Path parameters</span>
+<span class="k">let</span> <span class="nv">str</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="k">try</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"myParam"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">int</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="k">try</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">)</span>
+
+<span class="c1">// Query string parameters</span>
+<span class="k">let</span> <span class="nv">str</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">query</span><span class="p">(</span><span class="s">"myParam"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">int</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">query</span><span class="p">(</span><span class="s">"myParam"</span><span class="p">)</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">

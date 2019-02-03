@@ -73,8 +73,8 @@ extension AppRoute: RouteProvider {
 }
 ```
 
-### RxSwift Support
-XRouter also supports reactive bindings through the RxSwift framework. Bindings exist for both the `navigate(to:)` and `openURL(_:)` methods, which each return a `Completable` event.
+### RxSwift Implementation
+XRouter also implements reactive bindings for the RxSwift framework. Bindings exist for the `navigate(to:)` method, which returns a `Completable` event, as well as the `openURL(_:)` method, which returns a `Single<Bool>` event (indicating whether or not the url was handled).
 ```swift
 router.rx.navigate(to: .loginFlow)
 router.rx.openURL(url)
@@ -148,9 +148,9 @@ extension AppDelegate {
 
 #### Handling errors
 
-It can be messy trying to handle errors in every place you call navigate.
+It can get messy trying to handle errors in every place you call navigate.
 
-You can set a completion handler for a navigation action:
+You can set a completion handler for an individual navigation action:
 
 ```swift
 router.navigate(to: .profilePage(id: "12")) { optionalError in
@@ -162,21 +162,27 @@ router.navigate(to: .profilePage(id: "12")) { optionalError in
 }
 ```
 
-You could wrap or override the navigate functions to provide a default completion handler, if you handle
-all navigation errors in the same way. For example, something like this:
+If you handle all navigation errors in the same way, you could provide a wrapper. 
+For example, something like this:
 
 ```swift
-class MyRouter<Route: RouteProvider>: XRouter.Router<Route> {
+class Router<Route: RouteProvider>: XRouter.Router<Route> {
 
     /// Navigate to a route. Logs errors.
     override func navigate(to route: Route, animated: Bool = true, completion: ((Error?) -> Void)? = nil) {
-        super.navigate(to: route, animated: animated, completion: completion ?? logErrors)
+        super.navigate(to: route, animated: animated) { optionalError in
+            self.logErrors(error)
+            completion?(optionalError)
+        }
     }
 
     /// Open a URL to a route. Logs errors.
     @discardableResult
     override func openURL(_ url: URL, animated: Bool = true, completion: ((Error?) -> Void)? = nil) -> Bool {
-        return openURL(url, animated: animated, completion: completion ?? logErrors)
+        return openURL(url, animated: animated, completion: completion) { optionalError in
+            self.logErrors(optionalError)
+            completion?(optionalError)
+        }
     }
 
     /// Completion handler for `navigate(...)`/`openURL(...)`.
@@ -184,6 +190,7 @@ class MyRouter<Route: RouteProvider>: XRouter.Router<Route> {
         guard let error = error else { return }
 
         // Log errors here
+        print("Navigation error: \(error.localizedDescription)")
     }
 
 }

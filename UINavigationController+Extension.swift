@@ -1,8 +1,6 @@
 //
-//  UINavigationController+Extension.swift
-//  Pods-XRouter_Example
-//
-//  Created by Reece Como on 16/1/19.
+//  UINavigationController+Extension
+//  XRouter
 //
 
 import Foundation

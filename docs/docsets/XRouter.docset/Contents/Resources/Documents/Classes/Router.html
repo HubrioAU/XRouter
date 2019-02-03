@@ -50,7 +50,7 @@
                 <a href="../Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Router/URLPathMatcher.html">– URLPathMatcher</a>
+                <a href="../Classes/Router/URLPathMapper.html">– URLPathMapper</a>
               </li>
             </ul>
           </li>
@@ -231,8 +231,9 @@
                         <p>Navigate to a route.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    Has no effect if the destination view controller is the view controller or navigation controller
-    you are presently on - as provided by <code>RouteProvider(_:).prepareForTransition(...)</code>.
+    Has no effect if the destination view controller is the source view controller or the
+    navigation controller of the source view controller - as provided by
+    <code>RouteProvider(_:).prepareForTransition(...)</code>.
 
 </div>
 
@@ -241,7 +242,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">navigate</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">navigate</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">,</span>
+                   <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+                   <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -264,8 +267,13 @@
                         <p>Open a URL to a route.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    Register your URL mappings in your <code><a href="../Protocols/RouteProvider.html">RouteProvider</a></code> by
-    implementing the static method <code>registerURLs</code>.
+    <p>The completion handler is triggered in all cases.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Register your URL mappings in your <code><a href="../Protocols/RouteProvider.html">RouteProvider</a></code> by
+    implementing the static method <code>registerURLs</code>.</p>
 
 </div>
 
@@ -275,9 +283,15 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">open</span> <span class="kd">func</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+                  <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+                  <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>Bool</code> indicating whether the URL was handled or not.</p>
                       </div>
                     </section>
                   </div>
@@ -299,7 +313,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Represents a mapping of some set of path matchers for some hosts.</p>
+                        <p>Represents a list of URL mappings for a set of paths on some host(s).</p>
 
                         <a href="../Classes/Router/URLMatcher.html" class="slightly-smaller">See more</a>
                       </div>
@@ -331,7 +345,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A group of URLMatchers, and some shortcuts to create groups.</p>
+                        <p>Maintains a list of URLMatchers, and some shortcuts to create groups.</p>
 
                         <a href="../Classes/Router/URLMatcherGroup.html" class="slightly-smaller">See more</a>
                       </div>
@@ -353,9 +367,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC14URLPathMatcherC"></a>
-                    <a name="//apple_ref/swift/Class/URLPathMatcher" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC14URLPathMatcherC">URLPathMatcher</a>
+                    <a name="/s:7XRouter6RouterC13URLPathMapperC"></a>
+                    <a name="//apple_ref/swift/Class/URLPathMapper" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter6RouterC13URLPathMapperC">URLPathMapper</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -363,15 +377,28 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Router URL Path Matcher</p>
+                        <p>Router URL Path Mapper.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    All static paths are resolved before dynamic paths.
 
-                        <a href="../Classes/Router/URLPathMatcher.html" class="slightly-smaller">See more</a>
+</div>
+
+<p>Usage:</p>
+<pre class="highlight swift"><code><span class="c1">// Static path</span>
+<span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"/users"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allUsers</span> <span class="p">}</span>
+
+<span class="c1">// Dynamic path</span>
+<span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"/users/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
+</code></pre>
+
+                        <a href="../Classes/Router/URLPathMapper.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">URLPathMatcher</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">URLPathMapper</span></code></pre>
 
                         </div>
                       </div>
@@ -381,6 +408,13 @@
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/RxSwift"></a>
+                <a name="//apple_ref/swift/Section/RxSwift" class="dashAnchor"></a>
+                <a href="#/RxSwift">
+                  <h3 class="section-name">RxSwift</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>

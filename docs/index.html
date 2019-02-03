@@ -49,7 +49,7 @@
                 <a href="Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Router/URLPathMatcher.html">– URLPathMatcher</a>
+                <a href="Classes/Router/URLPathMapper.html">– URLPathMapper</a>
               </li>
             </ul>
           </li>
@@ -91,7 +91,7 @@
             
             <h1 id='xrouter' class='heading'>XRouter</h1>
 
-<p>A simple routing library for iOS projects.</p>
+<p>A simple routing library for iOS projects. Compatible with RxSwift.</p>
 
 <p><a href="https://app.codacy.com/app/hubrioAU/XRouter?utm_source=github.com&utm_medium=referral&utm_content=hubrioAU/XRouter&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d" alt="Codacy Badge"></a>
 <a href="https://codecov.io/gh/hubrioau/XRouter"><img src="https://codecov.io/gh/hubrioAU/XRouter/branch/master/graph/badge.svg" alt="CodeCov Badge"></a>
@@ -159,9 +159,9 @@
 
 <span class="p">}</span>
 </code></pre>
-<h3 id='rxswift-support' class='heading'>RxSwift Support</h3>
+<h3 id='rxswift-implementation' class='heading'>RxSwift Implementation</h3>
 
-<p>XRouter also supports reactive bindings through the RxSwift framework. Bindings exist for both the <code>navigate(to:)</code> and <code>openURL(_:)</code> methods, which each return a <code>Completable</code> event.</p>
+<p>XRouter also implements reactive bindings for the RxSwift framework. Bindings exist for the <code>navigate(to:)</code> method, which returns a <code>Completable</code> event, as well as the <code>openURL(_:)</code> method, which returns a <code>Single&lt;Bool&gt;</code> event (indicating whether or not the url was handled).</p>
 <pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">loginFlow</span><span class="p">)</span>
 <span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </code></pre>
@@ -228,9 +228,9 @@
 </code></pre>
 <h4 id='handling-errors' class='heading'>Handling errors</h4>
 
-<p>It can be messy trying to handle errors in every place you call navigate.</p>
+<p>It can get messy trying to handle errors in every place you call navigate.</p>
 
-<p>You can set a completion handler for a navigation action:</p>
+<p>You can set a completion handler for an individual navigation action:</p>
 <pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="nf">profilePage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="s">"12"</span><span class="p">))</span> <span class="p">{</span> <span class="n">optionalError</span> <span class="k">in</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">optionalError</span> <span class="p">{</span>
         <span class="nf">print</span><span class="p">(</span><span class="s">"Oh no, there was an unexpected error!"</span><span class="p">)</span>
@@ -240,19 +240,25 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>You could wrap or override the navigate functions to provide a default completion handler, if you handle
-all navigation errors in the same way. For example, something like this:</p>
-<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">MyRouter</span><span class="o">&lt;</span><span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteProvider</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">.</span><span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
+<p>If you handle all navigation errors in the same way, you could provide a wrapper. 
+For example, something like this:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteProvider</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">.</span><span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
 
     <span class="c1">/// Navigate to a route. Logs errors.</span>
     <span class="k">override</span> <span class="kd">func</span> <span class="nf">navigate</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">super</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completion</span> <span class="p">??</span> <span class="n">logErrors</span><span class="p">)</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">)</span> <span class="p">{</span> <span class="n">optionalError</span> <span class="k">in</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">logErrors</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <span class="nf">completion</span><span class="p">?(</span><span class="n">optionalError</span><span class="p">)</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 
     <span class="c1">/// Open a URL to a route. Logs errors.</span>
     <span class="kd">@discardableResult</span>
     <span class="k">override</span> <span class="kd">func</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completion</span> <span class="p">??</span> <span class="n">logErrors</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completion</span><span class="p">)</span> <span class="p">{</span> <span class="n">optionalError</span> <span class="k">in</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">logErrors</span><span class="p">(</span><span class="n">optionalError</span><span class="p">)</span>
+            <span class="nf">completion</span><span class="p">?(</span><span class="n">optionalError</span><span class="p">)</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 
     <span class="c1">/// Completion handler for `navigate(...)`/`openURL(...)`.</span>
@@ -260,6 +266,7 @@ all navigation errors in the same way. For example, something like this:</p>
         <span class="k">guard</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
 
         <span class="c1">// Log errors here</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"Navigation error: </span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
     <span class="p">}</span>
 
 <span class="p">}</span>

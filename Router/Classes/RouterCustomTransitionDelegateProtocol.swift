@@ -1,20 +1,19 @@
 //
-//  XRouterCustomTransitionDelegateProtocol.swift
+//  RouterCustomTransitionDelegate
 //  XRouter
-//
-//  Created by Reece Como on 5/1/19.
 //
 
 import UIKit
 
 /**
- Delegate methods that can be used to configure custom transitions in `XRouter.Router`.
+ Delegate used to configure custom transitions in `Router`
  */
 public protocol RouterCustomTransitionDelegate: class {
     
     // MARK: - Delegate methods
     
-    /// Perform a custom transition
+    /// Perform a custom transition.
+    /// Completion handler *must* be triggered.
     func performTransition(to viewController: UIViewController,
                            from sourceViewController: UIViewController,
                            transition: RouteTransition,

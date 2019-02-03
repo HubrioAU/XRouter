@@ -1,8 +1,6 @@
 //
-//  UITabBarController+Extension.swift
+//  UITabBarController+Extension
 //  XRouter
-//
-//  Created by Reece Como on 24/1/19.
 //
 
 import UIKit

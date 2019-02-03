@@ -1,8 +1,6 @@
 //
-//  Router+URLMatcher.swift
+//  Router+URLMatcher
 //  XRouter
-//
-//  Created by Reece Como on 12/1/19.
 //
 
 import Foundation
@@ -10,39 +8,41 @@ import Foundation
 extension Router {
     
     /**
-     Represents a mapping of some set of path matchers for some hosts.
+     Represents a list of URL mappings for a set of paths on some host(s).
      */
     public class URLMatcher {
         
-        /// Hosts to match against
-        let hosts: [String]
+        // MARK: - Properties
         
-        /// Path matcher
-        let pathMatcher: URLPathMatcher
+        /// Only matches against these hosts
+        internal let hosts: [String]
+        
+        /// Path mapper
+        internal let pathMapper: URLPathMapper
         
         // MARK: - Methods
         
         /// Set a group of mapped paths for some hosts
         public static func group(_ hosts: [String],
-                                 _ mapPathsClosure: (URLPathMatcher) -> Void) -> URLMatcher {
+                                 _ mapPathsClosure: (URLPathMapper) -> Void) -> URLMatcher {
             return URLMatcher(hosts: hosts, mapPathsClosure)
         }
         
         /// Set a group of mapped paths for a host
         public static func group(_ host: String,
-                                 _ mapPathsClosure: (URLPathMatcher) -> Void) -> URLMatcher {
+                                 _ mapPathsClosure: (URLPathMapper) -> Void) -> URLMatcher {
             return group([host], mapPathsClosure)
         }
         
         // MARK: - Implementation
         
         /// Init
-        internal init(hosts: [String], _ mapPathsClosure: (URLPathMatcher) -> Void) {
+        internal init(hosts: [String], _ mapPathsClosure: (URLPathMapper) -> Void) {
             self.hosts = hosts
-            self.pathMatcher = URLPathMatcher()
+            self.pathMapper = URLPathMapper()
             
             // Run the path matching
-            mapPathsClosure(pathMatcher)
+            mapPathsClosure(pathMapper)
         }
         
         /// Match a URL to one of the paths, for any host.
@@ -51,7 +51,7 @@ extension Router {
                 return nil
             }
             
-            return try pathMatcher.match(url)
+            return try pathMapper.match(url)
         }
         
     }

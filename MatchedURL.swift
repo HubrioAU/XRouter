@@ -1,8 +1,6 @@
 //
-//  MatchedURL.swift
+//  MatchedURL
 //  XRouter
-//
-//  Created by Reece Como on 12/1/19.
 //
 
 import Foundation
@@ -14,6 +12,17 @@ import Foundation
  
  - Note: For use when handling routing parameters.
  - See: `RouteProvider.registerURLs(...)`
+ 
+ Usage:
+ ```swift
+ // Path parameters
+ let str: String = try $0.param("myParam")
+ let int: Int = try $0.param("id")
+ 
+ // Query string parameters
+ let str: String? = $0.query("myParam")
+ let int: Int? = $0.query("myParam")
+ ```
  */
 public class MatchedURL {
     
@@ -39,13 +48,13 @@ public class MatchedURL {
     /// Path parameters storage
     private let parameters: [String: String]
     
-    // MARK: - Methods
-    
     /// Initialiser
-    init(for url: URL, namedParameters: [String: String]) {
+    internal init(for url: URL, namedParameters: [String: String]) {
         self.rawURL = url
         self.parameters = namedParameters
     }
+    
+    // MARK: - Methods
     
     /// Retrieve a named parameter as a `String`
     public func param(_ name: String) throws -> String {

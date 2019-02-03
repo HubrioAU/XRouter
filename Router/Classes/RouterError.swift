@@ -1,8 +1,6 @@
 //
-//  XRouterError.swift
+//  RouterError
 //  XRouter
-//
-//  Created by Reece Como on 7/1/19.
 //
 
 import Foundation

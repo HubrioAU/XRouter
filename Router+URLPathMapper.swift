@@ -1,8 +1,6 @@
 //
-//  RouteURLPathMatcher.swift
+//  Route.URLPathMapper
 //  XRouter
-//
-//  Created by Reece Como on 12/1/19.
 //
 
 import Foundation
@@ -10,15 +8,37 @@ import Foundation
 extension Router {
     
     /**
-     Router URL Path Matcher
+     Router URL Path Mapper.
+     
+     - Note: All static paths are resolved before dynamic paths.
+     
+     Usage:
+     ```
+     // Static path
+     $0.map("/users") { .allUsers }
+     
+     // Dynamic path
+     $0.map("/users/{id}/profile") { try .profile(withID: $0.param("id")) }
      */
-    public class URLPathMatcher {
+    public class URLPathMapper {
+        
+        // MARK: - Typealiases
+        
+        /// Mapping for a dynamic path
+        internal typealias DynamicPathMapping = ((MatchedURL) throws -> Route)
+        
+        /// Mapping for a static path
+        internal typealias StaticPathMapping = (() throws -> Route)
+        
+        // MARK: - Storage
         
         /// Dynamic path patterns
-        private var dynamicPathPatterns = [PathPattern: ((MatchedURL) throws -> Route)]()
+        private var dynamicPathPatterns = [PathPattern: DynamicPathMapping]()
         
         /// Simple path patterns
-        private var staticPathPatterns = [PathPattern: (() throws -> Route)]()
+        private var staticPathPatterns = [PathPattern: StaticPathMapping]()
+        
+        // MARK: - Methods
         
         /// Map a path to a route
         /// - Note: With the `MatchedURL` passed as a parameter in the callback
@@ -31,19 +51,21 @@ extension Router {
             staticPathPatterns[pathPattern] = route
         }
         
-        /// Match a Route from a URL
+        // MARK: - Implementation
+        
+        /// Match a Route from a URL.
         internal func match(_ url: URL) throws -> Route? {
-            // Check for matches on all static paths
-            for (pattern, route) in staticPathPatterns {
+            // Check static paths
+            for (pattern, resolveStaticMapping) in staticPathPatterns {
                 if match(pattern, url) != nil {
-                    return try route()
+                    return try resolveStaticMapping()
                 }
             }
             
-            // Check for matches on all dynamic paths
-            for (pattern, route) in dynamicPathPatterns {
+            // Check dynamic paths
+            for (pattern, resolveDynamicMapping) in dynamicPathPatterns {
                 if let matchedLink = match(pattern, url) {
-                    return try route(matchedLink)
+                    return try resolveDynamicMapping(matchedLink)
                 }
             }
             

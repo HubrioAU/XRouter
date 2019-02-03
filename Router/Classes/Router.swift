@@ -1,8 +1,6 @@
 //
-//  XRouter.swift
+//  Router<RouteProvider>
 //  XRouter
-//
-//  Created by Reece Como on 5/1/19.
 //
 
 import UIKit
@@ -42,10 +40,13 @@ open class Router<Route: RouteProvider> {
     ///
     /// Navigate to a route.
     ///
-    /// - Note: Has no effect if the destination view controller is the view controller or navigation controller
-    ///         you are presently on - as provided by `RouteProvider(_:).prepareForTransition(...)`.
+    /// - Note: Has no effect if the destination view controller is the source view controller or the
+    ///         navigation controller of the source view controller - as provided by
+    ///         `RouteProvider(_:).prepareForTransition(...)`.
     ///
-    open func navigate(to route: Route, animated: Bool = true, completion: ((Error?) -> Void)? = nil) {
+    open func navigate(to route: Route,
+                       animated: Bool = true,
+                       completion: ((Error?) -> Void)? = nil) {
         prepareForNavigation(to: route, animated: animated, successHandler: { source, destination in
             self.performNavigation(from: source,
                                    to: destination,
@@ -60,11 +61,17 @@ open class Router<Route: RouteProvider> {
     ///
     /// Open a URL to a route.
     ///
+    /// - Note: The completion handler is triggered in all cases.
+    ///
     /// - Note: Register your URL mappings in your `RouteProvider` by
     ///         implementing the static method `registerURLs`.
     ///
+    /// - Returns: A `Bool` indicating whether the URL was handled or not.
+    ///
     @discardableResult
-    open func openURL(_ url: URL, animated: Bool = true, completion: ((Error?) -> Void)? = nil) -> Bool {
+    open func openURL(_ url: URL,
+                      animated: Bool = true,
+                      completion: ((_ error: Error?) -> Void)? = nil) -> Bool {
         do {
             if let route = try findMatchingRoute(for: url) {
                 navigate(to: route, animated: animated, completion: completion)
@@ -80,6 +87,24 @@ open class Router<Route: RouteProvider> {
     }
     
     // MARK: - Implementation
+    
+    ///
+    /// Find a matching Route for a URL.
+    ///
+    /// - Note: This method throws an error when the route is mapped
+    ///         but the mapping fails.
+    ///
+    internal func findMatchingRoute(for url: URL) throws -> Route? {
+        if let urlMatcherGroup = urlMatcherGroup {
+            for urlMatcher in urlMatcherGroup.matchers {
+                if let route = try urlMatcher.match(url: url) {
+                    return route
+                }
+            }
+        }
+        
+        return nil
+    }
     
     ///
     /// Prepare the route for navigation.
@@ -173,24 +198,6 @@ open class Router<Route: RouteProvider> {
                 completion?(RouterError.missingCustomTransitionDelegate)
             }
         }
-    }
-    
-    ///
-    /// Find a matching Route for a URL.
-    ///
-    /// - Note: This method throws an error when the route is mapped
-    ///         but the mapping fails.
-    ///
-    private func findMatchingRoute(for url: URL) throws -> Route? {
-        if let urlMatcherGroup = urlMatcherGroup {
-            for urlMatcher in urlMatcherGroup.matchers {
-                if let route = try urlMatcher.match(url: url) {
-                    return route
-                }
-            }
-        }
-        
-        return nil
     }
     
 }

@@ -1,8 +1,6 @@
 //
-//  PathPattern+Component.swift
-//  Pods-XRouter_Example
-//
-//  Created by Reece Como on 12/1/19.
+//  PathPattern+Component
+//  XRouter
 //
 
 import Foundation
