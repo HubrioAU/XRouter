@@ -28,8 +28,6 @@ class AnimatedTabBarController: UITabBarController, UITabBarControllerDelegate {
     /// Animate tab change
     public func tabBarController(_ tabBarController: UITabBarController,
                                  shouldSelect viewController: UIViewController) -> Bool {
-        //previousViewController = selectedViewController
-        
         guard let tabViewControllers = tabBarController.viewControllers,
             let tabIndex = tabViewControllers.index(of: viewController) else {
                 return false
@@ -38,17 +36,6 @@ class AnimatedTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         animate(to: tabIndex, from: selectedViewController)
         return true
-    }
-    
-    /// Animate tab change
-    public func tabBarController(_ tabBarController: UITabBarController,
-                                 didSelect viewController: UIViewController) {
-        guard let tabViewControllers = tabBarController.viewControllers,
-            let tabIndex = tabViewControllers.index(of: viewController) else {
-                return
-        }
-        
-        previousViewController = selectedViewController
     }
     
     // MARK: - Implementation
