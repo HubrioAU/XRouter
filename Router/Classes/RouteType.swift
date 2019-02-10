@@ -41,7 +41,7 @@ public protocol RouteType: Equatable {
     /// }
     /// ```
     ///
-    static func registerURLs() -> Router<Self>.URLMatcherGroup?
+    static func registerURLs() -> URLMatcherGroup<Self>?
     
 }
 
@@ -60,7 +60,7 @@ extension RouteType {
     }
     
     /// Register URLs (default: none)
-    public static func registerURLs() -> Router<Self>.URLMatcherGroup? {
+    public static func registerURLs() -> URLMatcherGroup<Self>? {
         return nil
     }
     

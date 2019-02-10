@@ -2,6 +2,15 @@
 
 Notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [v1.3.0](https://github.com/hubrioAU/XRouter/releases/tag/1.3.0)
+- Renamed `Router` to `XRouter`.
+- Moved navigation transition logic to `Navigator` class.
+- Renamed `RouteProvider` to `RouteType`.
+- Moved `prepareForTransition(...)` to new class `RoutingHandler`.
+- Added `RouteTransition.inferred` which automatically infers transition type.
+- Added `received(unhandledError:)` handler to `XRouter`.
+- Removed `UIApplication` specific logic. Router now manages a specific UIWindow (defaults to lazy load `UIApplication.shared.keyWindow`).
+
 # [v1.2.6](https://github.com/hubrioAU/XRouter/releases/tag/1.2.6)
 - Use the delegate method [tabBarController(_:shouldSelect:)](https://developer.apple.com/documentation/uikit/uitabbarcontrollerdelegate/1621166-tabbarcontroller) before transitioning between tabs.
 - Improve the Example project/UI Tests.

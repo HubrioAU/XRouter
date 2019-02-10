@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Protocols  Reference</title>
+    <title>Structures  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Section/Protocols" class="dashAnchor"></a>
-    <a title="Protocols  Reference"></a>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="index.html">XRouter Reference</a>
         <img id="carat" src="img/carat.png" />
-        Protocols  Reference
+        Structures  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -97,8 +97,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Protocols</h1>
-            <p>The following protocols are available globally.</p>
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
 
           </section>
           <section class="section task-group-section">
@@ -107,9 +107,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter9RouteTypeP"></a>
-                    <a name="//apple_ref/swift/Protocol/RouteType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter9RouteTypeP">RouteType</a>
+                    <a name="/s:7XRouter15URLMatcherGroupV"></a>
+                    <a name="//apple_ref/swift/Struct/URLMatcherGroup" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15URLMatcherGroupV">URLMatcherGroup</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -117,57 +117,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Defines the minimum requirements for describing a list of routes.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    Your Route enum should inherit from this protocol.
+                        <p>Maintains a list of URLMatchers, and some shortcuts to create groups.</p>
 
-</div>
-<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">MyRoutes</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="n">homePage</span>
-    <span class="k">case</span> <span class="nf">profilePage</span><span class="p">(</span><span class="nv">profileID</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
-    <span class="o">...</span>
-</code></pre>
-
-                        <a href="Protocols/RouteType.html" class="slightly-smaller">See more</a>
+                        <a href="Structs/URLMatcherGroup.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RouteType</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter30RouterCustomTransitionDelegateP"></a>
-                    <a name="//apple_ref/swift/Protocol/RouterCustomTransitionDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter30RouterCustomTransitionDelegateP">RouterCustomTransitionDelegate</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Delegate used to configure custom transitions in <code>Router</code></p>
-
-                        <a href="Protocols/RouterCustomTransitionDelegate.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RouterCustomTransitionDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URLMatcherGroup</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RouteType.html">RouteType</a></span></code></pre>
 
                         </div>
                       </div>

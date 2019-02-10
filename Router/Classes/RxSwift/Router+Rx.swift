@@ -7,12 +7,12 @@
 
 import RxSwift
 
-extension Router {
+extension XRouter {
     
     // MARK: - RxSwift
     
     /// Reactive binding for Router.
-    public var rx: Reactive<Router> { // swiftlint:disable:this identifier_name
+    public var rx: Reactive<XRouter> { // swiftlint:disable:this identifier_name
         return Reactive(self)
     }
     
@@ -24,7 +24,7 @@ extension Reactive {
     
     /// Navigate to a route.
     /// - Returns: A `Completable` indicating when the navigation has completed, or an `.error`.
-    public func navigate<Route>(to route: Route, animated: Bool = true) -> Completable where Base: Router<Route> {
+    public func navigate<Route>(to route: Route, animated: Bool = true) -> Completable where Base: XRouter<Route> {
         return .create { completable in
             self.base.navigate(to: route, animated: animated) { error in
                 if let error = error {
@@ -41,7 +41,7 @@ extension Reactive {
     /// Open a URL.
     /// - Returns: A `Single<Bool>` indicating whether the route was handled or not, or an `.error`.
     @discardableResult
-    public func openURL<Route>(_ url: URL, animated: Bool = true) -> Single<Bool> where Base: Router<Route> {
+    public func openURL<Route>(_ url: URL, animated: Bool = true) -> Single<Bool> where Base: XRouter<Route> {
         return .create { single in
             do {
                 if let route = try self.base.urlMatcherGroup?.findMatch(forURL: url) {

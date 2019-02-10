@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2901DFCC220EAB340016EB5C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901DFCB220EAB340016EB5C /* Router.swift */; };
-		2901DFDD220FCD770016EB5C /* RoutingDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901DFDB220FC96A0016EB5C /* RoutingDelegateTests.swift */; };
+		2901DFDD220FCD770016EB5C /* RoutingHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901DFDB220FC96A0016EB5C /* RoutingHandlerTests.swift */; };
 		2916F80C2206F6B000C5F51F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2916F80B2206F6B000C5F51F /* Storyboard.storyboard */; };
 		2916F80F2206FA4100C5F51F /* Tab1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2916F80E2206FA4100C5F51F /* Tab1ViewController.swift */; };
 		2916F8112206FABD00C5F51F /* Tab2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2916F8102206FABD00C5F51F /* Tab2ViewController.swift */; };
@@ -61,7 +61,7 @@
 		0150AAD3347F6583D2CF269B /* Pods-XRouter_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XRouter_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-XRouter_Example/Pods-XRouter_Example.release.xcconfig"; sourceTree = "<group>"; };
 		0CB8EF8DC6B3A7E422C18347 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		2901DFCB220EAB340016EB5C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		2901DFDB220FC96A0016EB5C /* RoutingDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingDelegateTests.swift; sourceTree = "<group>"; };
+		2901DFDB220FC96A0016EB5C /* RoutingHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingHandlerTests.swift; sourceTree = "<group>"; };
 		2916F80B2206F6B000C5F51F /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		2916F80E2206FA4100C5F51F /* Tab1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1ViewController.swift; sourceTree = "<group>"; };
 		2916F8102206FABD00C5F51F /* Tab2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2ViewController.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 				2995529221F61BF6008B68ED /* UIViewControllerExtensionTests.swift */,
 				29C58C6E21E323EC00CC7CD2 /* RouteTransitionTests.swift */,
 				29C58C7121E3258000CC7CD2 /* RouterTests.swift */,
-				2901DFDB220FC96A0016EB5C /* RoutingDelegateTests.swift */,
+				2901DFDB220FC96A0016EB5C /* RoutingHandlerTests.swift */,
 				29209BFC21E9CABD00DBCE22 /* RouterURLMatcherTests.swift */,
 				29C58C7421E3351400CC7CD2 /* RouteProviderTests.swift */,
 				29C58C7F21E3AE8E00CC7CD2 /* RouterErrorTests.swift */,
@@ -541,7 +541,7 @@
 				29C58C7321E3258B00CC7CD2 /* RouterTests.swift in Sources */,
 				29209C0121E9CB8200DBCE22 /* MockRouter.swift in Sources */,
 				29C58C8121E3AEAE00CC7CD2 /* RouterErrorTests.swift in Sources */,
-				2901DFDD220FCD770016EB5C /* RoutingDelegateTests.swift in Sources */,
+				2901DFDD220FCD770016EB5C /* RoutingHandlerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +655,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -676,7 +677,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;

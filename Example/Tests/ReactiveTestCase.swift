@@ -24,9 +24,9 @@ class ReactiveTestCase: XCTestCase {
     
     /// Navigate
     @discardableResult
-    internal func rxNavigate<Route: RouteType>(_ router: Router<Route>,
-                                                   to route: Route,
-                                                   failOnError: Bool = true) -> Error? {
+    internal func rxNavigate<Route: RouteType>(_ router: XRouter<Route>,
+                                               to route: Route,
+                                               failOnError: Bool = true) -> Error? {
         let expectation = self.expectation(description: "Navigate to router")
         var receivedError: Error?
         
@@ -47,14 +47,14 @@ class ReactiveTestCase: XCTestCase {
     }
     
     /// Navigate and expect error
-    func rxNavigateExpectError<Route: RouteType>(_ router: Router<Route>, to route: Route, error expectedError: Error) {
+    func rxNavigateExpectError<Route: RouteType>(_ router: XRouter<Route>, to route: Route, error expectedError: Error) {
         let actualError = rxNavigate(router, to: route, failOnError: false)
         XCTAssertEqual(actualError?.localizedDescription, expectedError.localizedDescription)
     }
     
     /// Open URL
     @discardableResult
-    internal func rxOpenURL<Route: RouteType>(_ router: Router<Route>, url: URL, failOnError: Bool = true) -> Error? {
+    internal func rxOpenURL<Route: RouteType>(_ router: XRouter<Route>, url: URL, failOnError: Bool = true) -> Error? {
         let expectation = self.expectation(description: "Navigate to URL")
         var receivedError: Error?
         
@@ -75,7 +75,7 @@ class ReactiveTestCase: XCTestCase {
     }
     
     /// Open URL and expect error
-    internal func rxOpenURLExpectError<Route: RouteType>(_ router: Router<Route>, url: URL, error expectedError: Error) {
+    internal func rxOpenURLExpectError<Route: RouteType>(_ router: XRouter<Route>, url: URL, error expectedError: Error) {
         let actualError = rxOpenURL(router, url: url, failOnError: false)
         XCTAssertEqual(actualError?.localizedDescription, expectedError.localizedDescription)
     }

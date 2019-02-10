@@ -12,7 +12,7 @@ import XCTest
 /**
  Mocked router
  */
-class MockRouterBase<Route: RouteType>: Router<Route> {
+class MockRouterBase<Route: RouteType>: XRouter<Route> {
     
     private(set) var currentRoute: Route?
     

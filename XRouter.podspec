@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'XRouter'
-  s.version          = '1.2.6'
+  s.version          = '1.3.0'
   s.summary          = 'The simple routing library for iOS.'
 
   s.description      = <<-DESC
@@ -18,18 +18,18 @@ Setup routes and map them to controllers, easy peasy.
 
   s.source_files = 'Router/Classes/*.swift'
   s.default_subspec = 'Core'
-  
+
   s.subspec 'Core' do |ss|
       ss.source_files = 'Router/Classes/*.swift', 'Router/Classes/Extensions/*.swift', 'Router/Classes/URLMatcher/*.swift'
       ss.framework  = 'Foundation'
       ss.framework  = 'UIKit'
   end
-  
+
   s.subspec 'RxSwift' do |ss|
       ss.dependency 'XRouter/Core'
       ss.dependency 'RxSwift', '~> 4.0'
-      
+
       ss.source_files = 'Router/Classes/RxSwift/*.swift'
   end
-  
+
 end

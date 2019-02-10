@@ -13,6 +13,11 @@ public enum RouteTransition {
     // MARK: - Transitions
     
     ///
+    /// Automatically infer the best transition to use.
+    ///
+    case inferred
+    
+    ///
     /// Uses `UINavigationController(_:).pushViewController(_:animated:)`.
     ///
     /// - Note: This transition can *only* be used when you are navigating from a `UINavigationController`.

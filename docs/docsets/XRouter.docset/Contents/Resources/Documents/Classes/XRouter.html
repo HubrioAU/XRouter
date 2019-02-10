@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Router Class Reference</title>
+    <title>XRouter Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Router" class="dashAnchor"></a>
-    <a title="Router Class Reference"></a>
+    <a name="//apple_ref/swift/Class/XRouter" class="dashAnchor"></a>
+    <a title="XRouter Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">XRouter Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Router Class Reference
+        XRouter Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -41,19 +41,16 @@
                 <a href="../Classes/PathPattern/Component.html">– Component</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Router.html">Router</a>
+                <a href="../Classes/RoutingHandler.html">RoutingHandler</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Router/URLMatcher.html">– URLMatcher</a>
+                <a href="../Classes/URLMatcher.html">URLMatcher</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
+                <a href="../Classes/URLPathMapper.html">URLPathMapper</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Router/URLPathMapper.html">– URLPathMapper</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/RoutingDelegate.html">RoutingDelegate</a>
+                <a href="../Classes/XRouter.html">XRouter</a>
               </li>
             </ul>
           </li>
@@ -87,15 +84,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/URLMatcherGroup.html">URLMatcherGroup</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Router</h1>
+            <h1>XRouter</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Classes/RoutingDelegate.html">RoutingDelegate</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RouteType.html">RouteType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">XRouter</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Classes/RoutingHandler.html">RoutingHandler</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RouteType.html">RouteType</a></span></code></pre>
 
                 </div>
               </div>
@@ -120,9 +125,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC24customTransitionDelegateAA0b6CustomdE0_pSgXwvp"></a>
+                    <a name="/s:7XRouterAAC24customTransitionDelegateAA012RouterCustomcD0_pSgXwvp"></a>
                     <a name="//apple_ref/swift/Property/customTransitionDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC24customTransitionDelegateAA0b6CustomdE0_pSgXwvp">customTransitionDelegate</a>
+                    <a class="token" href="#/s:7XRouterAAC24customTransitionDelegateAA012RouterCustomcD0_pSgXwvp">customTransitionDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -147,9 +152,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC15routingDelegateAA07RoutingD0CyxGSgvp"></a>
-                    <a name="//apple_ref/swift/Property/routingDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC15routingDelegateAA07RoutingD0CyxGSgvp">routingDelegate</a>
+                    <a name="/s:7XRouterAAC14routingHandlerAA07RoutingC0CyxGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/routingHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouterAAC14routingHandlerAA07RoutingC0CyxGSgvp">routingHandler</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -164,7 +169,7 @@ statically declared destinations in just one line:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">routingDelegate</span><span class="p">:</span> <span class="kt"><a href="../Classes/RoutingDelegate.html">RoutingDelegate</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">routingHandler</span><span class="p">:</span> <span class="kt"><a href="../Classes/RoutingHandler.html">RoutingHandler</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -174,9 +179,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC6windowSo8UIWindowCSgvp"></a>
+                    <a name="/s:7XRouterAAC6windowSo8UIWindowCSgvp"></a>
                     <a name="//apple_ref/swift/Property/window" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC6windowSo8UIWindowCSgvp">window</a>
+                    <a class="token" href="#/s:7XRouterAAC6windowSo8UIWindowCSgvp">window</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -184,7 +189,7 @@ statically declared destinations in just one line:</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Window</p>
+                        <p>UIWindow. Defaults to <code>UIApplication.shared.keyWindow</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -212,9 +217,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC6windowACyxGSo8UIWindowCSg_tcfc"></a>
+                    <a name="/s:7XRouterAAC6windowAByxGSo8UIWindowCSg_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(window:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC6windowACyxGSo8UIWindowCSg_tcfc">init(window:)</a>
+                    <a class="token" href="#/s:7XRouterAAC6windowAByxGSo8UIWindowCSg_tcfc">init(window:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -239,9 +244,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterCACyxGycfc"></a>
+                    <a name="/s:7XRouterAACAByxGycfc"></a>
                     <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterCACyxGycfc">init()</a>
+                    <a class="token" href="#/s:7XRouterAACAByxGycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -277,9 +282,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF"></a>
+                    <a name="/s:7XRouterAAC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF"></a>
                     <a name="//apple_ref/swift/Method/navigate(to:animated:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF">navigate(to:animated:completion:)</a>
+                    <a class="token" href="#/s:7XRouterAAC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF">navigate(to:animated:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -290,9 +295,15 @@ statically declared destinations in just one line:</p>
                         <p>Navigate to a route.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    Will not trigger the transition if the the destination view controller is
+    <p>Triggers <code><a href="../Classes/XRouter.html#/s:7XRouterAAC8received14unhandledErrorys0D0_p_tF">received(unhandledError:)</a></code> if an error occurs and no completion
+    handler is provided.</p>
+
+</div>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Will not trigger the transition if the the destination view controller is
     the same as the source view controller or it&rsquo;s navigation controller. However,
-    it will call <code>RoutingDelgate(_:).prepareForTransition(to:)</code> either way.
+    it will call <code>RoutingDelgate(_:).prepareForTransition(to:)</code> either way.</p>
 
 </div>
 
@@ -313,9 +324,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC7openURL_8animated10completionSb10Foundation0D0V_Sbys5Error_pSgcSgtF"></a>
+                    <a name="/s:7XRouterAAC7openURL_8animated10completionSb10Foundation0C0V_Sbys5Error_pSgcSgtF"></a>
                     <a name="//apple_ref/swift/Method/openURL(_:animated:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC7openURL_8animated10completionSb10Foundation0D0V_Sbys5Error_pSgcSgtF">openURL(_:animated:completion:)</a>
+                    <a class="token" href="#/s:7XRouterAAC7openURL_8animated10completionSb10Foundation0C0V_Sbys5Error_pSgcSgtF">openURL(_:animated:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -326,13 +337,14 @@ statically declared destinations in just one line:</p>
                         <p>Open a URL to a route.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>The completion handler is triggered in all cases.</p>
+    <p>Triggers <code><a href="../Classes/XRouter.html#/s:7XRouterAAC8received14unhandledErrorys0D0_p_tF">received(unhandledError:)</a></code> if an error occurs and no
+    completion handler is provided.</p>
 
 </div>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Register your URL mappings in your <code><a href="../Protocols/RouteType.html">RouteType</a></code> by
-    implementing the static method <code>registerURLs</code>.</p>
+    <p>Register URL mappings in the <code><a href="../Protocols/RouteType.html">RouteType</a></code> by implementing the
+    static method <code>registerURLs</code>.</p>
 
 </div>
 
@@ -355,6 +367,34 @@ statically declared destinations in just one line:</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouterAAC8received14unhandledErrorys0D0_p_tF"></a>
+                    <a name="//apple_ref/swift/Method/received(unhandledError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouterAAC8received14unhandledErrorys0D0_p_tF">received(unhandledError:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An error occured in <code><a href="../Classes/XRouter.html#/s:7XRouterAAC7openURL_8animated10completionSb10Foundation0C0V_Sbys5Error_pSgcSgtF">openURL(...)</a></code> or <code><a href="../Classes/XRouter.html#/s:7XRouterAAC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF">navigate(...)</a></code> and no completion
+ handler was provided.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">received</span><span class="p">(</span><span class="n">unhandledError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -369,9 +409,9 @@ statically declared destinations in just one line:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC2rx7RxSwift8ReactiveVyACyxGGvp"></a>
+                    <a name="/s:7XRouterAAC2rx7RxSwift8ReactiveVyAByxGGvp"></a>
                     <a name="//apple_ref/swift/Property/rx" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC2rx7RxSwift8ReactiveVyACyxGGvp">rx</a>
+                    <a class="token" href="#/s:7XRouterAAC2rx7RxSwift8ReactiveVyAByxGGvp">rx</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -386,116 +426,7 @@ statically declared destinations in just one line:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rx</span><span class="p">:</span> <span class="kt">Reactive</span><span class="o">&lt;</span><span class="kt">Router</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter6RouterC10URLMatcherC"></a>
-                    <a name="//apple_ref/swift/Class/URLMatcher" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC10URLMatcherC">URLMatcher</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents a list of URL mappings for a set of paths on some host(s).</p>
-
-                        <a href="../Classes/Router/URLMatcher.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">URLMatcher</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter6RouterC15URLMatcherGroupV"></a>
-                    <a name="//apple_ref/swift/Struct/URLMatcherGroup" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC15URLMatcherGroupV">URLMatcherGroup</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Maintains a list of URLMatchers, and some shortcuts to create groups.</p>
-
-                        <a href="../Classes/Router/URLMatcherGroup.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URLMatcherGroup</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter6RouterC13URLPathMapperC"></a>
-                    <a name="//apple_ref/swift/Class/URLPathMapper" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC13URLPathMapperC">URLPathMapper</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Router URL Path Mapper.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    All static paths are resolved before dynamic paths.
-
-</div>
-
-<p>Usage:</p>
-<pre class="highlight swift"><code><span class="c1">// Static path</span>
-<span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"/users"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allUsers</span> <span class="p">}</span>
-
-<span class="c1">// Dynamic path</span>
-<span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"/users/{id}/profile"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="p">}</span>
-</code></pre>
-
-                        <a href="../Classes/Router/URLPathMapper.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">URLPathMapper</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rx</span><span class="p">:</span> <span class="kt">Reactive</span><span class="o">&lt;</span><span class="kt">XRouter</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

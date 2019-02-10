@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Reactive Extension Reference</title>
+    <title>RoutingHandler Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/Reactive" class="dashAnchor"></a>
-    <a title="Reactive Extension Reference"></a>
+    <a name="//apple_ref/swift/Class/RoutingHandler" class="dashAnchor"></a>
+    <a title="RoutingHandler Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">XRouter Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Reactive Extension Reference
+        RoutingHandler Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -97,31 +97,37 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Reactive</h1>
+            <h1>RoutingHandler</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Reactive</span><span class="o">&lt;</span><span class="kt">Base</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RoutingHandler</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RouteType.html">RouteType</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Routing Delegate</p>
+
+<p>This delegate is provided as a generic base class.</p>
+
+<p>Feel free to inherit from this base class and override the
+methods <code>prepareForTransition(to:)</code> and <code>transition(for:)</code>.</p>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Observables"></a>
-                <a name="//apple_ref/swift/Section/Observables" class="dashAnchor"></a>
-                <a href="#/Observables">
-                  <h3 class="section-name">Observables</h3>
+                <a name="/Methods"></a>
+                <a name="//apple_ref/swift/Section/Methods" class="dashAnchor"></a>
+                <a href="#/Methods">
+                  <h3 class="section-name">Methods</h3>
                 </a>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7RxSwift8ReactiveV7XRouterE8navigate2to8animatedAA17PrimitiveSequenceVyAA16CompletableTraitOs5NeverOGqd___SbtA2DCyqd__GRbzAD9RouteTypeRd__lF"></a>
-                    <a name="//apple_ref/swift/Method/navigate(to:animated:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7RxSwift8ReactiveV7XRouterE8navigate2to8animatedAA17PrimitiveSequenceVyAA16CompletableTraitOs5NeverOGqd___SbtA2DCyqd__GRbzAD9RouteTypeRd__lF">navigate(to:animated:)</a>
+                    <a name="/s:7XRouter14RoutingHandlerC20prepareForTransition2toSo16UIViewControllerCx_tKF"></a>
+                    <a name="//apple_ref/swift/Method/prepareForTransition(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter14RoutingHandlerC20prepareForTransition2toSo16UIViewControllerCx_tKF">prepareForTransition(to:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -129,20 +135,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Navigate to a route.</p>
+                        <p>Return the view controller for your Route here.</p>
+
+<p>It can be either a container (i.e. Navigation Controller) or an
+  instance of a single view controller.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Throw an Error here to cancel the transition.
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">navigate</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span> <span class="k">where</span> <span class="kt">Base</span><span class="p">:</span> <span class="kt"><a href="../Classes/XRouter.html">XRouter</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">prepareForTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A <code>Completable</code> indicating when the navigation has completed, or an <code>.error</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -150,9 +160,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7RxSwift8ReactiveV7XRouterE7openURL_8animatedAA17PrimitiveSequenceVyAA11SingleTraitOSbG10Foundation0F0V_SbtA2DCyqd__GRbzAD9RouteTypeRd__lF"></a>
-                    <a name="//apple_ref/swift/Method/openURL(_:animated:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7RxSwift8ReactiveV7XRouterE7openURL_8animatedAA17PrimitiveSequenceVyAA11SingleTraitOSbG10Foundation0F0V_SbtA2DCyqd__GRbzAD9RouteTypeRd__lF">openURL(_:animated:)</a>
+                    <a name="/s:7XRouter14RoutingHandlerC10transition3forAA15RouteTransitionOx_tF"></a>
+                    <a name="//apple_ref/swift/Method/transition(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter14RoutingHandlerC10transition3forAA15RouteTransitionOx_tF">transition(for:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -160,21 +170,54 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Open a URL.</p>
+                        <p>Presentation transition type for Route.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="n">openURL</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Base</span><span class="p">:</span> <span class="kt"><a href="../Classes/XRouter.html">XRouter</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">transition</span><span class="p">(</span><span class="k">for</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/RouteTransition.html">RouteTransition</a></span></code></pre>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A <code>Single&lt;Bool&gt;</code> indicating whether the route was handled or not, or an <code>.error</code>.</p>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Constructor"></a>
+                <a name="//apple_ref/swift/Section/Constructor" class="dashAnchor"></a>
+                <a href="#/Constructor">
+                  <h3 class="section-name">Constructor</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter14RoutingHandlerCACyxGycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter14RoutingHandlerCACyxGycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Constructor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

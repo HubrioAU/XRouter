@@ -55,7 +55,8 @@ extension RouterError: LocalizedError {
         case .missingSourceViewController:
             return """
             The source view controller (AKA current top view controller) was unexpectedly `nil`.
-            This could be because the top view controller is an empty navigation controller.
+            This could be because the top view controller is an empty navigation controller, or
+            if the window, or window's root view controller is `nil`.
             """
         case .requiredIntegerParameterWasNotAnInteger(let name, let stringValue):
             return """
@@ -96,7 +97,7 @@ extension RouterError: LocalizedError {
         case .routeHasNotBeenConfigured:
             return """
             Configure view controllers for your routes by overriding `prepareForNavigation(to:)` in your Router,
-            or by implementing a `RoutingDelegate`.
+            or by implementing a `RoutingHandler`.
             """
         }
     }

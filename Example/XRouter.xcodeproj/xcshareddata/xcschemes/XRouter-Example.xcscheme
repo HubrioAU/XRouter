@@ -46,7 +46,7 @@
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A36CD0166D8462D4267766EBF9221C46"
+            BlueprintIdentifier = "35208AF953DC915337DE08324BA3B46C"
             BuildableName = "XRouter.framework"
             BlueprintName = "XRouter"
             ReferencedContainer = "container:Pods/Pods.xcodeproj">

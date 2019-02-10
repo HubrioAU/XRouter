@@ -17,60 +17,47 @@ A simple routing library for iOS projects.
 ## Usage
 ### Basic Usage
 
-#### Creating a Router
+#### Define Routes
+```swift
+enum Route: RouteType {
+
+    case homeTab
+    case login
+    case profile(withID: Int)
+}
+```
+
+#### Create your Router
+```swift
+class Router: XRouter<Route> {
+
+    /* ... */
+
+    /// Configure the destination view controller for the route
+    override func prepareForTransition(to route: Route) throws -> UIViewController {
+        switch route {
+        case .homeTab:
+            return container.resolve(HomeTabCoordinator.self)?.rootViewController
+        case .login:
+            return container.resolve(LoginFlowCoordinator.self)?.startFlow()
+        case .profile(let id):
+            return ProfileViewController(withID: id)
+        }
+    }
+
+}
+```
+
+#### Using a Router
 ```swift
 // Create a router
-let router = Router<MyRoutes>()
+let router = Router()
 
 // Navigate to a route
 router.navigate(to: .loginFlow)
 
 // ... or open a route from a URL
 router.openURL(url)
-```
-
-#### Configuring Routes
-
-Define your routes, like so:
-
-```swift
-enum AppRoute {
-    case home
-    case profile(withID: Int)
-}
-```
-
-- Note: By default, enum properties don't factor into equality checks/comparisons. You can provide your own
-        implementation of `var name: String` or `static func == (_:_:)` if you would like to override this.
-
-Implement the protocol stubs:
-```swift
-extension AppRoute: RouteType {
-
-    /// Configure the transitions
-    var transition: RouteTransition {
-        switch self {
-        case .home:
-            return .push
-        case .profile:
-            return .modal
-        }
-    }
-
-    /// Prepare the view controller for the route
-    /// - You can use this to configure entry points into flow coordinators
-    /// - You can throw errors here to cancel the navigation
-    func prepareForTransition(from sourceViewController: UIViewController) throws -> UIViewController {
-        switch self {
-        case .home:
-            return HomeCoordinator.shared.navigationController
-        case .profile(let profileID):
-            let myProfile = try Profile.load(withID: profileID)
-            return ProfileViewController(profile: myProfile)
-        }
-    }
-
-}
 ```
 
 ### RxSwift Support
@@ -84,15 +71,14 @@ router.rx.openURL(url) // -> Single<Bool>
 
 #### URL Support
 
-You only need to do two things to add URL support to your routes.
-
-First, implement the static method `registerURLs` in your `RouteType`.
-
-Here is an example with a single host:
+You only need to do one thing to add URL support to your routes.
+Implement the static method `registerURLs`:
 ```swift
-extension MyRoute: RouteType {
+enum Route: RouteType {
 
-    static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
+    /* ... */
+
+    static func registerURLs() -> URLMatcherGroup<Route>? {
         return .group("store.example.com") {
             $0.map("products") { .allProducts }
             $0.map("products/{category}/view") { try .products(category: $0.param("category")) }
@@ -104,9 +90,9 @@ extension MyRoute: RouteType {
 }
 ```
 
-Here is an example with multiple domains configured:
+Here is an example with multiple hosts:
 ```swift
-extension MyRoute: RouteType {
+extension MyRoute: RouteProvider {
 
     static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
         return .init(matchers: [
@@ -153,44 +139,24 @@ It can get messy trying to handle errors in every place you call navigate.
 You can set a completion handler for an individual navigation action:
 
 ```swift
-router.navigate(to: .profilePage(id: "12")) { optionalError in
+router.navigate(to: .profilePage(id: "12")) { (optionalError) in
     if let error = optionalError {
         print("Oh no, there was an unexpected error!")
-    } else {
-        print("Success!")
     }
 }
 ```
 
-If you handle all navigation errors in the same way, you could provide a wrapper. 
+If you handle all navigation errors in the same way, you could provide a wrapper.
 For example, something like this:
 
 ```swift
-class Router<Route: RouteType>: XRouter.Router<Route> {
+class Router: XRouter<Route> {
 
-    /// Navigate to a route. Logs errors.
-    override func navigate(to route: Route, animated: Bool = true, completion: ((Error?) -> Void)? = nil) {
-        super.navigate(to: route, animated: animated) { optionalError in
-            self.logErrors(error)
-            completion?(optionalError)
-        }
-    }
+    /* ... */
 
-    /// Open a URL to a route. Logs errors.
-    @discardableResult
-    override func openURL(_ url: URL, animated: Bool = true, completion: ((Error?) -> Void)? = nil) -> Bool {
-        return openURL(url, animated: animated, completion: completion) { optionalError in
-            self.logErrors(optionalError)
-            completion?(optionalError)
-        }
-    }
-
-    /// Completion handler for `navigate(...)`/`openURL(...)`.
-    private func logErrors(_ error: Error?) {
-        guard let error = error else { return }
-
-        // Log errors here
-        print("Navigation error: \(error.localizedDescription)")
+    /// Received an error during
+    override func received(unhandledError error: Error) {
+        log.error("Oh no! An error occured: \(error)")
     }
 
 }
@@ -208,8 +174,8 @@ router.customTransitionDelegate = self
 (Optional) Define your custom transitions in an extension so you can refer to them statically
 ```swift
 extension RouteTransition {
-    static var myHeroFade: RouteTransition {
-        return .custom(identifier: "heroFade")
+    static var heroCrossFade: RouteTransition {
+        return .custom(identifier: "HeroCrossFade")
     }
 }
 ```
@@ -217,24 +183,24 @@ extension RouteTransition {
 Implement the delegate method `performTransition(...)`:
 ```swift
 
-extension AppDelegate: RouterCustomTransitionDelegate {
-    
-    /// Perform a custom transition
-    func performTransition(to destViewController: UIViewController,
+extension Router: RouterCustomTransitionDelegate {
+
+    /// Handle custom transitions
+    func performTransition(to viewController: UIViewController,
                            from sourceViewController: UIViewController,
                            transition: RouteTransition,
                            animated: Bool,
                            completion: ((Error?) -> Void)?) {
-        if transition == .myHeroFade {
+        if transition == .heroCrossFade {
             sourceViewController.hero.isEnabled = true
             destViewController.hero.isEnabled = true
             destViewController.hero.modalAnimationType = .fade
-            
+
             // Creates a container nav stack
             let containerNavController = UINavigationController()
             containerNavController.hero.isEnabled = true
             containerNavController.setViewControllers([newViewController], animated: false)
-            
+
             // Present the hero animation
             sourceViewController.present(containerNavController, animated: animated) {
                 completion?(nil)
@@ -243,16 +209,18 @@ extension AppDelegate: RouterCustomTransitionDelegate {
             completion?(nil)
         }
     }
-    
+
 }
 ```
 
-And set the transition to `.custom` in your `Routes.swift` file:
+And override the transition to your custom in your Router:
 ```swift
-    var transition: RouteTransition {
-        switch self {
-            case .myRoute:
-                return .myHeroFade
+    override func transition(for route: Route) -> RouteTransition {
+        switch route {
+            case .profile:
+                return .heroCrossFade
+            default:
+                return super.transition(for: route)
         }
     }
 ```

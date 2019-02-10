@@ -40,19 +40,16 @@
                 <a href="Classes/PathPattern/Component.html">– Component</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Router.html">Router</a>
+                <a href="Classes/RoutingHandler.html">RoutingHandler</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Router/URLMatcher.html">– URLMatcher</a>
+                <a href="Classes/URLMatcher.html">URLMatcher</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Router/URLMatcherGroup.html">– URLMatcherGroup</a>
+                <a href="Classes/URLPathMapper.html">URLPathMapper</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Router/URLPathMapper.html">– URLPathMapper</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/RoutingDelegate.html">RoutingDelegate</a>
+                <a href="Classes/XRouter.html">XRouter</a>
               </li>
             </ul>
           </li>
@@ -86,6 +83,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/URLMatcherGroup.html">URLMatcherGroup</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -109,58 +114,42 @@
 </p>
 <h2 id='usage' class='heading'>Usage</h2>
 <h3 id='basic-usage' class='heading'>Basic Usage</h3>
-<h4 id='creating-a-router' class='heading'>Creating a Router</h4>
+<h4 id='define-routes' class='heading'>Define Routes</h4>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
+
+    <span class="k">case</span> <span class="n">homeTab</span>
+    <span class="k">case</span> <span class="n">login</span>
+    <span class="k">case</span> <span class="nf">profile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+<h4 id='create-your-router' class='heading'>Create your Router</h4>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Router</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="cm">/* ... */</span>
+
+    <span class="c1">/// Configure the destination view controller for the route</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">prepareForTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="n">route</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nv">homeTab</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="nf">resolve</span><span class="p">(</span><span class="kt">HomeTabCoordinator</span><span class="o">.</span><span class="k">self</span><span class="p">)?</span><span class="o">.</span><span class="n">rootViewController</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nv">login</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="nf">resolve</span><span class="p">(</span><span class="kt">LoginFlowCoordinator</span><span class="o">.</span><span class="k">self</span><span class="p">)?</span><span class="o">.</span><span class="nf">startFlow</span><span class="p">()</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="k">let</span> <span class="nv">id</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kt">ProfileViewController</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="n">id</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+<h4 id='using-a-router' class='heading'>Using a Router</h4>
 <pre class="highlight swift"><code><span class="c1">// Create a router</span>
-<span class="k">let</span> <span class="nv">router</span> <span class="o">=</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoutes</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">router</span> <span class="o">=</span> <span class="kt">Router</span><span class="p">()</span>
 
 <span class="c1">// Navigate to a route</span>
 <span class="n">router</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">loginFlow</span><span class="p">)</span>
 
 <span class="c1">// ... or open a route from a URL</span>
 <span class="n">router</span><span class="o">.</span><span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</code></pre>
-<h4 id='configuring-routes' class='heading'>Configuring Routes</h4>
-
-<p>Define your routes, like so:</p>
-<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">AppRoute</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="n">home</span>
-    <span class="k">case</span> <span class="nf">profile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    By default, enum properties don&rsquo;t factor into equality checks/comparisons. You can provide your own
-    implementation of <code>var name: String</code> or <code>static func == (_:_:)</code> if you would like to override this.
-
-</div>
-
-<p>Implement the protocol stubs:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AppRoute</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
-
-    <span class="c1">/// Configure the transitions</span>
-    <span class="k">var</span> <span class="nv">transition</span><span class="p">:</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
-        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="o">.</span><span class="nv">home</span><span class="p">:</span>
-            <span class="k">return</span> <span class="o">.</span><span class="n">push</span>
-        <span class="k">case</span> <span class="o">.</span><span class="nv">profile</span><span class="p">:</span>
-            <span class="k">return</span> <span class="o">.</span><span class="n">modal</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">/// Prepare the view controller for the route</span>
-    <span class="c1">/// - You can use this to configure entry points into flow coordinators</span>
-    <span class="c1">/// - You can throw errors here to cancel the navigation</span>
-    <span class="kd">func</span> <span class="nf">prepareForTransition</span><span class="p">(</span><span class="n">from</span> <span class="nv">sourceViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span> <span class="p">{</span>
-        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="o">.</span><span class="nv">home</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kt">HomeCoordinator</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">navigationController</span>
-        <span class="k">case</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="k">let</span> <span class="nv">profileID</span><span class="p">):</span>
-            <span class="k">let</span> <span class="nv">myProfile</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Profile</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="n">profileID</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kt">ProfileViewController</span><span class="p">(</span><span class="nv">profile</span><span class="p">:</span> <span class="n">myProfile</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
 </code></pre>
 <h3 id='rxswift-support' class='heading'>RxSwift Support</h3>
 
@@ -171,14 +160,13 @@
 <h3 id='advanced-usage' class='heading'>Advanced Usage</h3>
 <h4 id='url-support' class='heading'>URL Support</h4>
 
-<p>You only need to do two things to add URL support to your routes.</p>
+<p>You only need to do one thing to add URL support to your routes.
+Implement the static method <code>registerURLs</code>:</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
 
-<p>First, implement the static method <code>registerURLs</code> in your <code><a href="Protocols/RouteType.html">RouteType</a></code>.</p>
+    <span class="cm">/* ... */</span>
 
-<p>Here is an example with a single host:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
-
-    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLMatcherGroup</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span><span class="p">?</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">.</span><span class="nf">group</span><span class="p">(</span><span class="s">"store.example.com"</span><span class="p">)</span> <span class="p">{</span>
             <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products"</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">allProducts</span> <span class="p">}</span>
             <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">(</span><span class="s">"products/{category}/view"</span><span class="p">)</span> <span class="p">{</span> <span class="k">try</span> <span class="o">.</span><span class="nf">products</span><span class="p">(</span><span class="nv">category</span><span class="p">:</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="s">"category"</span><span class="p">))</span> <span class="p">}</span>
@@ -190,8 +178,8 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>Here is an example with multiple domains configured:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
+<p>Here is an example with multiple hosts:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
 
     <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">matchers</span><span class="p">:</span> <span class="p">[</span>
@@ -234,42 +222,22 @@
 <p>It can get messy trying to handle errors in every place you call navigate.</p>
 
 <p>You can set a completion handler for an individual navigation action:</p>
-<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="nf">profilePage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="s">"12"</span><span class="p">))</span> <span class="p">{</span> <span class="n">optionalError</span> <span class="k">in</span>
+<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="nf">profilePage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="s">"12"</span><span class="p">))</span> <span class="p">{</span> <span class="p">(</span><span class="n">optionalError</span><span class="p">)</span> <span class="k">in</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">optionalError</span> <span class="p">{</span>
         <span class="nf">print</span><span class="p">(</span><span class="s">"Oh no, there was an unexpected error!"</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"Success!"</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
-<p>If you handle all navigation errors in the same way, you could provide a wrapper. 
+<p>If you handle all navigation errors in the same way, you could provide a wrapper.
 For example, something like this:</p>
-<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteType</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">.</span><span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Router</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
 
-    <span class="c1">/// Navigate to a route. Logs errors.</span>
-    <span class="k">override</span> <span class="kd">func</span> <span class="nf">navigate</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">super</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">)</span> <span class="p">{</span> <span class="n">optionalError</span> <span class="k">in</span>
-            <span class="k">self</span><span class="o">.</span><span class="nf">logErrors</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-            <span class="nf">completion</span><span class="p">?(</span><span class="n">optionalError</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="cm">/* ... */</span>
 
-    <span class="c1">/// Open a URL to a route. Logs errors.</span>
-    <span class="kd">@discardableResult</span>
-    <span class="k">override</span> <span class="kd">func</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completion</span><span class="p">)</span> <span class="p">{</span> <span class="n">optionalError</span> <span class="k">in</span>
-            <span class="k">self</span><span class="o">.</span><span class="nf">logErrors</span><span class="p">(</span><span class="n">optionalError</span><span class="p">)</span>
-            <span class="nf">completion</span><span class="p">?(</span><span class="n">optionalError</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">/// Completion handler for `navigate(...)`/`openURL(...)`.</span>
-    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">logErrors</span><span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="p">{</span>
-        <span class="k">guard</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
-
-        <span class="c1">// Log errors here</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"Navigation error: </span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="c1">/// Received an error during</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">received</span><span class="p">(</span><span class="n">unhandledError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="s">"Oh no! An error occured: </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
@@ -279,29 +247,29 @@ For example, something like this:</p>
 
 <p>Here is an example using the popular <a href="https://github.com/HeroTransitions/Hero">Hero Transitions</a> library.</p>
 
-<p>Set the <code>customTransitionDelegate</code> for the <code><a href="Classes/Router.html">Router</a></code>:</p>
+<p>Set the <code>customTransitionDelegate</code> for the <code>Router</code>:</p>
 <pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="n">customTransitionDelegate</span> <span class="o">=</span> <span class="k">self</span>
 </code></pre>
 
 <p>(Optional) Define your custom transitions in an extension so you can refer to them statically</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
-    <span class="kd">static</span> <span class="k">var</span> <span class="nv">myHeroFade</span><span class="p">:</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="o">.</span><span class="nf">custom</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"heroFade"</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">var</span> <span class="nv">heroCrossFade</span><span class="p">:</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">.</span><span class="nf">custom</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"HeroCrossFade"</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
 <p>Implement the delegate method <code>performTransition(...)</code>:</p>
 <pre class="highlight swift"><code>
-<span class="kd">extension</span> <span class="kt">AppDelegate</span><span class="p">:</span> <span class="kt">RouterCustomTransitionDelegate</span> <span class="p">{</span>
+<span class="kd">extension</span> <span class="kt">Router</span><span class="p">:</span> <span class="kt">RouterCustomTransitionDelegate</span> <span class="p">{</span>
 
-    <span class="c1">/// Perform a custom transition</span>
-    <span class="kd">func</span> <span class="nf">performTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">destViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
+    <span class="c1">/// Handle custom transitions</span>
+    <span class="kd">func</span> <span class="nf">performTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
                            <span class="n">from</span> <span class="nv">sourceViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
                            <span class="nv">transition</span><span class="p">:</span> <span class="kt">RouteTransition</span><span class="p">,</span>
                            <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
                            <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">transition</span> <span class="o">==</span> <span class="o">.</span><span class="n">myHeroFade</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">transition</span> <span class="o">==</span> <span class="o">.</span><span class="n">heroCrossFade</span> <span class="p">{</span>
             <span class="n">sourceViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="kc">true</span>
             <span class="n">destViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="kc">true</span>
             <span class="n">destViewController</span><span class="o">.</span><span class="n">hero</span><span class="o">.</span><span class="n">modalAnimationType</span> <span class="o">=</span> <span class="o">.</span><span class="n">fade</span>
@@ -323,11 +291,13 @@ For example, something like this:</p>
 <span class="p">}</span>
 </code></pre>
 
-<p>And set the transition to <code>.custom</code> in your <code>Routes.swift</code> file:</p>
-<pre class="highlight swift"><code>    <span class="k">var</span> <span class="nv">transition</span><span class="p">:</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
-        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
-            <span class="k">case</span> <span class="o">.</span><span class="nv">myRoute</span><span class="p">:</span>
-                <span class="k">return</span> <span class="o">.</span><span class="n">myHeroFade</span>
+<p>And override the transition to your custom in your Router:</p>
+<pre class="highlight swift"><code>    <span class="k">override</span> <span class="kd">func</span> <span class="nf">transition</span><span class="p">(</span><span class="k">for</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="n">route</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="o">.</span><span class="nv">profile</span><span class="p">:</span>
+                <span class="k">return</span> <span class="o">.</span><span class="n">heroCrossFade</span>
+            <span class="k">default</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">super</span><span class="o">.</span><span class="nf">transition</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">route</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre>

@@ -31,7 +31,7 @@ enum Route: RouteType {
 /**
  Router
  */
-class Router: XRouter.Router<Route> {
+class Router: XRouter<Route> {
     
     // MARK: - Dependencies
     
@@ -46,20 +46,7 @@ class Router: XRouter.Router<Route> {
         super.init()
     }
     
-    // MARK: - RouteDestinationProvider
-    
-    /// Transitions for the view controllers
-    override func transition(for route: Route) -> RouteTransition {
-        switch route {
-        case .tab1Home,
-             .tab2Home:
-            return .set
-        case .pushedVC:
-            return .push
-        case .modalVC:
-            return .modal
-        }
-    }
+    // MARK: - RoutingHandler
     
     /// Prepare the route for transition and return the view controller
     ///  to transition to on the view hierachy
@@ -73,14 +60,6 @@ class Router: XRouter.Router<Route> {
             return container.tab2SecondViewController
         case .modalVC:
             return container.modalCoordinator.start()
-        }
-    }
-    
-    override func navigate(to route: Route, animated: Bool = true, completion: ((Error?) -> Void)? = nil) {
-        super.navigate(to: route, animated: animated) { optionalError in
-            if let error = optionalError {
-                print("There was an error: \(error)")
-            }
         }
     }
     

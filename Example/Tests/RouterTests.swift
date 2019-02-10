@@ -115,10 +115,26 @@ class RouterTests: ReactiveTestCase {
         XCTAssertNil(router.currentRoute)
     }
     
+    /// Test assertion failure completion block path is triggered
+    func testAssertionFailureCompletionBlockPathIsTriggered() {
+        let router = XRouter<TestRoute>(window: nil)
+        router.navigate(to: .homeVC)
+    }
+    
     /// Test missing source view controller
     func testMissingSourceViewController() {
         let router = MockRouter(rootViewController: nil)
         navigateExpectError(router, to: .homeVC, error: RouterError.missingSourceViewController)
+    }
+    
+    /// Test set
+    func testSetViewControllerWorksWhenNoViewControllerHasBeenSetBefore() {
+        let vc1 = UIViewController()
+        let vc2 = UIViewController()
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: vc1))
+        
+        navigate(router, to: .customVC(viewController: vc2))
+        XCTAssertEqual(router.currentRoute, .customVC(viewController: vc2))
     }
     
     //
@@ -192,17 +208,7 @@ fileprivate enum TestRoute: RouteType {
 
 private class MockRouter: MockRouterBase<TestRoute> {
     
-    let routeProvider = RouteProvider()
-    
-    override init(rootViewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) {
-        super.init(rootViewController: rootViewController)
-        self.routingDelegate = routeProvider
-    }
-    
-}
-
-private class RouteProvider: RoutingDelegate<TestRoute> {
-    
+    /// Explicitly test transitions
     override func transition(for route: TestRoute) -> RouteTransition {
         switch route {
         case .homeVC,
@@ -220,6 +226,7 @@ private class RouteProvider: RoutingDelegate<TestRoute> {
         }
     }
     
+    /// Prepare for transition
     override func prepareForTransition(to route: TestRoute) throws -> UIViewController {
         switch route {
         case .homeVC,

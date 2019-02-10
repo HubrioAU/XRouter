@@ -80,7 +80,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test dynamic string routes
     func testURLMatcherGroupFunctionInitWithOneHost() {
-        let matcherGroup = Router<TestRoute>.URLMatcherGroup.group("mystore.com") {
+        let matcherGroup = URLMatcherGroup<TestRoute>.group("mystore.com") {
             $0.map("my/cool/route") { .exampleStaticRoute }
             $0.map("static/route/") { .exampleStaticRoute }
         }
@@ -158,7 +158,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
         
         // Test RxSwift extension works too
         rxOpenURLExpectError(router, url: URL(string: "http://example.com/failing")!,
-                             error: RouterError.missingCustomTransitionDelegate)
+                             error: RouterError.routeHasNotBeenConfigured)
     }
     
 }
@@ -186,7 +186,7 @@ private enum TestRoute: RouteType {
     /// Route that fails during routing
     case failingRoute
     
-    static func registerURLs() -> Router<TestRoute>.URLMatcherGroup? {
+    static func registerURLs() -> URLMatcherGroup<TestRoute>? {
         return .init(matchers: [
             .group("example.com") {
                 $0.map("static/route/") { .exampleStaticRoute }
@@ -217,10 +217,6 @@ private enum TestRoute: RouteType {
 
 private class MockRouter: MockRouterBase<TestRoute> {
     
-    override func transition(for route: TestRoute) -> RouteTransition {
-        return .push
-    }
-    
     override func prepareForTransition(to route: TestRoute) throws -> UIViewController {
         switch route {
         case .exampleStaticRoute:
@@ -239,9 +235,7 @@ private class MockRouter: MockRouterBase<TestRoute> {
             return viewController
             
         case .failingRoute:
-            // Trigger any error here
-            // We're just using `missingCustomTransitionDelegate` for simplicity.
-            throw RouterError.missingCustomTransitionDelegate
+            throw RouterError.routeHasNotBeenConfigured
             
         default:
             return UIViewController()
