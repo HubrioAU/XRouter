@@ -1,5 +1,5 @@
 //
-//  RouteProviderTests.swift
+//  RouteTypeTests.swift
 //  XRouter_Tests
 //
 //  Created by Reece Como on 7/1/19.
@@ -11,9 +11,9 @@ import UIKit
 @testable import XRouter
 
 /**
- RouteProvider Tests
+ RouteType Tests
  */
-class RouteProviderTests: XCTestCase {
+class RouteTypeTests: XCTestCase {
     
     /// Test custom transition is triggered
     func testEquatableOnUniqueNames() {
@@ -34,7 +34,7 @@ class RouteProviderTests: XCTestCase {
  We've configured our TestRoutes `name` parameter to be
     unique for `.profile(...)` but not for `.settings(...)`
  */
-private enum TestRoute: RouteProvider {
+private enum TestRoute: RouteType {
     
     case profile(uniqueParameter: String)
     case settings(someIgnoredParameter: String)
@@ -47,7 +47,7 @@ private enum TestRoute: RouteProvider {
         return baseName
     }
     
-    // MARK: - RouteProvider
+    // MARK: - RouteType
     
     var transition: RouteTransition {
         fatalError("'transition' not implemented")

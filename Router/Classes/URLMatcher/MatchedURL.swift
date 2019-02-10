@@ -6,12 +6,12 @@
 import Foundation
 
 /**
- A URL that has been matched to a registered `RouteProvider` route.
+ A URL that has been matched to a registered `RouteType` route.
  
  Used for shortcuts when mapping registered URLs routes.
  
  - Note: For use when handling routing parameters.
- - See: `RouteProvider.registerURLs(...)`
+ - See: `RouteType.registerURLs(...)`
  
  Usage:
  ```swift

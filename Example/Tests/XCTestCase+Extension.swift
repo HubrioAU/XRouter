@@ -16,7 +16,7 @@ extension XCTestCase {
     
     /// Navigate
     @discardableResult
-    internal func navigate<Route: RouteProvider>(_ router: Router<Route>, to route: Route, failOnError: Bool = true) -> Error? {
+    internal func navigate<Route: RouteType>(_ router: Router<Route>, to route: Route, failOnError: Bool = true) -> Error? {
         let expectation = self.expectation(description: "Navigate to router")
         var receivedError: Error?
         
@@ -35,14 +35,14 @@ extension XCTestCase {
     }
     
     /// Navigate and expect error
-    func navigateExpectError<Route: RouteProvider>(_ router: Router<Route>, to route: Route, error expectedError: Error) {
+    func navigateExpectError<Route: RouteType>(_ router: Router<Route>, to route: Route, error expectedError: Error) {
         let actualError = navigate(router, to: route, failOnError: false)
         XCTAssertEqual(actualError?.localizedDescription, expectedError.localizedDescription)
     }
     
     /// Open URL
     @discardableResult
-    internal func openURL<Route: RouteProvider>(_ router: Router<Route>, url: URL, failOnError: Bool = true) -> Error? {
+    internal func openURL<Route: RouteType>(_ router: Router<Route>, url: URL, failOnError: Bool = true) -> Error? {
         let expectation = self.expectation(description: "Navigate to URL")
         var receivedError: Error?
         
@@ -61,7 +61,7 @@ extension XCTestCase {
     }
     
     /// Open URL and expect error
-    internal func openURLExpectError<Route: RouteProvider>(_ router: Router<Route>, url: URL, error expectedError: Error) {
+    internal func openURLExpectError<Route: RouteType>(_ router: Router<Route>, url: URL, error expectedError: Error) {
         let actualError = openURL(router, url: url, failOnError: false)
         XCTAssertEqual(actualError?.localizedDescription, expectedError.localizedDescription)
     }

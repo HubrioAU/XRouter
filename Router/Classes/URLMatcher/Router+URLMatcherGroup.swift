@@ -31,6 +31,19 @@ extension Router {
             return group([host], mapPathsClosure)
         }
         
+        // MARK: - Methods
+        
+        /// Find  matching URL
+        internal func findMatch(forURL url: URL) throws -> Route? {
+            for urlMatcher in matchers {
+                if let route = try urlMatcher.match(url: url) {
+                    return route
+                }
+            }
+            
+            return nil
+        }
+        
     }
 
 }

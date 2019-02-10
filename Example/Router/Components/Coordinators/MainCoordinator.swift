@@ -12,7 +12,7 @@ class MainCoordinator {
     // MARK: - Dependencies
     
     /// Router
-    let router: Router<Route>
+    let router: Router
     
     /// Example coordinator for a modal flow
     let modalCoordinator: ModalCoordinator
@@ -42,7 +42,7 @@ class MainCoordinator {
     // MARK: - Methods
     
     /// Constructor. Inject dependencies.
-    init(_ router: Router<Route>,
+    init(_ router: Router,
          _ modalCoordinator: ModalCoordinator,
          _ tab1Coordinator: Tab1Coordinator,
          _ tab2Coordinator: Tab2Coordinator) {

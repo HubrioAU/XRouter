@@ -12,12 +12,12 @@ internal extension UIViewController {
     
     // MARK: - Methods
     
-    /// If this is a container view controller, get child and it is visible
+    /// Child if this is a container view controller, otherwise self.
     /// - Note: Currently does not handle split view controller
-    internal var visibleViewController: UIViewController {
-        return presentedViewController
-            ?? (self as? UITabBarController)?.selectedViewController
-            ?? (self as? UINavigationController)?.visibleViewController
+    internal var topViewController: UIViewController {
+        return presentedViewController?.topViewController
+            ?? (self as? UITabBarController)?.selectedViewController?.topViewController
+            ?? (self as? UINavigationController)?.visibleViewController?.topViewController
             ?? self
     }
     

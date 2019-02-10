@@ -12,7 +12,7 @@ import XRouter
 class Tab2ViewController: UIViewController {
     
     /// Router
-    weak var router: Router<Route>!
+    weak var router: Router!
     
     /// Tapped push view controller
     @IBAction func tappedButton(_ sender: Any) {

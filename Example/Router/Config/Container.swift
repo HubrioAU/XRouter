@@ -15,7 +15,10 @@ class Container {
     // MARK: - Router
     
     /// Share an instance of the router.
-    lazy var router = Router<Route>()
+    lazy var router: Router! = {
+        let router = Router(container: self)
+        return router
+    }()
     
     // MARK: - Coordinators
     
@@ -26,13 +29,13 @@ class Container {
                                                tab2Coordinator)
     
     /// Resolve the example coordinator for a modal flow
-    lazy var modalCoordinator = ModalCoordinator()
+    lazy var modalCoordinator = ModalCoordinator(container: self)
     
     /// Resolve the example coordinator for a tab
-    lazy var tab1Coordinator = Tab1Coordinator()
+    lazy var tab1Coordinator = Tab1Coordinator(container: self)
     
     /// Resolve the example coordinator for a tab
-    lazy var tab2Coordinator = Tab2Coordinator()
+    lazy var tab2Coordinator = Tab2Coordinator(container: self)
     
     // Add coordinators here...
     
@@ -102,6 +105,3 @@ class Container {
     }
     
 }
-
-/// Global instance
-let container = Container()

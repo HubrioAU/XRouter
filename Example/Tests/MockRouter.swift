@@ -12,13 +12,13 @@ import XCTest
 /**
  Mocked router
  */
-class MockRouter<Route: RouteProvider>: Router<Route> {
+class MockRouterBase<Route: RouteType>: Router<Route> {
     
     private(set) var currentRoute: Route?
     
-    convenience init(rootViewController: UIViewController? = UIApplication.shared.rootViewController) {
+    init(rootViewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) {
         UIApplication.shared.keyWindow?.rootViewController = rootViewController
-        self.init()
+        super.init(window: UIApplication.shared.keyWindow)
     }
     
     /// Sets the `currentRoute` when `super.navigate(to:animated)` doesn't return an error

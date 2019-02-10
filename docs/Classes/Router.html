@@ -52,6 +52,9 @@
               <li class="nav-group-task">
                 <a href="../Classes/Router/URLPathMapper.html">– URLPathMapper</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RoutingDelegate.html">RoutingDelegate</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -77,7 +80,7 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/RouteProvider.html">RouteProvider</a>
+                <a href="../Protocols/RouteType.html">RouteType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/RouterCustomTransitionDelegate.html">RouterCustomTransitionDelegate</a>
@@ -92,13 +95,15 @@
             <h1>Router</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RouteProvider.html">RouteProvider</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Classes/RoutingDelegate.html">RoutingDelegate</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RouteType.html">RouteType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>An appliance that analyzes the navigation stack, and navigates you to the content you are trying to display.</p>
-<pre class="highlight swift"><code><span class="c1">// Define your router, with a `RouteProvider`</span>
-<span class="k">let</span> <span class="nv">router</span> <span class="o">=</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">AppRoutes</span><span class="o">&gt;</span><span class="p">()</span>
+            <p>Router</p>
+
+<p>An appliance that allows you to trigger flows and navigate straight to
+statically declared destinations in just one line:</p>
+<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="nf">profile</span><span class="p">(</span><span class="nv">withID</span><span class="p">:</span> <span class="mi">23</span><span class="p">))</span>
 </code></pre>
 
           </section>
@@ -139,23 +144,12 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Computed%20properties"></a>
-                <a name="//apple_ref/swift/Section/Computed properties" class="dashAnchor"></a>
-                <a href="#/Computed%20properties">
-                  <h3 class="section-name">Computed properties</h3>
-                </a>
-              </div>
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterC24currentTopViewControllerSo06UIViewF0CSgvp"></a>
-                    <a name="//apple_ref/swift/Property/currentTopViewController" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC24currentTopViewControllerSo06UIViewF0CSgvp">currentTopViewController</a>
+                    <a name="/s:7XRouter6RouterC15routingDelegateAA07RoutingD0CyxGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/routingDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter6RouterC15routingDelegateAA07RoutingD0CyxGSgvp">routingDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -163,14 +157,106 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The navigation controller for the currently presented view controller</p>
+                        <p>Routing delegate</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">currentTopViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">routingDelegate</span><span class="p">:</span> <span class="kt"><a href="../Classes/RoutingDelegate.html">RoutingDelegate</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter6RouterC6windowSo8UIWindowCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/window" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter6RouterC6windowSo8UIWindowCSgvp">window</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Window</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">window</span><span class="p">:</span> <span class="kt">UIWindow</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Constructors"></a>
+                <a name="//apple_ref/swift/Section/Constructors" class="dashAnchor"></a>
+                <a href="#/Constructors">
+                  <h3 class="section-name">Constructors</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter6RouterC6windowACyxGSo8UIWindowCSg_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(window:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter6RouterC6windowACyxGSo8UIWindowCSg_tcfc">init(window:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize explicitly with a window. Defaults to <code>UIApplication.shared.keyWindow</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">window</span><span class="p">:</span> <span class="kt">UIWindow</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter6RouterCACyxGycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter6RouterCACyxGycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defaults to <code>UIApplication.shared.keyWindow</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -191,33 +277,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter6RouterCACyxGycfc"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterCACyxGycfc">init()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initialiser</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:7XRouter6RouterC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF"></a>
                     <a name="//apple_ref/swift/Method/navigate(to:animated:completion:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:7XRouter6RouterC8navigate2to8animated10completionyx_Sbys5Error_pSgcSgtF">navigate(to:animated:completion:)</a>
@@ -231,9 +290,9 @@
                         <p>Navigate to a route.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    Has no effect if the destination view controller is the source view controller or the
-    navigation controller of the source view controller - as provided by
-    <code>RouteProvider(_:).prepareForTransition(...)</code>.
+    Will not trigger the transition if the the destination view controller is
+    the same as the source view controller or it&rsquo;s navigation controller. However,
+    it will call <code>RoutingDelgate(_:).prepareForTransition(to:)</code> either way.
 
 </div>
 
@@ -272,7 +331,7 @@
 </div>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Register your URL mappings in your <code><a href="../Protocols/RouteProvider.html">RouteProvider</a></code> by
+    <p>Register your URL mappings in your <code><a href="../Protocols/RouteType.html">RouteType</a></code> by
     implementing the static method <code>registerURLs</code>.</p>
 
 </div>
@@ -292,6 +351,44 @@
                       <div>
                         <h4>Return Value</h4>
                         <p>A <code>Bool</code> indicating whether the URL was handled or not.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/RxSwift"></a>
+                <a name="//apple_ref/swift/Section/RxSwift" class="dashAnchor"></a>
+                <a href="#/RxSwift">
+                  <h3 class="section-name">RxSwift</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter6RouterC2rx7RxSwift8ReactiveVyACyxGGvp"></a>
+                    <a name="//apple_ref/swift/Property/rx" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter6RouterC2rx7RxSwift8ReactiveVyACyxGGvp">rx</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reactive binding for Router.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rx</span><span class="p">:</span> <span class="kt">Reactive</span><span class="o">&lt;</span><span class="kt">Router</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -407,49 +504,11 @@
                 </li>
               </ul>
             </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/RxSwift"></a>
-                <a name="//apple_ref/swift/Section/RxSwift" class="dashAnchor"></a>
-                <a href="#/RxSwift">
-                  <h3 class="section-name">RxSwift</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter6RouterC2rx7RxSwift8ReactiveVyACyxGGvp"></a>
-                    <a name="//apple_ref/swift/Property/rx" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter6RouterC2rx7RxSwift8ReactiveVyACyxGGvp">rx</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Reactive binding for Router.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rx</span><span class="p">:</span> <span class="kt">Reactive</span><span class="o">&lt;</span><span class="kt">Router</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
           </section>
         </section>
         <section id="footer">
           <p>MIT License</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

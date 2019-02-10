@@ -12,7 +12,7 @@ import XRouter
 class ProfileViewController: UIViewController {
     
     /// Router
-    weak var router: Router<Route>!
+    weak var router: Router!
     
     /// Tap present modal
     @IBAction func tappedPresentModal(_ sender: Any) {

@@ -11,6 +11,14 @@ import UIKit
  */
 class Tab2Coordinator {
     
+    /// Container
+    let container: Container
+    
+    /// Constructor
+    init(container: Container) {
+        self.container = container
+    }
+    
     // MARK: - Navigation
     
     /// Navigation controller

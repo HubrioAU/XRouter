@@ -12,7 +12,7 @@ import XRouter
 class PushedViewController: UIViewController {
     
     /// Router
-    weak var router: Router<Route>!
+    weak var router: Router!
     
     /// Tapped button
     @IBAction func tappedButton(_ sender: Any) {

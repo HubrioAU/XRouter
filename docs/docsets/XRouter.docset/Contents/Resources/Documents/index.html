@@ -51,6 +51,9 @@
               <li class="nav-group-task">
                 <a href="Classes/Router/URLPathMapper.html">– URLPathMapper</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Classes/RoutingDelegate.html">RoutingDelegate</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -76,7 +79,7 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/RouteProvider.html">RouteProvider</a>
+                <a href="Protocols/RouteType.html">RouteType</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/RouterCustomTransitionDelegate.html">RouterCustomTransitionDelegate</a>
@@ -91,7 +94,7 @@
             
             <h1 id='xrouter' class='heading'>XRouter</h1>
 
-<p>A simple routing library for iOS projects. Compatible with RxSwift.</p>
+<p>A simple routing library for iOS projects.</p>
 
 <p><a href="https://app.codacy.com/app/hubrioAU/XRouter?utm_source=github.com&utm_medium=referral&utm_content=hubrioAU/XRouter&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d" alt="Codacy Badge"></a>
 <a href="https://codecov.io/gh/hubrioau/XRouter"><img src="https://codecov.io/gh/hubrioAU/XRouter/branch/master/graph/badge.svg" alt="CodeCov Badge"></a>
@@ -132,7 +135,7 @@
 </div>
 
 <p>Implement the protocol stubs:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AppRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AppRoute</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
 
     <span class="c1">/// Configure the transitions</span>
     <span class="k">var</span> <span class="nv">transition</span><span class="p">:</span> <span class="kt">RouteTransition</span> <span class="p">{</span>
@@ -159,21 +162,21 @@
 
 <span class="p">}</span>
 </code></pre>
-<h3 id='rxswift-implementation' class='heading'>RxSwift Implementation</h3>
+<h3 id='rxswift-support' class='heading'>RxSwift Support</h3>
 
 <p>XRouter also implements reactive bindings for the RxSwift framework. Bindings exist for the <code>navigate(to:)</code> method, which returns a <code>Completable</code> event, as well as the <code>openURL(_:)</code> method, which returns a <code>Single&lt;Bool&gt;</code> event (indicating whether or not the url was handled).</p>
-<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">loginFlow</span><span class="p">)</span>
-<span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">navigate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">loginFlow</span><span class="p">)</span> <span class="c1">// -&gt; Completable</span>
+<span class="n">router</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="nf">openURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="c1">// -&gt; Single&lt;Bool&gt;</span>
 </code></pre>
 <h3 id='advanced-usage' class='heading'>Advanced Usage</h3>
 <h4 id='url-support' class='heading'>URL Support</h4>
 
 <p>You only need to do two things to add URL support to your routes.</p>
 
-<p>First, implement the static method <code>registerURLs</code> in your <code><a href="Protocols/RouteProvider.html">RouteProvider</a></code>.</p>
+<p>First, implement the static method <code>registerURLs</code> in your <code><a href="Protocols/RouteType.html">RouteType</a></code>.</p>
 
 <p>Here is an example with a single host:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
 
     <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">.</span><span class="nf">group</span><span class="p">(</span><span class="s">"store.example.com"</span><span class="p">)</span> <span class="p">{</span>
@@ -188,7 +191,7 @@
 </code></pre>
 
 <p>Here is an example with multiple domains configured:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteProvider</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MyRoute</span><span class="p">:</span> <span class="kt">RouteType</span> <span class="p">{</span>
 
     <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerURLs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">MyRoute</span><span class="o">&gt;.</span><span class="kt">URLMatcherGroup</span><span class="p">?</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">matchers</span><span class="p">:</span> <span class="p">[</span>
@@ -242,7 +245,7 @@
 
 <p>If you handle all navigation errors in the same way, you could provide a wrapper. 
 For example, something like this:</p>
-<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteProvider</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">.</span><span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="p">:</span> <span class="kt">RouteType</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">XRouter</span><span class="o">.</span><span class="kt">Router</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">{</span>
 
     <span class="c1">/// Navigate to a route. Logs errors.</span>
     <span class="k">override</span> <span class="kd">func</span> <span class="nf">navigate</span><span class="p">(</span><span class="n">to</span> <span class="nv">route</span><span class="p">:</span> <span class="kt">Route</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
@@ -353,7 +356,7 @@ it, simply add the following line to your Podfile:</p>
         </section>
         <section id="footer">
           <p>MIT License</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

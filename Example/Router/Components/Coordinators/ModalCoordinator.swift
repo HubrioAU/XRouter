@@ -11,6 +11,16 @@ import UIKit
  */
 class ModalCoordinator {
     
+    // MARK: - Dependencies
+    
+    /// Container
+    let container: Container
+    
+    /// Container
+    init(container: Container) {
+        self.container = container
+    }
+    
     // MARK: - Navigation
     
     /// Navigation controller
@@ -30,8 +40,7 @@ class ModalCoordinator {
     /// Go to the second page
     @discardableResult func gotoSecondPage() -> UINavigationController {
         navigationController.setViewControllers([rootViewController,
-                                                 container.secondModalViewController
-                                                 ],
+                                                 container.secondModalViewController],
                                                 animated: true)
         return navigationController
     }

@@ -1,23 +1,23 @@
 //
-//  RouteProvider
+//  RouteType
 //  XRouter
 //
 
 import Foundation
 
 /**
- Defines the minimum requirements for describing a Route list.
+ Defines the minimum requirements for describing a list of routes.
  
- Your Route list enum should inherit from this protocol.
+ - Note: Your Route enum should inherit from this protocol.
  
  ```swift
- enum MyRoutes: RouteProvider {
+ enum MyRoutes: RouteType {
      case homePage
      case profilePage(profileID: Int)
      ...
  ```
  */
-public protocol RouteProvider: Equatable {
+public protocol RouteType: Equatable {
     
     // MARK: - Properties
     
@@ -27,20 +27,7 @@ public protocol RouteProvider: Equatable {
     ///
     var name: String { get }
     
-    ///
-    /// Transition type
-    ///
-    var transition: RouteTransition { get }
-    
     // MARK: - Methods
-    
-    ///
-    /// Prepare the route for transition and return the view controller
-    ///  to transition to on the view hierachy.
-    ///
-    /// - Note: Throwing an error here will cancel the transition
-    ///
-    func prepareForTransition(from viewController: UIViewController) throws -> UIViewController
     
     ///
     /// Register a URL matcher group.
@@ -58,7 +45,7 @@ public protocol RouteProvider: Equatable {
     
 }
 
-extension RouteProvider {
+extension RouteType {
     
     // MARK: - Computed properties
     
@@ -79,7 +66,7 @@ extension RouteProvider {
     
 }
 
-extension RouteProvider {
+extension RouteType {
     
     // MARK: - Equatable
     

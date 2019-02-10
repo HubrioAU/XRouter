@@ -20,9 +20,10 @@ extension Router {
 
 extension Reactive {
     
-    // MARK: - Completables
+    // MARK: - Observables
     
     /// Navigate to a route.
+    /// - Returns: A `Completable` indicating when the navigation has completed, or an `.error`.
     public func navigate<Route>(to route: Route, animated: Bool = true) -> Completable where Base: Router<Route> {
         return .create { completable in
             self.base.navigate(to: route, animated: animated) { error in
@@ -38,12 +39,12 @@ extension Reactive {
     }
     
     /// Open a URL.
-    /// - Returns: A `Single<Bool>` indicating whether the route was handled or not.
+    /// - Returns: A `Single<Bool>` indicating whether the route was handled or not, or an `.error`.
     @discardableResult
     public func openURL<Route>(_ url: URL, animated: Bool = true) -> Single<Bool> where Base: Router<Route> {
         return .create { single in
             do {
-                if let route = try self.base.findMatchingRoute(for: url) {
+                if let route = try self.base.urlMatcherGroup?.findMatch(forURL: url) {
                     self.base.navigate(to: route, animated: animated) { error in
                         if let error = error {
                             single(.error(error)) // Routing error

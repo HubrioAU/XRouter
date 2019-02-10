@@ -20,9 +20,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test static routes
     func testURLRouterCanMapStaticRoutes() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
-        print("Truthy:")
-        print(UIApplication.shared.getTopViewController() != nil)
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         
         openURL(router, url: URL(string: "http://example.com/invalid/route")!)
         XCTAssertNil(router.currentRoute)
@@ -33,7 +31,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test dynamic string routes
     func testURLRouterCanMapDynamicStringRoutes() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         
         openURL(router, url: URL(string: "http://example.com/dynamic/string/spaghetti")!)
         if case let TestRoute.exampleStringDynamicRoute(name) = router.currentRoute! {
@@ -52,7 +50,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test dynamic string routes
     func testURLRouterCanMapDynamicIntRoutes() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         
         openURL(router, url: URL(string: "http://example.com/dynamic/int/1235")!)
         if case let TestRoute.exampleIntDynamicRoute(number) = router.currentRoute! {
@@ -71,7 +69,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test dynamic string routes
     func testURLRouterCanMapWildcardRoutes() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         
         openURL(router, url: URL(string: "http://example.com/dynamic/wildcard-test/whatever")!)
         XCTAssertNil(router.currentRoute)
@@ -92,7 +90,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test dynamic string routes
     func testQueryStringParameters() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         XCTAssertNil(router.currentRoute)
         
         // No parameter should set parameter to 0
@@ -138,14 +136,14 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test dynamic string routes
     func testRouteMissingParamTriggersError() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         openURLExpectError(router, url: URL(string: "http://example.com/route/missing/param")!,
                            error: RouterError.missingRequiredPathParameter(parameter: "whoops"))
     }
     
     /// Test dynamic string routes
     func testRouteInvalidIntegerParameterTriggersError() {
-        let router = MockRouter<TestRoute>(rootViewController: UINavigationController(rootViewController: UIViewController()))
+        let router = MockRouter(rootViewController: UINavigationController(rootViewController: UIViewController()))
         openURLExpectError(router, url: URL(string: "http://example.com/dynamic/int/three")!,
                            error: RouterError.requiredIntegerParameterWasNotAnInteger(parameter: "id", stringValue: "three"))
         
@@ -156,7 +154,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
     /// Test rx.openURL captures an error thrown during transition
     func testReactiveExtensionCatchesErrors() {
-        let router = MockRouter<TestRoute>()
+        let router = MockRouter()
         
         // Test RxSwift extension works too
         rxOpenURLExpectError(router, url: URL(string: "http://example.com/failing")!,
@@ -165,7 +163,7 @@ class RouterURLMatcherTests: ReactiveTestCase {
     
 }
 
-private enum TestRoute: RouteProvider {
+private enum TestRoute: RouteType {
     
     /// Static route
     case exampleStaticRoute
@@ -187,37 +185,6 @@ private enum TestRoute: RouteProvider {
     
     /// Route that fails during routing
     case failingRoute
-    
-    var transition: RouteTransition {
-        return .push
-    }
-    
-    func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
-        switch self {
-        case .exampleStaticRoute:
-            let viewController = UIViewController()
-            viewController.title = "My Static Route"
-            return viewController
-            
-        case .exampleStringDynamicRoute(let name):
-            let viewController = UIViewController()
-            viewController.title = name
-            return viewController
-            
-        case .exampleIntDynamicRoute(let identifier):
-            let viewController = UIViewController()
-            viewController.title = "id:\(identifier)"
-            return viewController
-            
-        case .failingRoute:
-            // Trigger any error here
-            // We're just using `missingCustomTransitionDelegate` for simplicity.
-            throw RouterError.missingCustomTransitionDelegate
-            
-        default:
-            return UIViewController()
-        }
-    }
     
     static func registerURLs() -> Router<TestRoute>.URLMatcherGroup? {
         return .init(matchers: [
@@ -244,6 +211,41 @@ private enum TestRoute: RouteProvider {
             }
             ]
         )
+    }
+    
+}
+
+private class MockRouter: MockRouterBase<TestRoute> {
+    
+    override func transition(for route: TestRoute) -> RouteTransition {
+        return .push
+    }
+    
+    override func prepareForTransition(to route: TestRoute) throws -> UIViewController {
+        switch route {
+        case .exampleStaticRoute:
+            let viewController = UIViewController()
+            viewController.title = "My Static Route"
+            return viewController
+            
+        case .exampleStringDynamicRoute(let name):
+            let viewController = UIViewController()
+            viewController.title = name
+            return viewController
+            
+        case .exampleIntDynamicRoute(let identifier):
+            let viewController = UIViewController()
+            viewController.title = "id:\(identifier)"
+            return viewController
+            
+        case .failingRoute:
+            // Trigger any error here
+            // We're just using `missingCustomTransitionDelegate` for simplicity.
+            throw RouterError.missingCustomTransitionDelegate
+            
+        default:
+            return UIViewController()
+        }
     }
     
 }

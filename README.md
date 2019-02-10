@@ -45,7 +45,7 @@ enum AppRoute {
 
 Implement the protocol stubs:
 ```swift
-extension AppRoute: RouteProvider {
+extension AppRoute: RouteType {
 
     /// Configure the transitions
     var transition: RouteTransition {
@@ -86,11 +86,11 @@ router.rx.openURL(url) // -> Single<Bool>
 
 You only need to do two things to add URL support to your routes.
 
-First, implement the static method `registerURLs` in your `RouteProvider`.
+First, implement the static method `registerURLs` in your `RouteType`.
 
 Here is an example with a single host:
 ```swift
-extension MyRoute: RouteProvider {
+extension MyRoute: RouteType {
 
     static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
         return .group("store.example.com") {
@@ -106,7 +106,7 @@ extension MyRoute: RouteProvider {
 
 Here is an example with multiple domains configured:
 ```swift
-extension MyRoute: RouteProvider {
+extension MyRoute: RouteType {
 
     static func registerURLs() -> Router<MyRoute>.URLMatcherGroup? {
         return .init(matchers: [
@@ -166,7 +166,7 @@ If you handle all navigation errors in the same way, you could provide a wrapper
 For example, something like this:
 
 ```swift
-class Router<Route: RouteProvider>: XRouter.Router<Route> {
+class Router<Route: RouteType>: XRouter.Router<Route> {
 
     /// Navigate to a route. Logs errors.
     override func navigate(to route: Route, animated: Bool = true, completion: ((Error?) -> Void)? = nil) {

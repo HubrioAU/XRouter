@@ -12,12 +12,14 @@ import XRouter
 /**
  Demo project
  */
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// Window
     lazy var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
+    
+    /// Container
+    private let container = Container()
     
     /// Setup app
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

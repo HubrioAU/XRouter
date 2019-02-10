@@ -13,7 +13,7 @@ import UIKit
 /**
  UIApplication Extension Tests
  */
-class UIApplicationExtensionTests: XCTestCase {
+class UIViewControllerExtensionTests: XCTestCase {
     
     /// Get top view controller.
     func testTopViewControllerIsPresentedViewController() {
@@ -23,7 +23,7 @@ class UIApplicationExtensionTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = presentingViewController
         presentingViewController.present(presentedViewController, animated: false)
         
-        let topViewController = UIApplication.shared.getTopViewController(for: presentingViewController)
+        let topViewController = presentingViewController.topViewController
         
         XCTAssertEqual(presentedViewController, topViewController)
     }

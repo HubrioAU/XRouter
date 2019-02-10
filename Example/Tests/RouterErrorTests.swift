@@ -11,7 +11,7 @@ import UIKit
 @testable import XRouter
 
 /**
- RouteProvider Tests
+ RouteType Tests
  */
 class RouterErrorTests: XCTestCase {
     
@@ -24,6 +24,7 @@ class RouterErrorTests: XCTestCase {
         assertExpectedFormat(for: .missingRequiredPathParameter(parameter: "test"))
         assertExpectedFormat(for: .requiredIntegerParameterWasNotAnInteger(parameter: "test", stringValue: "test"))
         assertExpectedFormat(for: .missingCustomTransitionDelegate)
+        assertExpectedFormat(for: .routeHasNotBeenConfigured)
     }
     
     private func assertExpectedFormat(for error: RouterError) {
