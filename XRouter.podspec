@@ -13,7 +13,7 @@ Setup routes and map them to controllers, easy peasy.
   s.author           = { 'Reece Como' => 'reece@hubr.io' }
   s.source           = { :git => 'https://github.com/hubrioAU/XRouter.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '10.0'
   s.swift_version = '4.2'
 
   s.source_files = 'Router/Classes/*.swift'
