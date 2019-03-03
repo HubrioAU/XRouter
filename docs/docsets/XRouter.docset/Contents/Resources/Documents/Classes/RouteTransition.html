@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RouterError Enumeration Reference</title>
+    <title>RouteTransition Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/RouterError" class="dashAnchor"></a>
-    <a title="RouterError Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Class/RouteTransition" class="dashAnchor"></a>
+    <a title="RouteTransition Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">XRouter Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">XRouter Reference</a>
         <img id="carat" src="../img/carat.png" />
-        RouterError Enumeration Reference
+        RouteTransition Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -94,32 +94,29 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>RouterError</h1>
+            <h1>RouteTransition</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RouterError</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">RouteTransition</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            <p>Errors that can be thrown by Router.</p>
+            <p>The types of presentation transitions for Routes.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">myTransition</span> <span class="o">=</span> <span class="kt">RouteTransition</span> <span class="p">{</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">animated</span><span class="p">,</span> <span class="n">completion</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">present</span>
+<span class="p">}</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Errors"></a>
-                <a name="//apple_ref/swift/Section/Errors" class="dashAnchor"></a>
-                <a href="#/Errors">
-                  <h3 class="section-name">Errors</h3>
-                </a>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO35missingRequiredNavigationControlleryA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/missingRequiredNavigationController" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO35missingRequiredNavigationControlleryA2CmF">missingRequiredNavigationController</a>
+                    <a name="/s:7XRouter15RouteTransitionC7executeyySo16UIViewControllerC_AFSbys5Error_pSgctcvp"></a>
+                    <a name="//apple_ref/swift/Property/execute" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC7executeyySo16UIViewControllerC_AFSbys5Error_pSgctcvp">execute</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -127,14 +124,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The route transition can only be called from a UINavigationController</p>
+                        <p>Performs transition from source view controller to destination view controller.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">missingRequiredNavigationController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">execute</span><span class="p">:</span> <span class="p">(</span><span class="n">_</span> <span class="nv">sourceViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">_</span> <span class="nv">destViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -144,9 +141,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO28missingRequiredPathParameteryACSS_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/missingRequiredPathParameter(parameter:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO28missingRequiredPathParameteryACSS_tcACmF">missingRequiredPathParameter(parameter:)</a>
+                    <a name="/s:7XRouter15RouteTransitionCyACySo16UIViewControllerC_AESbys5Error_pSgctccfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionCyACySo16UIViewControllerC_AESbys5Error_pSgctccfc">init(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -154,14 +151,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Missing required parameter while unwrapping URL route</p>
+                        <p>Constructor.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">missingRequiredPathParameter</span><span class="p">(</span><span class="nv">parameter</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">execute</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">Bool</span><span class="p">,</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -171,9 +168,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO27missingSourceViewControlleryA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/missingSourceViewController" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO27missingSourceViewControlleryA2CmF">missingSourceViewController</a>
+                    <a name="/s:7XRouter15RouteTransitionC2eeoiySbAC_ACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC2eeoiySbAC_ACtFZ">==(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -181,73 +178,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>There is currently no top view controller on the navigation stack</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    This really won&rsquo;t ever occur, unless you are doing something super bizarre with the <code>UIWindow(_:).rootViewController</code>.
-
-</div>
+                        <p>Equatable.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">missingSourceViewController</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter11RouterErrorO032requiredIntegerParameterWasNotAnE0yACSS_SStcACmF"></a>
-                    <a name="//apple_ref/swift/Element/requiredIntegerParameterWasNotAnInteger(parameter:stringValue:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO032requiredIntegerParameterWasNotAnE0yACSS_SStcACmF">requiredIntegerParameterWasNotAnInteger(parameter:stringValue:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A required parameter was found, but it was not an Int</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">requiredIntegerParameterWasNotAnInteger</span><span class="p">(</span><span class="nv">parameter</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">stringValue</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7XRouter11RouterErrorO25routeHasNotBeenConfiguredyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/routeHasNotBeenConfigured" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO25routeHasNotBeenConfiguredyA2CmF">routeHasNotBeenConfigured</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>No view controller has been configured</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">routeHasNotBeenConfigured</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">RouteTransition</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">RouteTransition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -258,19 +196,19 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/LocalizedError"></a>
-                <a name="//apple_ref/swift/Section/LocalizedError" class="dashAnchor"></a>
-                <a href="#/LocalizedError">
-                  <h3 class="section-name">LocalizedError</h3>
+                <a name="/Built-in%20Transitions"></a>
+                <a name="//apple_ref/swift/Section/Built-in Transitions" class="dashAnchor"></a>
+                <a href="#/Built-in%20Transitions">
+                  <h3 class="section-name">Built-in Transitions</h3>
                 </a>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO16errorDescriptionSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/errorDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO16errorDescriptionSSSgvp">errorDescription</a>
+                    <a name="/s:7XRouter15RouteTransitionC8inferredACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/inferred" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC8inferredACvpZ">inferred</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -278,14 +216,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A localized message describing what error occurred.</p>
+                        <p>Automatically infers the best transition to use from the context.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">errorDescription</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">inferred</span><span class="p">:</span> <span class="kt">RouteTransition</span></code></pre>
 
                         </div>
                       </div>
@@ -295,9 +233,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO18recoverySuggestionSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/recoverySuggestion" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO18recoverySuggestionSSSgvp">recoverySuggestion</a>
+                    <a name="/s:7XRouter15RouteTransitionC5modalACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/modal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC5modalACvpZ">modal</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -305,14 +243,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A localized message describing how one might recover from the failure.</p>
+                        <p>Uses <code>UIViewController(_:).present(_:animated:completion:)</code>.</p>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621380-presentviewcontroller">https://developer.apple.com/documentation/uikit/uiviewcontroller/1621380-presentviewcontroller</a>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">recoverySuggestion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">modal</span><span class="p">:</span> <span class="kt">RouteTransition</span></code></pre>
 
                         </div>
                       </div>
@@ -322,9 +265,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO13failureReasonSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/failureReason" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO13failureReasonSSSgvp">failureReason</a>
+                    <a name="/s:7XRouter15RouteTransitionC4pushACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/push" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC4pushACvpZ">push</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -332,14 +275,26 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A localized message describing the reason for the failure.</p>
+                        <p>Uses <code>UINavigationController(_:).pushViewController(_:animated:)</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This transition can <em>only</em> be used when you are navigating from a <code>UINavigationController</code>.
+
+</div>
+
+<p>If the view controller is already on the navigation stack, this method throws an exception.</p>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    <a href="https://developer.apple.com/documentation/uikit/uinavigationcontroller/1621887-pushviewcontroller?language=objc">https://developer.apple.com/documentation/uikit/uinavigationcontroller/1621887-pushviewcontroller?language=objc</a>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">failureReason</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">push</span><span class="p">:</span> <span class="kt">RouteTransition</span></code></pre>
 
                         </div>
                       </div>
@@ -349,9 +304,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter11RouterErrorO10helpAnchorSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/helpAnchor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter11RouterErrorO10helpAnchorSSSgvp">helpAnchor</a>
+                    <a name="/s:7XRouter15RouteTransitionC3setACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/set" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC3setACvpZ">set</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -359,14 +314,29 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A localized message providing <q>help</q> text if the user requests help.</p>
+                        <p>Uses <code>UINavigationController(_:).setViewControllers(to:animated:)</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This transition can <em>only</em> be used when you are navigating from a <code>UINavigationController</code>.
+
+</div>
+
+<p>Use this to update or replace the current view controller stack without pushing or popping each controller explicitly.
+If animations are enabled, this method decides which type of transition to perform based on whether the last item in the items array is already in the navigation stack.
+If the view controller is currently in the stack, but is not the topmost item, this method uses a pop transition; if it is the topmost item, no transition is performed. If the view controller is not on the stack, this method uses a push transition.
+Only one transition is performed, but when that transition finishes, the entire contents of the stack are replaced with the new view controllers. For example, if controllers A, B, and C are on the stack and you set controllers D, A, and B, this method uses a pop transition and the resulting stack contains the controllers D, A, and B.</p>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    <a href="https://developer.apple.com/documentation/uikit/uinavigationcontroller/1621861-setviewcontrollers">https://developer.apple.com/documentation/uikit/uinavigationcontroller/1621861-setviewcontrollers</a>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">helpAnchor</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">set</span><span class="p">:</span> <span class="kt">RouteTransition</span></code></pre>
 
                         </div>
                       </div>

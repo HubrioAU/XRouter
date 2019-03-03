@@ -41,7 +41,10 @@
                 <a href="Classes/PathPattern/Component.html">– Component</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RoutingHandler.html">RoutingHandler</a>
+                <a href="Classes/RouteHandler.html">RouteHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/RouteTransition.html">RouteTransition</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/URLMatcher.html">URLMatcher</a>
@@ -57,9 +60,6 @@
           <li class="nav-group-name">
             <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Enums/RouteTransition.html">RouteTransition</a>
-              </li>
               <li class="nav-group-task">
                 <a href="Enums/RouterError.html">RouterError</a>
               </li>
@@ -78,9 +78,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Protocols/RouteType.html">RouteType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/RouterCustomTransitionDelegate.html">RouterCustomTransitionDelegate</a>
               </li>
             </ul>
           </li>
@@ -107,9 +104,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7XRouter14RoutingHandlerC"></a>
-                    <a name="//apple_ref/swift/Class/RoutingHandler" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7XRouter14RoutingHandlerC">RoutingHandler</a>
+                    <a name="/s:7XRouter12RouteHandlerC"></a>
+                    <a name="//apple_ref/swift/Class/RouteHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter12RouteHandlerC">RouteHandler</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -117,20 +114,56 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Routing Delegate</p>
+                        <p>Route Handler</p>
 
 <p>This delegate is provided as a generic base class.</p>
 
 <p>Feel free to inherit from this base class and override the
 methods <code>prepareForTransition(to:)</code> and <code>transition(for:)</code>.</p>
 
-                        <a href="Classes/RoutingHandler.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/RouteHandler.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RoutingHandler</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RouteType.html">RouteType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RouteHandler</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">R</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RouteType.html">RouteType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7XRouter15RouteTransitionC"></a>
+                    <a name="//apple_ref/swift/Class/RouteTransition" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7XRouter15RouteTransitionC">RouteTransition</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The types of presentation transitions for Routes.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">myTransition</span> <span class="o">=</span> <span class="kt">RouteTransition</span> <span class="p">{</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">animated</span><span class="p">,</span> <span class="n">completion</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">present</span>
+<span class="p">}</span>
+</code></pre>
+
+                        <a href="Classes/RouteTransition.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">RouteTransition</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -167,7 +200,7 @@ statically declared destinations in just one line:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">XRouter</span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/RoutingHandler.html">RoutingHandler</a></span><span class="o">&lt;</span><span class="kt">Route</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Route</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RouteType.html">RouteType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">XRouter</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/RouteHandler.html">RouteHandler</a></span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">R</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RouteType.html">RouteType</a></span></code></pre>
 
                         </div>
                       </div>
