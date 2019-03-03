@@ -241,6 +241,6 @@ extension RouteTransition {
     static let customTransition = RouteTransition { (source, dest, animated, completion) in
         // Do nothing
         customTransitionWasTriggered = true
-        completion?(nil)
+        completion(nil)
     }
 }

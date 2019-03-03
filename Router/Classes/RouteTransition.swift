@@ -7,18 +7,24 @@ import UIKit
 
 /**
  The types of presentation transitions for Routes.
+ 
+ ```swift
+ let myTransition = RouteTransition { (source, destination, animated, completion) in
+     source.present
+ }
+ ```
  */
 public class RouteTransition: Equatable {
     
-    /// Perform transition from source view controller to destination view controller.
-    public var perform: (_ sourceViewController: UIViewController,
+    /// Performs transition from source view controller to destination view controller.
+    public var execute: (_ sourceViewController: UIViewController,
                          _ destViewController: UIViewController,
                          _ animated: Bool,
-                         _ completion: ((Error?) -> Void)?) -> ()
+                         _ completion: @escaping (Error?) -> Void) -> ()
     
     /// Constructor.
-    public init(_ perform: @escaping (UIViewController, UIViewController, Bool, ((Error?) -> Void)?) -> Void) {
-        self.perform = perform
+    public init(_ execute: @escaping (UIViewController, UIViewController, Bool, @escaping (Error?) -> Void) -> Void) {
+        self.execute = execute
     }
     
     /// Equatable.
@@ -33,15 +39,15 @@ extension RouteTransition {
     // MARK: - Built-in Transitions
     
     ///
-    /// Automatically infers the best transition to use.
+    /// Automatically infers the best transition to use from the context.
     ///
     public static let inferred = RouteTransition { (source, destination, animated, completion) in
         if (source as? UINavigationController) == nil || (destination as? UINavigationController) != nil {
-            modal.perform(source, destination, animated, completion)
+            modal.execute(source, destination, animated, completion)
         } else if destination.navigationController == source {
-            set.perform(source, destination, animated, completion)
+            set.execute(source, destination, animated, completion)
         } else {
-            push.perform(source, destination, animated, completion)
+            push.execute(source, destination, animated, completion)
         }
     }
     
@@ -52,7 +58,7 @@ extension RouteTransition {
     ///
     public static let modal = RouteTransition { (source, destination, animated, completion) in
         source.present(destination, animated: animated) {
-            completion?(nil)
+            completion(nil)
         }
     }
     
@@ -66,12 +72,12 @@ extension RouteTransition {
     ///
     public static let push = RouteTransition { (source, destination, animated, completion) in
         guard let navController = source as? UINavigationController else {
-            completion?(RouterError.missingRequiredNavigationController)
+            completion(RouterError.missingRequiredNavigationController)
             return
         }
         
         navController.pushViewController(destination, animated: animated) {
-            completion?(nil)
+            completion(nil)
         }
     }
     
@@ -88,7 +94,7 @@ extension RouteTransition {
     ///
     public static let set = RouteTransition { (source, destination, animated, completion) in
         guard let navController = source as? UINavigationController else {
-            completion?(RouterError.missingRequiredNavigationController)
+            completion(RouterError.missingRequiredNavigationController)
             return
         }
         
@@ -107,7 +113,7 @@ extension RouteTransition {
         }
         
         navController.setViewControllers(viewControllers, animated: animated) {
-            completion?(nil)
+            completion(nil)
         }
     }
     

@@ -166,66 +166,29 @@ router.navigate(to: .profilePage(withID: 24)) { (optionalError) in
 #### Custom Transitions
 Here is an example using the popular [Hero Transitions](https://github.com/HeroTransitions/Hero) library.
 
-Set the `customTransitionDelegate` for the `Router`:
+Define your custom transitions:
 ```swift
-router.customTransitionDelegate = self
+  /// Hero cross fade transition
+  let heroCrossFade = RouteTransition { (source, dest, animated, completion) in
+      source.hero.isEnabled = true
+      dest.hero.isEnabled = true
+      dest.hero.modalAnimationType = .fade
+
+      // Present the hero animation
+      source.present(dest, animated: animated) {
+          completion(nil)
+      }
+  }
 ```
 
-(Optional) Define your custom transitions as a static reference
-```swift
-extension RouteTransition {
-
-    static var heroCrossFade: RouteTransition {
-        return .custom(identifier: "HeroCrossFade")
-    }
-    
-}
-```
-
-Implement the delegate method `performTransition(...)`:
-```swift
-
-extension Router: RouterCustomTransitionDelegate {
-
-    /// Handle custom transitions
-    func performTransition(to viewController: UIViewController,
-                           from sourceViewController: UIViewController,
-                           transition: RouteTransition,
-                           animated: Bool,
-                           completion: ((Error?) -> Void)?) {
-        guard transition == .heroCrossFade else {
-            assertionFailed("Unhandled custom transition \(transition.name)")
-            completion?(nil)
-            return
-        }
-        
-        sourceViewController.hero.isEnabled = true
-        destViewController.hero.isEnabled = true
-        destViewController.hero.modalAnimationType = .fade
-
-        // Creates a container nav stack
-        let containerNavController = UINavigationController()
-        containerNavController.hero.isEnabled = true
-        containerNavController.setViewControllers([newViewController], animated: false)
-
-        // Present the hero animation
-        sourceViewController.present(containerNavController, animated: animated) {
-            completion?(nil)
-        }
-    }
-
-}
-```
-
-And override the transition to your custom in your Router:
+And set the transition to your custom transition in your Router:
 ```swift
     override func transition(for route: Route) -> RouteTransition {
-        switch route {
-            case .profile:
-                return .heroCrossFade
-            default:
-                return .inferred
+        if case Route.profile = route {
+          return heroCrossFade
         }
+
+        return .inferred
     }
 ```
 

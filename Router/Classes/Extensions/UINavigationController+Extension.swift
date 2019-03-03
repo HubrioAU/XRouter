@@ -3,7 +3,7 @@
 //  XRouter
 //
 
-import Foundation
+import UIKit
 
 /**
  Variants of push/set navigation with a completion closure

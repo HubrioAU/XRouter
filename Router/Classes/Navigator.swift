@@ -3,7 +3,7 @@
 //  XRouter
 //
 
-import Foundation
+import UIKit
 
 /**
  The Navigator.
@@ -24,7 +24,7 @@ internal class Navigator<R: RouteType> {
                            using routeHandler: RouteHandler<R>,
                            rootViewController: UIViewController?,
                            animated: Bool,
-                           completion: ((Error?) -> Void)?) {
+                           completion: @escaping (Error?) -> Void) {
         prepareForNavigation(to: route,
                              using: routeHandler,
                              rootViewController: rootViewController,
@@ -37,7 +37,7 @@ internal class Navigator<R: RouteType> {
                                                        completion: completion)
                 
         }, onError: { error in
-            completion?(error)
+            completion(error)
         })
     }
     
@@ -89,10 +89,10 @@ internal class Navigator<R: RouteType> {
                                    to destination: UIViewController,
                                    transition: RouteTransition,
                                    animated: Bool,
-                                   completion: ((Error?) -> Void)?) {
+                                   completion: @escaping (Error?) -> Void) {
         // Already here/on the current navigation controller.
         if destination === source || destination === source.navigationController {
-            completion?(nil)
+            completion(nil)
             return
         }
         
@@ -102,7 +102,7 @@ internal class Navigator<R: RouteType> {
         let source = source.navigationController ?? source
         
         // Perform the transition.
-        transition.perform(source, destination, animated, completion)
+        transition.execute(source, destination, animated, completion)
     }
     
 }
