@@ -12,11 +12,8 @@ public enum RouterError {
     
     // MARK: - Errors
     
-    /// Used a custom transition but no custom transition delegate was set
-    case missingCustomTransitionDelegate
-    
     /// The route transition can only be called from a UINavigationController
-    case missingRequiredNavigationController(for: RouteTransition)
+    case missingRequiredNavigationController
     
     /// Missing required parameter while unwrapping URL route
     case missingRequiredPathParameter(parameter: String)
@@ -40,13 +37,9 @@ extension RouterError: LocalizedError {
     /// A localized message describing what error occurred.
     public var errorDescription: String? {
         switch self {
-        case .missingCustomTransitionDelegate:
+        case .missingRequiredNavigationController:
             return """
-            Attempted to use a custom transition, but `customTransitionDelegate` was set to `nil`.
-            """
-        case .missingRequiredNavigationController(let transition):
-            return """
-            You cannot navigate to this route using transition \"\(transition.name)\" without a navigation controller.
+            Attempted to navigate to a route, but the source view controller was not a navigation controller.
             """
         case .missingRequiredPathParameter(let name):
             return """
@@ -73,10 +66,6 @@ extension RouterError: LocalizedError {
     /// A localized message describing how one might recover from the failure.
     public var recoverySuggestion: String? {
         switch self {
-        case .missingCustomTransitionDelegate:
-            return """
-            Set `customTransitionDelegate` when using `RouteTransition.custom(_:)`.
-            """
         case .missingRequiredNavigationController:
             return """
             Nest the parent view controller in a `UINavigationController`.

@@ -40,7 +40,7 @@ internal extension UIViewController {
     ///
     /// - Returns: Lowest common ancestor, or `nil` if there is no common ancestor.
     ///
-    internal func getLowestCommonAncestor(with viewController: UIViewController) -> UIViewController? {
+    internal func getNearestCommonAncestor(with viewController: UIViewController) -> UIViewController? {
         var currentABranch = self
         var currentBBranch = viewController
         

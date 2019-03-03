@@ -41,7 +41,7 @@
 		28243BD4BF95F970FD0A004AD103BC61 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1CD99295AE1312D20E08819AEBBAB7 /* Disposable.swift */; };
 		2840E7BAA35C37FB72844821ED2534BB /* Skip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E927D00E736B03E88B2871EE1A223B /* Skip.swift */; };
 		2901DFD9220FC7CF0016EB5C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901DFD7220FC7CF0016EB5C /* Navigator.swift */; };
-		2901DFDA220FC7CF0016EB5C /* RoutingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901DFD8220FC7CF0016EB5C /* RoutingHandler.swift */; };
+		2901DFDA220FC7CF0016EB5C /* RouteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901DFD8220FC7CF0016EB5C /* RouteHandler.swift */; };
 		29A9859F1680213FDDE5939A4B314A3C /* SubjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F99E273565F1568CA0CD863E6B5AF /* SubjectType.swift */; };
 		29B4DDC7C36A800F9D1A78C11296C6DD /* Zip+arity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85131EC9C6759DC0D14735D2B103ED6 /* Zip+arity.swift */; };
 		2BA67643353F297846FECFE12AEF341D /* RxAtomic-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C97F384259EDC422C51C14E57FE3E62D /* RxAtomic-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -49,7 +49,6 @@
 		2F097433621862EDC561FDC33E6F9035 /* ScheduledItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F02E18703C15162E32011B065E40A71 /* ScheduledItemType.swift */; };
 		306FC29B8C7A86C6E093AE9202C21382 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73F433FEDF3986EBDBFC5556A6440B /* RouteType.swift */; };
 		30CF3D05B4883BF35BFBE82992199314 /* RefCountDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29338A9AE89F9BF43952F5F1F36A5139 /* RefCountDisposable.swift */; };
-		31152469565E4F3B96D13F02714F2581 /* RouterCustomTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9795DA068C297D7EA8A4D36671CD42C /* RouterCustomTransitionDelegate.swift */; };
 		311D4E697217009BE62F1708CC8D883A /* Completable+AndThen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB1F1E298CCBCB032BD26D9C8A89217 /* Completable+AndThen.swift */; };
 		324D874FD55CC4AA15C61CC2542E955F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFA7F93358174CF45CDD2C0487B5C5F /* UIKit.framework */; };
 		32EBAF856F3DB384DB5A85DE6706C105 /* CombineLatest+arity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F5E45C151B4130104E005B3604DBE /* CombineLatest+arity.swift */; };
@@ -306,7 +305,7 @@
 		28B42DE3FD919AA5753B73C678B8C4E7 /* AsyncLock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AsyncLock.swift; path = RxSwift/Concurrency/AsyncLock.swift; sourceTree = "<group>"; };
 		28FB089C768DC5361D45EBAC9F0501EF /* ObservableType+PrimitiveSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ObservableType+PrimitiveSequence.swift"; path = "RxSwift/Traits/ObservableType+PrimitiveSequence.swift"; sourceTree = "<group>"; };
 		2901DFD7220FC7CF0016EB5C /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Navigator.swift; path = Router/Classes/Navigator.swift; sourceTree = "<group>"; };
-		2901DFD8220FC7CF0016EB5C /* RoutingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoutingHandler.swift; path = Router/Classes/RoutingHandler.swift; sourceTree = "<group>"; };
+		2901DFD8220FC7CF0016EB5C /* RouteHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteHandler.swift; path = Router/Classes/RouteHandler.swift; sourceTree = "<group>"; };
 		29338A9AE89F9BF43952F5F1F36A5139 /* RefCountDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RefCountDisposable.swift; path = RxSwift/Disposables/RefCountDisposable.swift; sourceTree = "<group>"; };
 		2A03F9A0A94E3687F87300B03F63CBF8 /* NopDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NopDisposable.swift; path = RxSwift/Disposables/NopDisposable.swift; sourceTree = "<group>"; };
 		2A0FE3B30BE884A679CA2199287D23CC /* XRouter-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XRouter-umbrella.h"; sourceTree = "<group>"; };
@@ -465,7 +464,6 @@
 		C7419732911E9A0FE0843F10C303B5D2 /* SynchronizedDisposeType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SynchronizedDisposeType.swift; path = RxSwift/Concurrency/SynchronizedDisposeType.swift; sourceTree = "<group>"; };
 		C91E53ECBC9E3BECAABDEB545F3FDF27 /* Reactive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reactive.swift; path = RxSwift/Reactive.swift; sourceTree = "<group>"; };
 		C960A4D1F7AD5BB8C8AB1939A0F93DE9 /* index.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = index.html; path = docs/docsets/XRouter.docset/Contents/Resources/Documents/index.html; sourceTree = "<group>"; };
-		C9795DA068C297D7EA8A4D36671CD42C /* RouterCustomTransitionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RouterCustomTransitionDelegate.swift; path = Router/Classes/RouterCustomTransitionDelegate.swift; sourceTree = "<group>"; };
 		C97F384259EDC422C51C14E57FE3E62D /* RxAtomic-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RxAtomic-umbrella.h"; sourceTree = "<group>"; };
 		CA892F654FD3EFB9E9BEF83AE9AFEABC /* Just.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Just.swift; path = RxSwift/Observables/Just.swift; sourceTree = "<group>"; };
 		CAA7613C24CB7EAB0155C97748C47D3D /* Sequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sequence.swift; path = RxSwift/Observables/Sequence.swift; sourceTree = "<group>"; };
@@ -895,11 +893,10 @@
 			isa = PBXGroup;
 			children = (
 				2901DFD7220FC7CF0016EB5C /* Navigator.swift */,
-				C9795DA068C297D7EA8A4D36671CD42C /* RouterCustomTransitionDelegate.swift */,
 				8D1FDB98E8FFB5A627B7C0CDF901D04F /* RouterError.swift */,
 				159C06D4172D196EEAAD432EBB9AE0B1 /* RouteTransition.swift */,
 				1F73F433FEDF3986EBDBFC5556A6440B /* RouteType.swift */,
-				2901DFD8220FC7CF0016EB5C /* RoutingHandler.swift */,
+				2901DFD8220FC7CF0016EB5C /* RouteHandler.swift */,
 				3F4DC08EB5E5439D4A7F3BF974FF0901 /* XRouter.swift */,
 				60D4F10AEB191D56A61394B49CD79F0D /* Core */,
 				295728CC220686C9006B4EA4 /* Extensions */,
@@ -1258,9 +1255,8 @@
 				108A69F3D38904076C20D9685D0A4570 /* URLMatcher.swift in Sources */,
 				422E7F85550CE808960848628DF062CE /* URLMatcherGroup.swift in Sources */,
 				AC18067F1220DC8BB72098C5F5E5DA98 /* URLPathMapper.swift in Sources */,
-				2901DFDA220FC7CF0016EB5C /* RoutingHandler.swift in Sources */,
+				2901DFDA220FC7CF0016EB5C /* RouteHandler.swift in Sources */,
 				25434EEC6CF2451FC24B6A291361E1FF /* XRouter.swift in Sources */,
-				31152469565E4F3B96D13F02714F2581 /* RouterCustomTransitionDelegate.swift in Sources */,
 				2901DFD9220FC7CF0016EB5C /* Navigator.swift in Sources */,
 				415F5DDAF1C796335654C8DCCF10A4E6 /* RouterError.swift in Sources */,
 				03523BC69A96D3CCD0AF86D5EB604882 /* RouteTransition.swift in Sources */,

@@ -1,19 +1,25 @@
 //
-//  RoutingHandler
+//  RouteHandler
 //  XRouter
 //
 
 import Foundation
 
 /**
- Routing Delegate
+ Route Handler
  
  This delegate is provided as a generic base class.
  
  Feel free to inherit from this base class and override the
  methods `prepareForTransition(to:)` and `transition(for:)`.
  */
-open class RoutingHandler<Route: RouteType> {
+open class RouteHandler<R: RouteType> {
+    
+    // MARK: - Constructor
+    
+    /// Constructor.
+    /// Required to set class visibility to public.
+    public init() {}
     
     // MARK: - Methods
     
@@ -25,22 +31,15 @@ open class RoutingHandler<Route: RouteType> {
     ///
     /// - Note: Throw an Error here to cancel the transition.
     ///
-    open func prepareForTransition(to route: Route) throws -> UIViewController {
+    open func prepareForTransition(to route: R) throws -> UIViewController {
         throw RouterError.routeHasNotBeenConfigured
     }
     
     ///
     /// Presentation transition type for Route.
     ///
-    open func transition(for route: Route) -> RouteTransition {
+    open func transition(for route: R) -> RouteTransition {
         return .inferred
-    }
-    
-    // MARK: - Constructor
-    
-    /// Constructor
-    public init() {
-        // Required to set class visibility to public.
     }
     
 }

@@ -15,7 +15,8 @@ type_body_length:
 
 disabled_rules:
   - trailing_whitespace
-  
+  - identifier_name
+
 custom_rules:
   type_declaration_whitespace:
     name: "Type Declarations Whitespace"

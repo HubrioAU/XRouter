@@ -1,5 +1,5 @@
 //
-//  RoutingHandlerTests.swift
+//  RouteHandlerTests.swift
 //  XRouter_Example
 //
 //  Created by Reece Como on 10/2/19.
@@ -16,7 +16,7 @@ import UIKit
 /**
  Router Tests
  */
-class RoutingHandlerTests: ReactiveTestCase {
+class RouteHandlerTests: ReactiveTestCase {
     
     func testUnconfiguredRouterThrowsError() {
         let router = MockRouter()
@@ -24,8 +24,8 @@ class RoutingHandlerTests: ReactiveTestCase {
     }
     
     func testDefaultTransitionIsInferred() {
-        let routingHandler = MockRoutingHandler()
-        XCTAssertEqual(routingHandler.transition(for: .example), .inferred)
+        let routeHandler = MockRouteHandler()
+        XCTAssertEqual(routeHandler.transition(for: .example), .inferred)
     }
     
 }
@@ -36,7 +36,7 @@ private enum Route: RouteType {
 
 private class MockRouter: MockRouterBase<Route> { }
 
-private class MockRoutingHandler: RoutingHandler<Route> {
+private class MockRouteHandler: RouteHandler<Route> {
     
     override func prepareForTransition(to route: Route) throws -> UIViewController {
         switch route {

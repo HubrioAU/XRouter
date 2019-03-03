@@ -3,19 +3,58 @@
 //  XRouter
 //
 
-import Foundation
+import UIKit
 
 /**
  The types of presentation transitions for Routes.
  */
-public enum RouteTransition {
+public class RouteTransition: Equatable {
     
-    // MARK: - Transitions
+    /// Perform transition from source view controller to destination view controller.
+    public var perform: (_ sourceViewController: UIViewController,
+                         _ destViewController: UIViewController,
+                         _ animated: Bool,
+                         _ completion: ((Error?) -> Void)?) -> ()
+    
+    /// Constructor.
+    public init(_ perform: @escaping (UIViewController, UIViewController, Bool, ((Error?) -> Void)?) -> Void) {
+        self.perform = perform
+    }
+    
+    /// Equatable.
+    public static func == (_ lhs: RouteTransition, _ rhs: RouteTransition) -> Bool {
+        return lhs === rhs
+    }
+    
+}
+
+extension RouteTransition {
+    
+    // MARK: - Built-in Transitions
     
     ///
-    /// Automatically infer the best transition to use.
+    /// Automatically infers the best transition to use.
     ///
-    case inferred
+    public static let inferred = RouteTransition { (source, destination, animated, completion) in
+        if (source as? UINavigationController) == nil || (destination as? UINavigationController) != nil {
+            modal.perform(source, destination, animated, completion)
+        } else if destination.navigationController == source {
+            set.perform(source, destination, animated, completion)
+        } else {
+            push.perform(source, destination, animated, completion)
+        }
+    }
+    
+    ///
+    /// Uses `UIViewController(_:).present(_:animated:completion:)`.
+    ///
+    /// - See: https://developer.apple.com/documentation/uikit/uiviewcontroller/1621380-presentviewcontroller
+    ///
+    public static let modal = RouteTransition { (source, destination, animated, completion) in
+        source.present(destination, animated: animated) {
+            completion?(nil)
+        }
+    }
     
     ///
     /// Uses `UINavigationController(_:).pushViewController(_:animated:)`.
@@ -25,14 +64,16 @@ public enum RouteTransition {
     /// If the view controller is already on the navigation stack, this method throws an exception.
     /// - See: https://developer.apple.com/documentation/uikit/uinavigationcontroller/1621887-pushviewcontroller?language=objc
     ///
-    case push
-    
-    ///
-    /// Uses `UIViewController(_:).present(_:animated:completion:)`.
-    ///
-    /// - See: https://developer.apple.com/documentation/uikit/uiviewcontroller/1621380-presentviewcontroller
-    ///
-    case modal
+    public static let push = RouteTransition { (source, destination, animated, completion) in
+        guard let navController = source as? UINavigationController else {
+            completion?(RouterError.missingRequiredNavigationController)
+            return
+        }
+        
+        navController.pushViewController(destination, animated: animated) {
+            completion?(nil)
+        }
+    }
     
     ///
     /// Uses `UINavigationController(_:).setViewControllers(to:animated:)`.
@@ -45,45 +86,29 @@ public enum RouteTransition {
     /// Only one transition is performed, but when that transition finishes, the entire contents of the stack are replaced with the new view controllers. For example, if controllers A, B, and C are on the stack and you set controllers D, A, and B, this method uses a pop transition and the resulting stack contains the controllers D, A, and B.
     /// - See: https://developer.apple.com/documentation/uikit/uinavigationcontroller/1621861-setviewcontrollers
     ///
-    case set
-    
-    ///
-    /// Uses a custom transition.
-    ///
-    /// - See `RouterCustomTransitionDelegate` for use.
-    ///
-    case custom(identifier: String)
-    
-}
-
-extension RouteTransition {
-    
-    // MARK: - Properties
-    
-    /// Transition name
-    /// - Example: `.custom(identifier: "myTransition")` becomes "myTransition"
-    public var name: String {
-        if case let .custom(identifier) = self {
-            return identifier
+    public static let set = RouteTransition { (source, destination, animated, completion) in
+        guard let navController = source as? UINavigationController else {
+            completion?(RouterError.missingRequiredNavigationController)
+            return
         }
         
-        return String(describing: self).components(separatedBy: "(")[0]
-    }
-    
-}
-    
-extension RouteTransition: Equatable {
-    
-    // MARK: - Equatable
-    
-    /// Equatable (compares on `name`)
-    public static func == (_ lhs: RouteTransition, _ rhs: RouteTransition) -> Bool {
-        return lhs.name == rhs.name
-    }
-    
-    /// Compares `name` property to some `String`
-    public static func == (_ route: RouteTransition, _ string: String) -> Bool {
-        return route.name == string
+        let viewControllers: [UIViewController]
+        
+        if let index = navController.viewControllers.firstIndex(of: destination) {
+            //
+            // Pop all view controllers above the destination
+            //
+            viewControllers = Array(navController.viewControllers[...index])
+        } else {
+            //
+            // Set destination
+            //
+            viewControllers = [destination]
+        }
+        
+        navController.setViewControllers(viewControllers, animated: animated) {
+            completion?(nil)
+        }
     }
     
 }

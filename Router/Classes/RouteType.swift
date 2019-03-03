@@ -7,7 +7,6 @@ import Foundation
 
 /**
  Defines the minimum requirements for describing a list of routes.
- 
  - Note: Your Route enum should inherit from this protocol.
  
  ```swift
@@ -21,11 +20,12 @@ public protocol RouteType: Equatable {
     
     // MARK: - Properties
     
-    ///
-    /// Route identifier
-    /// - Note: Default implementation provided
-    ///
-    var name: String { get }
+    /// Route name.
+    /// - Note: Default implementation provided.
+    var identifier: String { get }
+    
+    /// Include parameters when calculating uniqueness.
+    var uniqueOnParameters: Bool { get }
     
     // MARK: - Methods
     
@@ -44,35 +44,50 @@ public protocol RouteType: Equatable {
     static func registerURLs() -> URLMatcherGroup<Self>?
     
 }
+    
+extension RouteType {
+        
+    // MARK: - Equatable
+    
+    /// Equatable (default: Compares on String representation of self)
+    public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+
+}
 
 extension RouteType {
     
     // MARK: - Computed properties
     
-    /// Example: `myProfileView(withID: Int)` becomes "myProfileView"
-    public var baseName: String {
-        return String(describing: self).components(separatedBy: "(")[0]
-    }
-    
-    /// Route name (default: `baseName`)
+    /// Route name. Example: `myProfileView(withID: Int)` becomes "myProfileView"
     public var name: String {
-        return baseName
-    }
-    
-    /// Register URLs (default: none)
-    public static func registerURLs() -> URLMatcherGroup<Self>? {
-        return nil
+        return String(describing: self).components(separatedBy: "(")[0]
     }
     
 }
 
 extension RouteType {
     
-    // MARK: - Equatable
+    // MARK: - Default implementation
     
-    /// Equatable (default: Compares on `name` property)
-    public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
-        return lhs.name == rhs.name
+    /// Unique identifier for equality checks. (default: includes parameters)
+    public var identifier: String {
+        if uniqueOnParameters {
+            return String(describing: self)
+        }
+        
+        return name
+    }
+    
+    /// Includes any parameters when calculating uniqueness. (default: true)
+    public var uniqueOnParameters: Bool {
+        return true
+    }
+    
+    /// Register URLs (default: none)
+    public static func registerURLs() -> URLMatcherGroup<Self>? {
+        return nil
     }
     
 }

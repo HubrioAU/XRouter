@@ -15,32 +15,24 @@ import UIKit
  router.navigate(to: .profile(withID: 23))
  ```
  */
-open class XRouter<Route: RouteType>: RoutingHandler<Route> {
+open class XRouter<R: RouteType>: RouteHandler<R> {
     
     // MARK: - Properties
-    
-    /// Custom transition delegate
-    public weak var customTransitionDelegate: RouterCustomTransitionDelegate?
-    
-    /// Routing delegate
-    public var routingHandler: RoutingHandler<Route>?
     
     /// UIWindow. Defaults to `UIApplication.shared.keyWindow`.
     public lazy var window: UIWindow? = UIApplication.shared.keyWindow
     
+    /// Route handler
+    public var routeHandler: RouteHandler<R>?
+    
     // MARK: - Internal Helpers
     
     /// Handles all of the navigation for presenting.
-    private let navigator: Navigator<Route> = .init()
+    private let navigator: Navigator<R> = .init()
     
-    ///
-    /// URL matcher group
-    ///
-    /// Used to map URLs to Routes.
-    ///
-    /// - See `RouteType.registerURLs()`
-    ///
-    internal lazy var urlMatcherGroup: URLMatcherGroup? = Route.registerURLs()
+    /// URL matcher group. Used to map URLs to Routes.
+    /// - Note: See `RouteType.registerURLs()`
+    internal lazy var urlMatcherGroup: URLMatcherGroup? = R.registerURLs()
     
     // MARK: - Constructors
     
@@ -67,13 +59,12 @@ open class XRouter<Route: RouteType>: RoutingHandler<Route> {
     ///         the same as the source view controller or it's navigation controller. However,
     ///         it will call `RoutingDelgate(_:).prepareForTransition(to:)` either way.
     ///
-    open func navigate(to route: Route,
+    open func navigate(to route: R,
                        animated: Bool = true,
                        completion: ((Error?) -> Void)? = nil) {
         navigator.navigate(to: route,
-                           using: routingHandler ?? self,
+                           using: routeHandler ?? self,
                            rootViewController: window?.rootViewController,
-                           customTransitionDelegate: customTransitionDelegate,
                            animated: animated,
                            completion: completionHandler(or: completion))
     }

@@ -16,7 +16,7 @@ import UIKit
 class RouteTypeTests: XCTestCase {
     
     /// Test custom transition is triggered
-    func testEquatableOnUniqueNames() {
+    func testEquatableOnUniqueIdentifiers() {
         // We've configured `TestRoute.profile` to be unique on `uniqueID`
         XCTAssertEqual(TestRoute.profile(uniqueParameter: "12345"),
                        TestRoute.profile(uniqueParameter: "12345"))
@@ -39,22 +39,12 @@ private enum TestRoute: RouteType {
     case profile(uniqueParameter: String)
     case settings(someIgnoredParameter: String)
     
-    var name: String {
-        if case let .profile(uniqueID) = self {
-            return "profile(\(uniqueID))"
+    /// Unique on parameters
+    var uniqueOnParameters: Bool {
+        switch self {
+        case .settings: return false
+        default: return true
         }
-        
-        return baseName
-    }
-    
-    // MARK: - RouteType
-    
-    var transition: RouteTransition {
-        fatalError("'transition' not implemented")
-    }
-    
-    func prepareForTransition(from viewController: UIViewController) throws -> UIViewController {
-        fatalError("'prepareForTransition' not implemented")
     }
     
 }

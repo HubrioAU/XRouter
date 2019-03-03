@@ -24,7 +24,7 @@ extension Reactive {
     
     /// Navigate to a route.
     /// - Returns: A `Completable` indicating when the navigation has completed, or an `.error`.
-    public func navigate<Route>(to route: Route, animated: Bool = true) -> Completable where Base: XRouter<Route> {
+    public func navigate<R>(to route: R, animated: Bool = true) -> Completable where Base: XRouter<R> {
         return .create { completable in
             self.base.navigate(to: route, animated: animated) { error in
                 if let error = error {
@@ -41,7 +41,7 @@ extension Reactive {
     /// Open a URL.
     /// - Returns: A `Single<Bool>` indicating whether the route was handled or not, or an `.error`.
     @discardableResult
-    public func openURL<Route>(_ url: URL, animated: Bool = true) -> Single<Bool> where Base: XRouter<Route> {
+    public func openURL<R>(_ url: URL, animated: Bool = true) -> Single<Bool> where Base: XRouter<R> {
         return .create { single in
             do {
                 if let route = try self.base.urlMatcherGroup?.findMatch(forURL: url) {

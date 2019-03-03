@@ -55,7 +55,7 @@ class Router: XRouter<Route> {
         super.init()
     }
     
-    // MARK: - RoutingHandler
+    // MARK: - RouteHandler
     
     /// Prepare the route for transition and return the view controller
     ///  to transition to on the view hierachy

@@ -17,13 +17,10 @@ class RouterErrorTests: XCTestCase {
     
     /// Test custom transition is triggered
     func testErrorFormatting() {
-        let mockTransition: RouteTransition = .push
-        
         assertExpectedFormat(for: .missingSourceViewController)
-        assertExpectedFormat(for: .missingRequiredNavigationController(for: mockTransition))
+        assertExpectedFormat(for: .missingRequiredNavigationController)
         assertExpectedFormat(for: .missingRequiredPathParameter(parameter: "test"))
         assertExpectedFormat(for: .requiredIntegerParameterWasNotAnInteger(parameter: "test", stringValue: "test"))
-        assertExpectedFormat(for: .missingCustomTransitionDelegate)
         assertExpectedFormat(for: .routeHasNotBeenConfigured)
     }
     

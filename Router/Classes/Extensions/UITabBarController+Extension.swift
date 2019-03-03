@@ -24,7 +24,7 @@ internal extension UITabBarController {
             return nil
         }
         
-        for viewController in viewControllers where viewController.getLowestCommonAncestor(with: descendantViewController) === viewController {
+        for viewController in viewControllers where viewController.getNearestCommonAncestor(with: descendantViewController) === viewController {
             return viewController
         }
         
