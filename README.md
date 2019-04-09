@@ -1,6 +1,6 @@
 # XRouter
 
-Navigate anywhere in your iOS app in one line.
+Navigate anywhere in just one line.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ef88b70fc843adb2944ce0d956269d)](https://app.codacy.com/app/hubrioAU/XRouter?utm_source=github.com&utm_medium=referral&utm_content=hubrioAU/XRouter&utm_campaign=Badge_Grade_Dashboard)
 [![CodeCov Badge](https://codecov.io/gh/hubrioAU/XRouter/branch/master/graph/badge.svg)](https://codecov.io/gh/hubrioau/XRouter)
@@ -9,6 +9,7 @@ Navigate anywhere in your iOS app in one line.
 [![Version](https://img.shields.io/cocoapods/v/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 [![License](https://img.shields.io/cocoapods/l/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
 [![Platform](https://img.shields.io/cocoapods/p/XRouter.svg?style=flat)](https://cocoapods.org/pods/XRouter)
+[![Language](https://img.shields.io/badge/language-Swift-ed5036.svg)](https://swift.org)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/hubrioau/XRouter/master/XRouter.jpg?17-Mar" alt="XRouter" width="400" style="max-width:400px;width:auto;height:auto;"/>
@@ -23,19 +24,10 @@ Navigate anywhere in your iOS app in one line.
  Routes
  */
 enum Route: RouteType {
-
-    /// Newsfeed page
     case newsfeed
-    
-    /// Login flow
     case login
-    
-    /// Signup flow
-    case signup 
-    
-    /// User profile
-    case profile(userID: String)
-    
+    case signup
+    case profile(userID: Int)
 }
 ```
 
@@ -46,7 +38,7 @@ enum Route: RouteType {
  */
 class Router: XRouter<Route> {
 
-    /// Configure the destination route view controller.
+    /// Configure the view controller for the route.
     override func viewController(for route: Route) throws -> UIViewController {
         switch route {
         case .newsfeed: return newsfeedController.rootViewController
