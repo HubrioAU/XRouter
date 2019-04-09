@@ -64,7 +64,7 @@ internal class Navigator<R: RouteType> {
         let destination: UIViewController
         
         do {
-            destination = try routeHandler.prepareForTransition(to: route)
+            destination = try routeHandler.viewController(for: route)
         } catch {
             errorHandler(error)
             return

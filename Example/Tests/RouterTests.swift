@@ -214,7 +214,7 @@ private class MockRouter: MockRouterBase<TestRoute> {
     }
     
     /// Prepare for transition
-    override func prepareForTransition(to route: TestRoute) throws -> UIViewController {
+    override func viewController(for route: TestRoute) throws -> UIViewController {
         switch route {
         case .homeVC,
              .secondHomeVC:

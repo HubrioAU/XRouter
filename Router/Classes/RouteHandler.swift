@@ -24,14 +24,14 @@ open class RouteHandler<R: RouteType> {
     // MARK: - Methods
     
     ///
-    /// Return the view controller for your Route here.
+    /// Configure the view controller for your route here.
     ///
-    /// It can be either a container (i.e. Navigation Controller) or an
+    /// You can either give it the container (i.e. Navigation Controller) or an
     ///   instance of a single view controller.
     ///
-    /// - Note: Throw an Error here to cancel the transition.
+    /// - Note: Throw any `Error` here to cancel the transition.
     ///
-    open func prepareForTransition(to route: R) throws -> UIViewController {
+    open func viewController(for route: R) throws -> UIViewController {
         throw RouterError.routeHasNotBeenConfigured
     }
     

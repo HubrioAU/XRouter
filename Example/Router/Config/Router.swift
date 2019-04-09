@@ -59,7 +59,7 @@ class Router: XRouter<Route> {
     
     /// Prepare the route for transition and return the view controller
     ///  to transition to on the view hierachy
-    override func prepareForTransition(to route: Route) throws -> UIViewController {
+    override func viewController(for route: Route) throws -> UIViewController {
         switch route {
         case .tab1Home:
             return container.tab1Coordinator.gotoTabHome()

@@ -38,7 +38,7 @@ private class MockRouter: MockRouterBase<Route> { }
 
 private class MockRouteHandler: RouteHandler<Route> {
     
-    override func prepareForTransition(to route: Route) throws -> UIViewController {
+    override func viewController(for route: Route) throws -> UIViewController {
         switch route {
         case .example:
             return UIViewController()

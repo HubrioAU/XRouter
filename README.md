@@ -46,8 +46,8 @@ enum Route: RouteType {
  */
 class Router: XRouter<Route> {
 
-    /// Prepares route destinations.
-    override func prepareForTransition(to route: Route) throws -> UIViewController {
+    /// Configure the destination route view controller.
+    override func viewController(for route: Route) throws -> UIViewController {
         switch route {
         case .newsfeed: return newsfeedController.rootViewController
         case .login: return LoginFlowCoordinator().start()

@@ -6,10 +6,7 @@
 import UIKit
 
 /**
- Router
- 
- An appliance that allows you to trigger flows and navigate straight to
- statically declared destinations in just one line:
+ A routing appliance used to navigate to the start of flows.
  
  ```
  router.navigate(to: .profile(withID: 23))
@@ -22,8 +19,8 @@ open class XRouter<R: RouteType>: RouteHandler<R> {
     /// UIWindow. Defaults to `UIApplication.shared.keyWindow`.
     public lazy var window: UIWindow? = UIApplication.shared.keyWindow
     
-    /// Route handler
-    public var routeHandler: RouteHandler<R>?
+    /// Route handler. Defaults to `self`.
+    public lazy var routeHandler: RouteHandler<R> = self
     
     // MARK: - Internal Helpers
     
@@ -63,10 +60,10 @@ open class XRouter<R: RouteType>: RouteHandler<R> {
                        animated: Bool = true,
                        completion: ((Error?) -> Void)? = nil) {
         navigator.navigate(to: route,
-                           using: routeHandler ?? self,
+                           using: routeHandler,
                            rootViewController: window?.rootViewController,
                            animated: animated,
-                           completion: completionHandler(or: completion))
+                           completion: completion ?? fallbackCompletionHandler)
     }
     
     ///
@@ -85,6 +82,7 @@ open class XRouter<R: RouteType>: RouteHandler<R> {
                       animated: Bool = true,
                       completion: ((_ error: Error?) -> Void)? = nil) -> Bool {
         let urlMatcherError: Error?
+        let completion = completion ?? fallbackCompletionHandler
         
         do {
             if let route = try urlMatcherGroup?.findMatch(forURL: url) {
@@ -97,7 +95,7 @@ open class XRouter<R: RouteType>: RouteHandler<R> {
             urlMatcherError = error
         }
         
-        completionHandler(or: completion)(urlMatcherError)
+        completion(urlMatcherError)
         return false
     }
     
@@ -122,26 +120,24 @@ open class XRouter<R: RouteType>: RouteHandler<R> {
     }
     
     ///
-    /// An error occured during `openURL(...)` or `navigate(...)` and no completion
-    ///  handler was provided.
+    /// An unhandled error occured during `navigate(...)` or `openURL(...)`.
     ///
-    /// - Note: In debug builds, this will cause an exception. In production builds
-    ///         this will fail silently. See `assertionFailure`.
+    /// - Note: Uses `assertionFailure(_:file:line:)`. In debug builds,
+    ///         this will throw a runtime exception. In production builds
+    ///         this will fail silently.
+    ///
+    /// - See: https://developer.apple.com/documentation/swift/1539616-assertionfailure
     ///
     open func received(unhandledError error: Error) {
-        assertionFailure("An unhandled Router error occured: \(error.localizedDescription)")
+        assertionFailure("XRouter received an unhandled error: \(error.localizedDescription)")
     }
     
     // MARK: - Implementation
     
-    ///
-    /// Reports errors to `received(unhandledError:)` unless a completion handler is provided.
-    ///
-    private func completionHandler(or completion: ((Error?) -> Void)?) -> ((Error?) -> Void) {
-        return completion ?? { error in
-            guard let error = error else { return }
-            self.received(unhandledError: error)
-        }
+    /// Fallback completion handler to report unhandled errors.
+    private func fallbackCompletionHandler(_ optionalError: Error?) {
+        guard let error = optionalError else { return }
+        received(unhandledError: error)
     }
     
 }
